@@ -1,0 +1,187 @@
+# dolfinx.mesh.MeshTags
+
+```python
+class dolfinx.mesh.MeshTags(meshtags)
+```
+
+Bases: `object`
+
+Mesh tags associate data (markers) with a subset of mesh entities of
+a given dimension.
+
+Initialize tags from a C++ MeshTags object.
+
+**Parameters:**
+
+**meshtags** – C++ mesh tags object.
+
+Note
+
+MeshTags objects should not usually be created using this
+initializer directly.
+
+A Python mesh is passed to the initializer as it may have
+UFL data attached that is not attached the C + + Mesh that is
+associated with the C + + `meshtags` object. If mesh is
+passed, `mesh` and `meshtags` must share the same C + +
+mesh.
+
+# dolfinx.mesh.MeshTags.find
+
+```python
+find(value) → ndarray[tuple[int, ...], dtype[int32]]
+```
+
+Get a list of all entity indices with a given value.
+
+**Parameters:**
+
+**value** – Tag value to search for.
+
+**Returns:**
+
+Indices of entities with tag `value`.
+
+# dolfinx.mesh.locate_entities
+
+```python
+dolfinx.mesh.locate_entities(msh: Mesh, dim: int, marker: Callable) → ndarray
+```
+
+Compute mesh entities satisfying a geometric marking function.
+
+**Parameters:**
+
+- **msh** – Mesh to locate entities on.
+- **dim** – Topological dimension of the mesh entities to consider.
+- **marker** – A function that takes an array of points `x` with
+  shape `(gdim, num_points)` and returns an array of
+  booleans of length `num_points`, evaluating to True for
+  entities to be located.
+
+**Returns:**
+
+Indices (local to the process) of marked mesh entities.
+
+# dolfinx.fem.FunctionSpace.sub
+
+```python
+sub(i: int) → FunctionSpace
+```
+
+Return the i-th sub space.
+
+**Parameters:**
+
+**i** – Index of the subspace to extract.
+
+**Returns:**
+
+A subspace.
+
+Note
+
+If the subspace is re-used, for performance reasons the
+returned subspace should be stored by the caller to avoid
+repeated re-computation of the subspace.
+
+# dolfinx.fem.FunctionSpace.collapse
+
+```python
+collapse() → tuple[FunctionSpace, ndarray]
+```
+
+Collapse a subspace and return a new function space and a map
+from new to old dofs.
+
+**Returns:**
+
+A new function space and the map from new to old
+degrees-of-freedom.
+
+# ufl.MixedFunctionSpace.ufl_sub_space
+
+```python
+ufl_sub_space(i)
+```
+
+Return i-th ufl sub space.
+
+# dolfinx.fem.locate_dofs_topological
+
+```python
+dolfinx.fem.locate_dofs_topological(V: FunctionSpace | Iterable[FunctionSpace], entity_dim: int, entities: ndarray[tuple[int, ...], dtype[int32]], remote: bool = True) → ndarray
+```
+
+Locate degrees-of-freedom belonging to mesh entities topologically.
+
+**Parameters:**
+
+- **V** – Function space(s) in which to search for degree-of-freedom
+  indices.
+- **entity\_dim** – Topological dimension of entities where
+  degrees-of-freedom are located.
+- **entities** – Indices of mesh entities of dimension `entity_dim`
+  where degrees-of-freedom are located.
+- **remote** – True to return also “remotely located” degree-of-freedom
+  indices.
+
+**Returns:**
+
+An array of degree-of-freedom indices (local to the process) for
+degrees-of-freedom topologically belonging to mesh entities.
+
+If `V` is a list of two function spaces, then a 2-D array of
+shape (number of dofs, 2) is returned.
+
+Returned degree-of-freedom indices are unique and ordered by the
+first column.
+
+# dolfinx.fem.dirichletbc
+
+```python
+dolfinx.fem.dirichletbc(value: Function | Constant | ndarray, dofs: ndarray[tuple[int, ...], dtype[int32]], V: FunctionSpace | None = None) → DirichletBC
+```
+
+Create a representation of Dirichlet boundary condition which
+is imposed on a linear system.
+
+**Parameters:**
+
+- **value** – Lifted boundary values function. It must have a `dtype`
+  property.
+- **dofs** – Local indices of degrees of freedom in function space to
+  which boundary condition applies. Expects array of size
+  (number of dofs, 2) if function space of the problem, `V`,
+  is passed. Otherwise assumes function space of the problem
+  is the same of function space of boundary values function.
+- **V** – Function space of a problem to which boundary conditions are
+  applied.
+
+**Returns:**
+
+A representation of the boundary condition for modifying linear
+systems.
+
+# dolfinx.mesh.entities_to_geometry
+
+```python
+dolfinx.mesh.entities_to_geometry(msh: Mesh, dim: int, entities: ndarray[tuple[int, ...], dtype[int32]], permute=False) → ndarray[tuple[int, ...], dtype[int32]]
+```
+
+Compute the geometric DOFs associated with the closure of the
+given mesh entities.
+
+**Parameters:**
+
+- **msh** – The mesh.
+- **dim** – Topological dimension of the entities of interest.
+- **entities** – Entity indices (local to the process).
+- **permute** – Permute the DOFs such that they are consistent with the
+  orientation of dim-dimensional mesh entities. This
+  requires create\_entity\_permutations to be called first.
+
+**Returns:**
+
+The geometric DOFs associated with the closure of the entities
+in entities.

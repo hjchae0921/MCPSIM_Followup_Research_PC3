@@ -1,0 +1,55 @@
+{
+  "problem": {
+    "type": "joule_heating",
+    "linearity": "nonlinear",
+    "time_type": "steady",
+    "dimension": 3,
+    "coupling": {
+      "type": "multi_physics_one_way",
+      "dependencies": [
+        {
+          "from": "electric_potential",
+          "to": "temperature"
+        }
+      ]
+    }
+  },
+  "unknowns": [
+    {
+      "name": "electric_potential",
+      "quantity": "electric_potential",
+      "shape": []
+    },
+    {
+      "name": "temperature",
+      "quantity": "temperature",
+      "shape": []
+    }
+  ],
+  "state_variables": [],
+  "solver": {
+    "linear": {
+      "type": "direct",
+      "ksp_type": "preonly",
+      "pc_type": "lu",
+      "factor_solver": "mumps",
+      "rtol": null,
+      "atol": null,
+      "max_iterations": null,
+      "options": [
+        {
+          "name": "ksp_error_if_not_converged",
+          "value": true
+        }
+      ]
+    },
+    "nonlinear": null
+  },
+  "coupled_calculation": {
+    "method": "sequential",
+    "order": [
+      "electric_potential",
+      "temperature"
+    ]
+  }
+}

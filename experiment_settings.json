@@ -1,0 +1,12 @@
+{
+  "max_repairs_per_stage": 5,
+  "repair_policy": "Same unchanged stage worker: retry current stage with original prompt, last code, runtime error and traceback. Earlier accepted stages are not rewritten.",
+  "api_timeout_seconds": 900,
+  "runtime_timeout_seconds": 1200,
+  "hyperelastic_runtime_timeout_seconds": 3600,
+  "source_protocol_sha256": "7ab9d7482ee73c862576f839eafe9ea7ae84c80c644691d194e995520c3ba78b",
+  "web_search": false,
+  "tools": false,
+  "temperature": "0; GPT-5 mini default 1 exception",
+  "reasoning": "low or lowest supported as recorded by capability preflight"
+}

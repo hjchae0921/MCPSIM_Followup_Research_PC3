@@ -1,0 +1,232 @@
+IMPORTS (canonical modules from retrieved EXPORTS; import only what you use):
+  import dolfinx.fem  # EXPORTS: DirichletBC, Expression, Form, Function, FunctionSpace, apply_lifting, assemble_matrix, bcs_by_block, dirichletbc, form, functionspace, locate_dofs_geometrical, locate_dofs_topological
+  import dolfinx.fem.petsc  # EXPORTS: LinearProblem, NonlinearProblem, apply_lifting, assemble_matrix, assemble_residual
+args are ordered as shown; explicit indices are zero-based. Missing args/returns are not empty contracts.
+FEEDS is source/demo dataflow; IS_VALID_INPUT_TO is type compatibility. Sets on both sides expand to every pair. self means receiver.
+
+API: dolfinx.fem.DirichletBC [class]
+  constructor: internal
+
+API: dolfinx.fem.DirichletBC.g [property]
+  returns: dolfinx.fem.Constant | dolfinx.fem.Function | numpy.ndarray as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.DirichletBC.set [method]
+  args: x:numpy.typing.NDArray, x0:numpy.typing.NDArray[numpy.int32] | builtins.NoneType=None, alpha:builtins.float=1
+  returns: builtins.NoneType
+
+API: dolfinx.fem.Expression [class]
+  constructor: public
+  args: e:ufl.core.expr.Expr, X:numpy.ndarray, comm:builtins.NoneType | mpi4py.MPI.Comm=None, form_compiler_options:builtins.NoneType | builtins.dict=None, jit_options:builtins.NoneType | builtins.dict=None, dtype:builtins.NoneType | numpy.typing.DTypeLike=None
+
+API: dolfinx.fem.Form [class]
+  constructor: internal
+
+API: dolfinx.fem.Function [class]
+  constructor: public
+  args: V:dolfinx.fem.FunctionSpace, x:builtins.NoneType | dolfinx.la.Vector=None, name:builtins.NoneType | builtins.str=None, dtype:builtins.NoneType | numpy.typing.DTypeLike=None
+
+API: dolfinx.fem.Function.collapse [method]
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.Function.copy [method]
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.Function.interpolate [method]
+  args: u0:collections.abc.Callable | dolfinx.fem.Expression | dolfinx.fem.Function, cells0:builtins.NoneType | numpy.ndarray=None, cells1:builtins.NoneType | numpy.ndarray=None
+  returns: builtins.NoneType
+
+API: dolfinx.fem.Function.sub [method]
+  args: i:builtins.int
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.FunctionSpace [class]
+  constructor: internal
+
+API: dolfinx.fem.FunctionSpace.sub [method]
+  args: i:builtins.int
+  returns: dolfinx.fem.FunctionSpace
+
+API: dolfinx.fem.apply_lifting [function]
+  args: b:numpy.typing.NDArray, a:collections.abc.Sequence[dolfinx.fem.Form], bcs:collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.DirichletBC]], x0:collections.abc.Sequence[numpy.typing.NDArray] | builtins.NoneType=None, alpha:builtins.float=1, constants:builtins.NoneType | numpy.typing.NDArray=None, coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | builtins.NoneType=None
+  returns: builtins.NoneType
+
+API: dolfinx.fem.assemble_matrix [function]
+  args: 0:a:typing.Any, 0:A:dolfinx.la.MatrixCSR, 1:bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None, 1:a:dolfinx.fem.Form, 2:diag:builtins.float=1.0, 2:bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None, 3:constants:builtins.NoneType | numpy.typing.NDArray=None, 3:diag:builtins.float=1.0, 4:coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | builtins.NoneType=None, 4:constants:builtins.NoneType | numpy.typing.NDArray=None, 5:block_mode:builtins.NoneType | dolfinx.la.BlockMode=None, 5:coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | builtins.NoneType=None
+  returns: dolfinx.la.MatrixCSR; dolfinx.la.MatrixCSR
+
+API: dolfinx.fem.bcs_by_block [function]
+  args: spaces:collections.abc.Iterable[builtins.NoneType | dolfinx.fem.FunctionSpace], bcs:collections.abc.Iterable[dolfinx.fem.DirichletBC]
+  returns: builtins.list[builtins.list[dolfinx.fem.DirichletBC]]
+
+API: dolfinx.fem.dirichletbc [function]
+  args: value:dolfinx.fem.Constant | dolfinx.fem.Function | numpy.ndarray, dofs:numpy.typing.NDArray[numpy.int32], V:builtins.NoneType | dolfinx.fem.FunctionSpace=None
+  returns: dolfinx.fem.DirichletBC
+
+API: dolfinx.fem.form [function]
+  args: form:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | collections.abc.Sequence[ufl.Form] | ufl.Form, dtype:numpy.typing.DTypeLike=default_scalar_type, form_compiler_options:builtins.NoneType | builtins.dict=None, jit_options:builtins.NoneType | builtins.dict=None, entity_maps:collections.abc.Sequence[dolfinx.mesh.EntityMap] | builtins.NoneType=None
+  returns: builtins.list[builtins.list[dolfinx.fem.Form] | dolfinx.fem.Form] | dolfinx.fem.Form; builtins.list[builtins.list[dolfinx.fem.Form] | dolfinx.fem.Form] [conditional=return alternative: builtins.list[builtins.list[dolfinx.fem.Form] | dolfinx.fem.Form]]; dolfinx.fem.Form [conditional=return alternative: dolfinx.fem.Form]
+
+API: dolfinx.fem.functionspace [function]
+  args: mesh:dolfinx.mesh.Mesh, element:builtins.tuple[builtins.str, builtins.int, builtins.tuple, builtins.bool] | builtins.tuple[builtins.str, builtins.int, builtins.tuple] | builtins.tuple[builtins.str, builtins.int] | dolfinx.fem.ElementMetaData | ufl.finiteelement.AbstractFiniteElement
+  returns: dolfinx.fem.FunctionSpace
+
+API: dolfinx.fem.locate_dofs_geometrical [function]
+  args: V:collections.abc.Iterable[dolfinx.fem.FunctionSpace] | dolfinx.fem.FunctionSpace, marker:collections.abc.Callable
+  returns: numpy.ndarray
+
+API: dolfinx.fem.locate_dofs_topological [function]
+  args: V:collections.abc.Iterable[dolfinx.fem.FunctionSpace] | dolfinx.fem.FunctionSpace, entity_dim:builtins.int, entities:numpy.typing.NDArray[numpy.int32], remote:builtins.bool=True
+  returns: numpy.ndarray
+
+API: dolfinx.fem.petsc.LinearProblem [class]
+  constructor: public
+  args: a:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | ufl.Form, L:collections.abc.Sequence[ufl.Form] | ufl.Form, petsc_options_prefix:builtins.str [keyword_only], bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None [keyword_only], u:collections.abc.Sequence[dolfinx.fem.Function] | builtins.NoneType | dolfinx.fem.Function=None [keyword_only], P:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | builtins.NoneType | ufl.Form=None [keyword_only], kind:collections.abc.Sequence[collections.abc.Sequence[builtins.str]] | builtins.NoneType | builtins.str=None [keyword_only], petsc_options:builtins.NoneType | builtins.dict=None [keyword_only], form_compiler_options:builtins.NoneType | builtins.dict=None [keyword_only], jit_options:builtins.NoneType | builtins.dict=None [keyword_only], entity_maps:collections.abc.Sequence[dolfinx.mesh.EntityMap] | builtins.NoneType=None [keyword_only]
+  field: _A
+  field: _L:builtins.list[dolfinx.fem.Form] | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+  field: _P_mat
+  field: _a:builtins.list[builtins.list[dolfinx.fem.Form]] | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+  field: _b
+  field: _petsc_options_prefix:builtins.str
+  field: _preconditioner:builtins.list[builtins.list[dolfinx.fem.Form]] | builtins.NoneType | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+  field: _solver
+  field: _u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative] as collections.abc.Sequence[dolfinx.fem.Function] [union-alternative]
+  field: _x
+  field: bcs
+
+API: dolfinx.fem.petsc.LinearProblem.A [property]
+  returns: petsc4py.PETSc.Mat
+
+API: dolfinx.fem.petsc.LinearProblem.L [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Form] | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+
+API: dolfinx.fem.petsc.LinearProblem.P_mat [property]
+  returns: petsc4py.PETSc.Mat
+
+API: dolfinx.fem.petsc.LinearProblem.a [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Form] | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+
+API: dolfinx.fem.petsc.LinearProblem.b [property]
+  returns: petsc4py.PETSc.Vec
+
+API: dolfinx.fem.petsc.LinearProblem.preconditioner [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Form] | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+
+API: dolfinx.fem.petsc.LinearProblem.solve [method]
+  returns: collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function; collections.abc.Sequence[dolfinx.fem.Function] [conditional=return alternative: collections.abc.Sequence[dolfinx.fem.Function]]; dolfinx.fem.Function [conditional=return alternative: dolfinx.fem.Function]
+
+API: dolfinx.fem.petsc.LinearProblem.solver [property]
+  returns: petsc4py.PETSc.KSP
+
+API: dolfinx.fem.petsc.LinearProblem.u [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative] as collections.abc.Sequence[dolfinx.fem.Function] [union-alternative]
+
+API: dolfinx.fem.petsc.LinearProblem.x [property]
+  returns: petsc4py.PETSc.Vec
+
+API: dolfinx.fem.petsc.NonlinearProblem [class]
+  constructor: public
+  args: F:collections.abc.Sequence[ufl.Form] | ufl.Form, u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function, petsc_options_prefix:builtins.str [keyword_only], bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None [keyword_only], J:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | builtins.NoneType | ufl.Form=None [keyword_only], P:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | builtins.NoneType | ufl.Form=None [keyword_only], kind:collections.abc.Sequence[collections.abc.Sequence[builtins.str]] | builtins.NoneType | builtins.str=None [keyword_only], petsc_options:builtins.NoneType | builtins.dict=None [keyword_only], form_compiler_options:builtins.NoneType | builtins.dict=None [keyword_only], jit_options:builtins.NoneType | builtins.dict=None [keyword_only], entity_maps:collections.abc.Sequence[dolfinx.mesh.EntityMap] | builtins.NoneType=None [keyword_only]
+  field: _A
+  field: _F:builtins.list[dolfinx.fem.Form] | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+  field: _J:builtins.list[builtins.list[dolfinx.fem.Form]] | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+  field: _P_mat
+  field: _b
+  field: _preconditioner:builtins.list[builtins.list[dolfinx.fem.Form]] | builtins.NoneType | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+  field: _snes
+  field: _u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative] as collections.abc.Sequence[dolfinx.fem.Function] [union-alternative]
+  field: _x
+
+API: dolfinx.fem.petsc.NonlinearProblem.A [property]
+  returns: petsc4py.PETSc.Mat
+
+API: dolfinx.fem.petsc.NonlinearProblem.F [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Form] | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+
+API: dolfinx.fem.petsc.NonlinearProblem.J [property]
+  returns: collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.Form]] | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+
+API: dolfinx.fem.petsc.NonlinearProblem.P_mat [property]
+  returns: builtins.NoneType | petsc4py.PETSc.Mat as petsc4py.PETSc.Mat [union-alternative]
+
+API: dolfinx.fem.petsc.NonlinearProblem.b [property]
+  returns: petsc4py.PETSc.Vec
+
+API: dolfinx.fem.petsc.NonlinearProblem.preconditioner [property]
+  returns: collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.Form]] | builtins.NoneType | dolfinx.fem.Form as dolfinx.fem.Form [union-alternative]
+
+API: dolfinx.fem.petsc.NonlinearProblem.solve [method]
+  returns: collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function; collections.abc.Sequence[dolfinx.fem.Function] [conditional=return alternative: collections.abc.Sequence[dolfinx.fem.Function]]; dolfinx.fem.Function [conditional=return alternative: dolfinx.fem.Function]
+
+API: dolfinx.fem.petsc.NonlinearProblem.solver [property]
+  returns: petsc4py.PETSc.SNES
+
+API: dolfinx.fem.petsc.NonlinearProblem.u [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative] as collections.abc.Sequence[dolfinx.fem.Function] [union-alternative]
+
+API: dolfinx.fem.petsc.NonlinearProblem.x [property]
+  returns: petsc4py.PETSc.Vec
+
+API: dolfinx.fem.petsc.apply_lifting [function]
+  args: b:petsc4py.PETSc.Vec, a:collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.Form]] | collections.abc.Sequence[dolfinx.fem.Form], bcs:collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.DirichletBC]] | collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType, x0:collections.abc.Sequence[petsc4py.PETSc.Vec] | builtins.NoneType=None, alpha:builtins.float=1, constants:collections.abc.Sequence[collections.abc.Sequence[numpy.typing.NDArray]] | collections.abc.Sequence[numpy.typing.NDArray] | builtins.NoneType=None, coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | collections.abc.Sequence[collections.abc.Sequence[builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray]]] | builtins.NoneType=None
+  returns: builtins.NoneType
+
+API: dolfinx.fem.petsc.assemble_matrix [function]
+  args: 0:a:collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.Form]] | dolfinx.fem.Form, 0:A:petsc4py.PETSc.Mat, 1:bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None, 1:a:collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.Form]] | dolfinx.fem.Form, 2:diag:builtins.float=1, 2:bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None, 3:constants:collections.abc.Sequence[collections.abc.Sequence[numpy.typing.NDArray]] | collections.abc.Sequence[numpy.typing.NDArray] | builtins.NoneType=None, 3:diag:builtins.float=1, 4:coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | collections.abc.Sequence[builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray]] | builtins.NoneType=None, 4:constants:collections.abc.Sequence[collections.abc.Sequence[numpy.typing.NDArray]] | builtins.NoneType | numpy.typing.NDArray=None, 5:kind=None, 5:coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | collections.abc.Sequence[collections.abc.Sequence[builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray]]] | builtins.NoneType=None
+  returns: petsc4py.PETSc.Mat; petsc4py.PETSc.Mat
+
+API: dolfinx.fem.petsc.assemble_residual [function]
+  args: u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function, residual:collections.abc.Sequence[dolfinx.fem.Form] | dolfinx.fem.Form, jacobian:collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.Form]] | dolfinx.fem.Form, bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC], _snes:petsc4py.PETSc.SNES, x:petsc4py.PETSc.Vec, b:petsc4py.PETSc.Vec
+  returns: builtins.NoneType
+
+API: ufl.ZeroBaseForm [class]
+  constructor: public
+  args: arguments
+
+API: ufl.cross [function]
+  args: a, b
+
+API: ufl.derivative [function]
+  returns: ufl.ZeroBaseForm [conditional=return alternative: ufl.ZeroBaseForm]
+
+API: ufl.elem_mult [function]
+  args: A, B
+
+API: ufl.extract_blocks [function]
+
+API: ufl.lhs [function]
+
+API: ufl.rhs [function]
+
+RELATIONS:
+FEEDS:
+  {dolfinx.fem.Expression.instance,dolfinx.fem.Function.collapse.return} -> dolfinx.fem.Function.interpolate.u0
+  dolfinx.fem.Function.instance -> {dolfinx.fem.Expression.e,dolfinx.fem.Function.interpolate.self,dolfinx.fem.Function.interpolate.u0,dolfinx.fem.Function.sub.self,dolfinx.fem.dirichletbc.value,dolfinx.fem.petsc.LinearProblem.u,dolfinx.fem.petsc.LinearProblem.u[0],dolfinx.fem.petsc.LinearProblem.u[1],dolfinx.fem.petsc.NonlinearProblem.u}
+  dolfinx.fem.Function.sub.return -> {dolfinx.fem.Function.collapse.self,dolfinx.fem.Function.interpolate.self}
+  dolfinx.fem.FunctionSpace.instance -> dolfinx.fem.Function.V
+  dolfinx.fem.FunctionSpace.sub.return -> {dolfinx.fem.Function.V,dolfinx.fem.dirichletbc.V,dolfinx.fem.locate_dofs_topological.V[0]}
+  dolfinx.fem.bcs_by_block.return -> {dolfinx.fem.apply_lifting.bcs,dolfinx.fem.petsc.apply_lifting.bcs}
+  dolfinx.fem.dirichletbc.return -> {dolfinx.fem.DirichletBC.set.self,dolfinx.fem.apply_lifting.bcs[0][0],dolfinx.fem.assemble_matrix.bcs[0],dolfinx.fem.bcs_by_block.bcs[0],dolfinx.fem.bcs_by_block.bcs[1],dolfinx.fem.petsc.LinearProblem.bcs[0],dolfinx.fem.petsc.LinearProblem.bcs[1],dolfinx.fem.petsc.apply_lifting.bcs[0][0],dolfinx.fem.petsc.assemble_matrix.bcs[0],dolfinx.fem.petsc.assemble_matrix.bcs[1]}
+  dolfinx.fem.form.return -> {dolfinx.fem.apply_lifting.a[0],dolfinx.fem.assemble_matrix.a,dolfinx.fem.petsc.LinearProblem.P[1][1],dolfinx.fem.petsc.apply_lifting.a,dolfinx.fem.petsc.apply_lifting.a[0],dolfinx.fem.petsc.assemble_matrix.a,dolfinx.fem.petsc.assemble_matrix.a[1][1]}
+  dolfinx.fem.form.return[0][0] -> {dolfinx.fem.petsc.LinearProblem.P[0][0],dolfinx.fem.petsc.assemble_matrix.a[0][0]}
+  dolfinx.fem.functionspace.return -> {dolfinx.fem.Function.V,dolfinx.fem.FunctionSpace.sub.self,dolfinx.fem.dirichletbc.V,dolfinx.fem.locate_dofs_geometrical.V,dolfinx.fem.locate_dofs_topological.V}
+  {dolfinx.fem.locate_dofs_geometrical.return,dolfinx.fem.locate_dofs_topological.return} -> dolfinx.fem.dirichletbc.dofs
+  {dolfinx.fem.petsc.LinearProblem.A.return,dolfinx.fem.petsc.LinearProblem.P_mat.return} -> dolfinx.fem.petsc.assemble_matrix.A
+  dolfinx.fem.petsc.LinearProblem.a.return -> {dolfinx.fem.apply_lifting.a,dolfinx.fem.apply_lifting.a[0],dolfinx.fem.petsc.apply_lifting.a,dolfinx.fem.petsc.apply_lifting.a[0],dolfinx.fem.petsc.assemble_matrix.a}
+  dolfinx.fem.petsc.LinearProblem.b.return -> dolfinx.fem.petsc.apply_lifting.b
+  dolfinx.fem.petsc.LinearProblem.bcs -> {dolfinx.fem.apply_lifting.bcs[0],dolfinx.fem.bcs_by_block.bcs,dolfinx.fem.petsc.apply_lifting.bcs[0],dolfinx.fem.petsc.assemble_matrix.bcs,dolfinx.fem.petsc.assemble_matrix.constants,dolfinx.fem.petsc.assemble_matrix.diag}
+  dolfinx.fem.petsc.LinearProblem.instance -> dolfinx.fem.petsc.LinearProblem.solve.self
+  dolfinx.fem.petsc.LinearProblem.preconditioner.return -> dolfinx.fem.petsc.assemble_matrix.a
+  dolfinx.fem.petsc.LinearProblem.solve.return -> {dolfinx.fem.Expression.e,dolfinx.fem.Function.interpolate.u0,ufl.cross.a,ufl.elem_mult.A}
+  dolfinx.fem.petsc.NonlinearProblem.instance -> dolfinx.fem.petsc.NonlinearProblem.solve.self
+  ufl.ZeroBaseForm.instance -> {dolfinx.fem.form.form[1],dolfinx.fem.petsc.LinearProblem.L[0],dolfinx.fem.petsc.LinearProblem.L[1]}
+  ufl.elem_mult.return -> dolfinx.fem.Expression.e
+  ufl.extract_blocks.return -> {dolfinx.fem.form.form,dolfinx.fem.petsc.LinearProblem.L,dolfinx.fem.petsc.LinearProblem.P,dolfinx.fem.petsc.LinearProblem.a}
+  ufl.lhs.return -> dolfinx.fem.petsc.LinearProblem.a
+  ufl.rhs.return -> dolfinx.fem.petsc.LinearProblem.L
+IS_VALID_INPUT_TO:
+  {dolfinx.fem.Function.collapse.return,dolfinx.fem.Function.copy.return,dolfinx.fem.Function.sub.return,dolfinx.fem.petsc.LinearProblem.solve.return,dolfinx.fem.petsc.NonlinearProblem.solve.return} -> {dolfinx.fem.Function.interpolate.u0,dolfinx.fem.dirichletbc.value,dolfinx.fem.petsc.LinearProblem.u,dolfinx.fem.petsc.NonlinearProblem.u,dolfinx.fem.petsc.assemble_residual.u}
+  {dolfinx.fem.FunctionSpace.sub.return,dolfinx.fem.functionspace.return} -> {dolfinx.fem.Function.V,dolfinx.fem.dirichletbc.V,dolfinx.fem.locate_dofs_geometrical.V,dolfinx.fem.locate_dofs_topological.V}
+  dolfinx.fem.assemble_matrix.return -> dolfinx.fem.assemble_matrix.A
+  dolfinx.fem.form.return -> {dolfinx.fem.assemble_matrix.a,dolfinx.fem.petsc.assemble_matrix.a,dolfinx.fem.petsc.assemble_residual.jacobian,dolfinx.fem.petsc.assemble_residual.residual}
+  dolfinx.fem.petsc.assemble_matrix.return -> dolfinx.fem.petsc.assemble_matrix.A
+  type(dolfinx.fem.Expression) -> dolfinx.fem.Function.interpolate.u0

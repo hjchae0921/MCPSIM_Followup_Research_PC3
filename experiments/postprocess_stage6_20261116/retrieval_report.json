@@ -1,0 +1,63 @@
+{
+  "KG_ver1": {
+    "tokens": 5959,
+    "nodes": 198,
+    "edges": 387,
+    "seeds": [
+      "dolfinx.fem.functionspace",
+      "dolfinx.fem.Function.split",
+      "dolfinx.fem.Function",
+      "dolfinx.fem.FunctionSpace.tabulate_dof_coordinates",
+      "dolfinx.fem.locate_dofs_topological",
+      "dolfinx.fem.locate_dofs_geometrical",
+      "ufl.BaseForm.coefficients",
+      "ufl.Form.coefficients"
+    ],
+    "coverage": {
+      "dolfinx.fem.Function": "retrieved",
+      "dolfinx.fem.Function.sub": "retrieved",
+      "dolfinx.fem.Function.collapse": "retrieved",
+      "dolfinx.fem.Function.x": "retrieved",
+      "dolfinx.fem.FunctionSpace.tabulate_dof_coordinates": "retrieved",
+      "dolfinx.la.Vector.array": "absent_from_graph",
+      "dolfinx.la.Vector.scatter_forward": "absent_from_graph"
+    }
+  },
+  "KG_ver2": {
+    "tokens": 6750,
+    "nodes": 198,
+    "edges": 387,
+    "seeds": [
+      "dolfinx.fem.functionspace",
+      "dolfinx.fem.Function.split",
+      "dolfinx.fem.Function",
+      "dolfinx.fem.FunctionSpace.tabulate_dof_coordinates",
+      "dolfinx.fem.locate_dofs_topological",
+      "dolfinx.fem.locate_dofs_geometrical",
+      "ufl.BaseForm.coefficients",
+      "ufl.Form.coefficients"
+    ],
+    "coverage": {
+      "dolfinx.fem.Function": "retrieved",
+      "dolfinx.fem.Function.sub": "retrieved",
+      "dolfinx.fem.Function.collapse": "retrieved",
+      "dolfinx.fem.Function.x": "retrieved",
+      "dolfinx.fem.FunctionSpace.tabulate_dof_coordinates": "retrieved",
+      "dolfinx.la.Vector.array": "absent_from_graph",
+      "dolfinx.la.Vector.scatter_forward": "absent_from_graph"
+    }
+  },
+  "Document_Top3": {
+    "tokens": 1020,
+    "seeds": [
+      "dolfinx.fem.functionspace",
+      "dolfinx.fem.Function.split",
+      "dolfinx.fem.Function",
+      "dolfinx.fem.FunctionSpace.tabulate_dof_coordinates",
+      "dolfinx.fem.locate_dofs_topological",
+      "dolfinx.fem.locate_dofs_geometrical",
+      "ufl.BaseForm.coefficients",
+      "ufl.Form.coefficients"
+    ]
+  }
+}

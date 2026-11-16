@@ -1,0 +1,214 @@
+# dolfinx.io.gmsh.read_from_msh
+
+```python
+dolfinx.io.gmsh.read_from_msh(filename: str | Path, comm: Comm, rank: int = 0, gdim: int = 3, partitioner: Callable[[Comm, int, int, AdjacencyList], AdjacencyList_int32] | None = None) → MeshData
+```
+
+Read a Gmsh .msh file and return a [`dolfinx.mesh.Mesh`](https://docs.fenicsproject.org/dolfinx/v0.10.0/python/generated/dolfinx.mesh.html#dolfinx.mesh.Mesh "dolfinx.mesh.Mesh") and
+cell facet markers.
+
+Note
+
+This function requires the Gmsh Python module.
+
+**Parameters:**
+
+- **filename** – Name of `.msh` file.
+- **comm** – MPI communicator to create the mesh on.
+- **rank** – Rank of `comm` responsible for reading the `.msh`
+  file.
+- **gdim** – Geometric dimension of the mesh
+
+**Returns:**
+
+Meshdata with mesh, cell tags, facet tags, edge tags,
+vertex tags and physical groups.
+
+# dolfinx.io.gmsh.ufl_mesh
+
+```python
+dolfinx.io.gmsh.ufl_mesh(gmsh_cell: int, gdim: int, dtype: dtype[Any] | None | type[Any] | _SupportsDType[dtype[Any]] | str | tuple[Any, int] | tuple[Any, SupportsIndex | Sequence[SupportsIndex]] | list[Any] | _DTypeDict | tuple[Any, Any]) → Mesh
+```
+
+Create a UFL mesh from a Gmsh cell identifier and geometric
+dimension.
+
+See <https://gmsh.info//doc/texinfo/gmsh.html#MSH-file-format>.
+
+**Parameters:**
+
+- **gmsh\_cell** – Gmsh cell identifier.
+- **gdim** – Geometric dimension of the mesh.
+
+**Returns:**
+
+UFL Mesh using Lagrange elements (equispaced) of the
+corresponding DOLFINx cell.
+
+# ufl.MeshView.ufl_mesh
+
+```python
+ufl_mesh()
+```
+
+Get the mesh.
+
+# dolfinx.mesh.Geometry
+
+```python
+class dolfinx.mesh.Geometry(geometry: Geometry_float32 | Geometry_float64)
+```
+
+Bases: `object`
+
+The geometry of a [`dolfinx.mesh.Mesh`](https://docs.fenicsproject.org/dolfinx/v0.10.0/python/generated/dolfinx.mesh.html#dolfinx.mesh.Mesh "dolfinx.mesh.Mesh")
+
+Initialize a geometry from a C++ geometry.
+
+**Parameters:**
+
+**geometry** – The C++ geometry object.
+
+Note
+
+Geometry objects should usually be constructed with the
+[`create_geometry()`](https://docs.fenicsproject.org/dolfinx/v0.10.0/python/generated/dolfinx.mesh.html#dolfinx.mesh.create_geometry "dolfinx.mesh.create_geometry") and not using this class
+initializer. This class is combined with different base
+classes that depend on the scalar type used in the Geometry.
+
+# dolfinx.io.gmsh.MeshData
+
+```python
+class dolfinx.io.gmsh.MeshData(mesh: Mesh, cell_tags: MeshTags | None, facet_tags: MeshTags | None, ridge_tags: MeshTags | None, peak_tags: MeshTags | None, physical_groups: dict[str, PhysicalGroup])
+```
+
+Bases: `NamedTuple`
+
+Data for representing a mesh and associated tags.
+
+**Parameters:**
+
+- **mesh** – Mesh.
+- **cell\_tags** – MeshTags for cells.
+- **facet\_tags** – MeshTags for facets (codim 1).
+- **ridge\_tags** – MeshTags for ridges (codim 2).
+- **peak\_tags** – MeshTags for peaks (codim 3).
+- **physical\_groups** – Physical groups in the mesh, where the key
+  is the physical name and the value is a tuple with the
+  dimension and tag.
+
+Create new instance of MeshData(mesh, cell\_tags, facet\_tags, ridge\_tags, peak\_tags, physical\_groups)
+
+# dolfinx.mesh.MeshTags
+
+```python
+class dolfinx.mesh.MeshTags(meshtags)
+```
+
+Bases: `object`
+
+Mesh tags associate data (markers) with a subset of mesh entities of
+a given dimension.
+
+Initialize tags from a C++ MeshTags object.
+
+**Parameters:**
+
+**meshtags** – C++ mesh tags object.
+
+Note
+
+MeshTags objects should not usually be created using this
+initializer directly.
+
+A Python mesh is passed to the initializer as it may have
+UFL data attached that is not attached the C + + Mesh that is
+associated with the C + + `meshtags` object. If mesh is
+passed, `mesh` and `meshtags` must share the same C + +
+mesh.
+
+# dolfinx.io.gmsh.extract_topology_and_markers
+
+```python
+dolfinx.io.gmsh.extract_topology_and_markers(model, name: str | None = None) → tuple[dict[int, TopologyDict], dict[str, PhysicalGroup]]
+```
+
+Extract all entities tagged with a physical marker in the gmsh
+model.
+
+Returns a nested dictionary where the first key is the gmsh MSH
+element type integer. Each element type present in the model
+contains the cell topology of the elements and corresponding
+markers.
+
+**Parameters:**
+
+- **model** – Gmsh model.
+- **name** – Name of the gmsh model. If not set the current
+  model will be used.
+
+**Returns:**
+
+A tuple `(topologies, physical_groups)`, where `topologies` is
+a nested dictionary where each key corresponds to a gmsh cell type.
+Each cell type found in the mesh has a 2D array containing the
+topology of the marked cell and a list with the corresponding
+markers. `physical_groups` is a dictionary where the key is the
+physical name and the value is a tuple with the dimension and tag.
+
+# dolfinx.mesh.EntityMap
+
+```python
+class dolfinx.mesh.EntityMap(entity_map)
+```
+
+Bases: `object`
+
+A bidirectional map that relates entities in two different
+topologies.
+
+Initialise an entity map from a C++ EntityMap object.
+
+**Parameters:**
+
+**entity\_map** – A C++ EntityMap object
+
+Note
+
+EntityMap objects should not usually be created using this
+initializer directly.
+
+# dolfinx.mesh.locate_entities
+
+```python
+dolfinx.mesh.locate_entities(msh: Mesh, dim: int, marker: Callable) → ndarray
+```
+
+Compute mesh entities satisfying a geometric marking function.
+
+**Parameters:**
+
+- **msh** – Mesh to locate entities on.
+- **dim** – Topological dimension of the mesh entities to consider.
+- **marker** – A function that takes an array of points `x` with
+  shape `(gdim, num_points)` and returns an array of
+  booleans of length `num_points`, evaluating to True for
+  entities to be located.
+
+**Returns:**
+
+Indices (local to the process) of marked mesh entities.
+
+# ufl.Measure
+
+```python
+class ufl.Measure(integral_type, domain=None, subdomain_id='everywhere', metadata=None, subdomain_data=None)
+```
+
+Bases: `object`
+
+Representation of an integration measure.
+
+The Measure object holds information about integration properties
+to be transferred to a Form on multiplication with a scalar
+expression.

@@ -1,0 +1,114 @@
+{
+  "unknowns": [
+    {
+      "name": "displacement",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ]
+    },
+    {
+      "name": "electric_potential",
+      "quantity": "electric_potential",
+      "shape": []
+    }
+  ],
+  "boundary_conditions": [
+    {
+      "field": "displacement",
+      "components": [
+        0
+      ],
+      "region": {
+        "name": "Clamp_End",
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "mm"
+        }
+      }
+    },
+    {
+      "field": "displacement",
+      "components": [
+        1
+      ],
+      "region": {
+        "name": "Clamp_End",
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "mm"
+        }
+      }
+    },
+    {
+      "field": "displacement",
+      "components": [
+        2
+      ],
+      "region": {
+        "name": "Clamp_End",
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "mm"
+        }
+      }
+    },
+    {
+      "field": "electric_potential",
+      "components": [],
+      "region": {
+        "name": "Electrode_Bottom",
+        "dim": 2,
+        "tags": [
+          6
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "V"
+        }
+      }
+    },
+    {
+      "field": "electric_potential",
+      "components": [],
+      "region": {
+        "name": "Electrode_Top",
+        "dim": 2,
+        "tags": [
+          5
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 10.0,
+          "unit": "V"
+        }
+      }
+    }
+  ]
+}

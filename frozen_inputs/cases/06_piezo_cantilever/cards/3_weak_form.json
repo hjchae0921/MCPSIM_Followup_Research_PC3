@@ -1,0 +1,335 @@
+{
+  "problem": {
+    "type": "piezoelectricity",
+    "linearity": "linear",
+    "time_type": "steady",
+    "dimension": 3,
+    "coupling": {
+      "type": "multi_physics_fully_coupled",
+      "dependencies": [
+        {
+          "from": "electric_potential",
+          "to": "displacement"
+        },
+        {
+          "from": "displacement",
+          "to": "electric_potential"
+        }
+      ]
+    }
+  },
+  "unknowns": [
+    {
+      "name": "displacement",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ]
+    },
+    {
+      "name": "electric_potential",
+      "quantity": "electric_potential",
+      "shape": []
+    }
+  ],
+  "constitutive_parameters": [
+    {
+      "name": "c11",
+      "symbol": "c_{11}",
+      "value": 126000.0,
+      "unit": "MPa",
+      "regions": [
+        {
+          "name": "Piezo_Bottom",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        },
+        {
+          "name": "Piezo_Top",
+          "dim": 3,
+          "tags": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "name": "c12",
+      "symbol": "c_{12}",
+      "value": 79500.0,
+      "unit": "MPa",
+      "regions": [
+        {
+          "name": "Piezo_Bottom",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        },
+        {
+          "name": "Piezo_Top",
+          "dim": 3,
+          "tags": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "name": "c13",
+      "symbol": "c_{13}",
+      "value": 84100.0,
+      "unit": "MPa",
+      "regions": [
+        {
+          "name": "Piezo_Bottom",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        },
+        {
+          "name": "Piezo_Top",
+          "dim": 3,
+          "tags": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "name": "c33",
+      "symbol": "c_{33}",
+      "value": 117000.0,
+      "unit": "MPa",
+      "regions": [
+        {
+          "name": "Piezo_Bottom",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        },
+        {
+          "name": "Piezo_Top",
+          "dim": 3,
+          "tags": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "name": "c44",
+      "symbol": "c_{44}",
+      "value": 23000.0,
+      "unit": "MPa",
+      "regions": [
+        {
+          "name": "Piezo_Bottom",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        },
+        {
+          "name": "Piezo_Top",
+          "dim": 3,
+          "tags": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "name": "e31",
+      "symbol": "e_{31}",
+      "value": -0.00662281185,
+      "unit": "mC/mm^2",
+      "regions": [
+        {
+          "name": "Piezo_Bottom",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "e33",
+      "symbol": "e_{33}",
+      "value": 0.02324031303,
+      "unit": "mC/mm^2",
+      "regions": [
+        {
+          "name": "Piezo_Bottom",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "e15",
+      "symbol": "e_{15}",
+      "value": 0.0170344828,
+      "unit": "mC/mm^2",
+      "regions": [
+        {
+          "name": "Piezo_Bottom",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "e31",
+      "symbol": "e_{31}",
+      "value": 0.00662281185,
+      "unit": "mC/mm^2",
+      "regions": [
+        {
+          "name": "Piezo_Top",
+          "dim": 3,
+          "tags": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "name": "e33",
+      "symbol": "e_{33}",
+      "value": -0.02324031303,
+      "unit": "mC/mm^2",
+      "regions": [
+        {
+          "name": "Piezo_Top",
+          "dim": 3,
+          "tags": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "name": "e15",
+      "symbol": "e_{15}",
+      "value": -0.0170344828,
+      "unit": "mC/mm^2",
+      "regions": [
+        {
+          "name": "Piezo_Top",
+          "dim": 3,
+          "tags": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "name": "permittivity",
+      "symbol": "\\kappa",
+      "value": 1.2692793479e-08,
+      "unit": "mC/(V mm)",
+      "regions": [
+        {
+          "name": "Piezo_Bottom",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        },
+        {
+          "name": "Piezo_Top",
+          "dim": 3,
+          "tags": [
+            2
+          ]
+        }
+      ]
+    }
+  ],
+  "boundary_parameters": [],
+  "source_parameters": [],
+  "parameter_usage": {
+    "boundary_parameters": [],
+    "source_parameters": []
+  },
+  "formulation": {
+    "weak_form": [
+      {
+        "field": "displacement",
+        "unknown": "\\mathbf u",
+        "test_function": "\\mathbf v",
+        "type": "linear",
+        "bilinear_form": "a_u((\\mathbf u,\\phi),\\mathbf v)=\\int_\\Omega\\varepsilon(\\mathbf v):[\\mathbb C:\\varepsilon(\\mathbf u)+\\mathbf e^T\\nabla\\phi]\\,dV",
+        "linear_form": "L_u(\\mathbf v)=\\int_\\Omega\\mathbf 0\\cdot\\mathbf v\\,dV"
+      },
+      {
+        "field": "electric_potential",
+        "unknown": "\\phi",
+        "test_function": "\\eta",
+        "type": "linear",
+        "bilinear_form": "a_\\phi((\\mathbf u,\\phi),\\eta)=\\int_\\Omega\\nabla\\eta\\cdot[\\mathbf e:\\varepsilon(\\mathbf u)-\\kappa\\nabla\\phi]\\,dV",
+        "linear_form": "L_\\phi(\\eta)=\\int_\\Omega 0\\eta\\,dV"
+      }
+    ],
+    "kinematics": [
+      "\\varepsilon=\\operatorname{sym}\\nabla\\mathbf u,\\quad\\mathbf E=-\\nabla\\phi",
+      "\\varepsilon_V=[\\varepsilon_{xx},\\varepsilon_{yy},\\varepsilon_{zz},2\\varepsilon_{yz},2\\varepsilon_{xz},2\\varepsilon_{xy}]^T"
+    ],
+    "constitutive": [
+      "\\sigma_V=\\mathbf C\\varepsilon_V-\\mathbf e^T\\mathbf E,\\quad\\mathbf D=\\mathbf e\\varepsilon_V+\\kappa\\mathbf E",
+      "\\mathbf C=\\begin{bmatrix}c_{11}&c_{12}&c_{13}&0&0&0\\\\c_{12}&c_{11}&c_{13}&0&0&0\\\\c_{13}&c_{13}&c_{33}&0&0&0\\\\0&0&0&c_{44}&0&0\\\\0&0&0&0&c_{44}&0\\\\0&0&0&0&0&(c_{11}-c_{12})/2\\end{bmatrix}",
+      "\\mathbf e=\\begin{bmatrix}0&0&0&0&e_{15}&0\\\\0&0&0&e_{15}&0&0\\\\e_{31}&e_{31}&e_{33}&0&0&0\\end{bmatrix},\\quad\\boldsymbol\\kappa=\\kappa\\mathbf I",
+      "1\\ \\mathrm{mC}\\,\\mathrm V=1\\ \\mathrm N\\,\\mathrm{mm}"
+    ],
+    "constitutive_parameters": [
+      {
+        "name": "c11",
+        "symbol": "c_{11}"
+      },
+      {
+        "name": "c12",
+        "symbol": "c_{12}"
+      },
+      {
+        "name": "c13",
+        "symbol": "c_{13}"
+      },
+      {
+        "name": "c33",
+        "symbol": "c_{33}"
+      },
+      {
+        "name": "c44",
+        "symbol": "c_{44}"
+      },
+      {
+        "name": "e31",
+        "symbol": "e_{31}"
+      },
+      {
+        "name": "e33",
+        "symbol": "e_{33}"
+      },
+      {
+        "name": "e15",
+        "symbol": "e_{15}"
+      },
+      {
+        "name": "permittivity",
+        "symbol": "\\kappa"
+      }
+    ],
+    "boundary_parameters": [],
+    "source_parameters": []
+  }
+}

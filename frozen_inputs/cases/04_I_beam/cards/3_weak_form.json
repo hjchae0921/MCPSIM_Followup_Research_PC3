@@ -1,0 +1,201 @@
+{
+  "problem": {
+    "type": "thermoelasticity",
+    "linearity": "linear",
+    "time_type": "steady",
+    "dimension": 3,
+    "coupling": {
+      "type": "multi_physics_one_way",
+      "dependencies": [
+        {
+          "from": "temperature",
+          "to": "displacement"
+        }
+      ]
+    }
+  },
+  "unknowns": [
+    {
+      "name": "temperature",
+      "quantity": "temperature",
+      "shape": []
+    },
+    {
+      "name": "displacement",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ]
+    }
+  ],
+  "constitutive_parameters": [
+    {
+      "name": "thermal_conductivity",
+      "symbol": "k",
+      "value": 0.045,
+      "unit": "W/(mm K)",
+      "regions": [
+        {
+          "name": "Beam",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "youngs_modulus",
+      "symbol": "E",
+      "value": 210000.0,
+      "unit": "MPa",
+      "regions": [
+        {
+          "name": "Beam",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "poissons_ratio",
+      "symbol": "\\nu",
+      "value": 0.3,
+      "unit": "",
+      "regions": [
+        {
+          "name": "Beam",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "thermal_expansion_coefficient",
+      "symbol": "\\alpha",
+      "value": 1.2e-05,
+      "unit": "1/K",
+      "regions": [
+        {
+          "name": "Beam",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "reference_temperature",
+      "symbol": "T_0",
+      "value": 293.15,
+      "unit": "K",
+      "regions": [
+        {
+          "name": "Beam",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ]
+    }
+  ],
+  "boundary_parameters": [
+    {
+      "name": "outward_heat_flux",
+      "symbol": "\\bar q",
+      "value": -0.005,
+      "unit": "W/mm^2",
+      "region": {
+        "name": "End_Right",
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      }
+    }
+  ],
+  "source_parameters": [],
+  "parameter_usage": {
+    "boundary_parameters": [
+      {
+        "name": "outward_heat_flux",
+        "requirement": "needed",
+        "regions": [
+          {
+            "name": "End_Right",
+            "dim": 2,
+            "tags": [
+              3
+            ]
+          }
+        ]
+      }
+    ],
+    "source_parameters": []
+  },
+  "formulation": {
+    "weak_form": [
+      {
+        "field": "temperature",
+        "unknown": "T",
+        "test_function": "w",
+        "type": "linear",
+        "bilinear_form": "a_T(T,w)=\\int_\\Omega k\\nabla T\\cdot\\nabla w\\,dV",
+        "linear_form": "L_T(w)=-\\int_{\\Gamma_3}\\bar q w\\,dS"
+      },
+      {
+        "field": "displacement",
+        "unknown": "\\mathbf u",
+        "test_function": "\\mathbf v",
+        "type": "linear",
+        "bilinear_form": "a_u(\\mathbf u,\\mathbf v)=\\int_\\Omega\\varepsilon(\\mathbf v):\\mathbb C:\\varepsilon(\\mathbf u)\\,dV",
+        "linear_form": "L_u(\\mathbf v;T)=\\int_\\Omega\\varepsilon(\\mathbf v):\\mathbb C:[\\alpha(T-T_0)\\mathbf I]\\,dV"
+      }
+    ],
+    "kinematics": [
+      "\\varepsilon(\\mathbf u)=\\operatorname{sym}\\nabla\\mathbf u"
+    ],
+    "constitutive": [
+      "\\mathbf q=-k\\nabla T",
+      "\\boldsymbol\\sigma=\\mathbb C:[\\varepsilon(\\mathbf u)-\\alpha(T-T_0)\\mathbf I]",
+      "\\mathbb C:\\mathbf A=2\\mu\\operatorname{sym}\\mathbf A+\\lambda\\operatorname{tr}(\\mathbf A)\\mathbf I",
+      "\\mu=E/[2(1+\\nu)],\\quad\\lambda=E\\nu/[(1+\\nu)(1-2\\nu)]"
+    ],
+    "constitutive_parameters": [
+      {
+        "name": "thermal_conductivity",
+        "symbol": "k"
+      },
+      {
+        "name": "youngs_modulus",
+        "symbol": "E"
+      },
+      {
+        "name": "poissons_ratio",
+        "symbol": "\\nu"
+      },
+      {
+        "name": "thermal_expansion_coefficient",
+        "symbol": "\\alpha"
+      },
+      {
+        "name": "reference_temperature",
+        "symbol": "T_0"
+      }
+    ],
+    "boundary_parameters": [
+      {
+        "name": "outward_heat_flux",
+        "symbol": "\\bar q",
+        "kind": "neumann"
+      }
+    ],
+    "source_parameters": []
+  }
+}

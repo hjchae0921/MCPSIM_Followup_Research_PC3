@@ -1,0 +1,17 @@
+{
+  "unknowns": [
+    {
+      "name": "displacement",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ],
+      "function_space": {
+        "family": "Lagrange",
+        "degree": 2
+      }
+    }
+  ],
+  "coupling_type": "single_physics",
+  "state_variables": []
+}

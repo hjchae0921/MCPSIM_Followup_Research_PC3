@@ -1,0 +1,45 @@
+{
+  "fields": [
+    {
+      "name": "electric_potential",
+      "shape": [],
+      "index": 0
+    },
+    {
+      "name": "temperature",
+      "shape": [],
+      "index": 1
+    }
+  ],
+  "operators": [
+    {
+      "index": 0,
+      "names": [
+        "electric_potential"
+      ],
+      "dimension": 10719,
+      "field_layouts": [
+        {
+          "name": "electric_potential",
+          "index": 0
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "names": [
+        "temperature"
+      ],
+      "dimension": 10719,
+      "field_layouts": [
+        {
+          "name": "temperature",
+          "index": 0
+        }
+      ]
+    }
+  ],
+  "diagnostics": {
+    "independent_reference": true
+  }
+}

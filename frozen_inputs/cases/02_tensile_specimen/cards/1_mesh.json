@@ -1,0 +1,34 @@
+{
+  "mesh": {
+    "path": "/home/hyeokjae/FENICS_Tutorial/fenicsx-autokg-main/fenicsx-eight-physics-benchmarks/experiments/glm_four_arm_20261114/inputs/cases/02_tensile_specimen/model.msh",
+    "coordinate_unit": "mm",
+    "target_coordinate_unit": "mm",
+    "dim": 3,
+    "regions": {
+      "Specimen": {
+        "dim": 3,
+        "tags": [
+          1
+        ]
+      },
+      "Grip_Left": {
+        "dim": 2,
+        "tags": [
+          2
+        ]
+      },
+      "Grip_Right": {
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      },
+      "Free_Surface": {
+        "dim": 2,
+        "tags": [
+          4
+        ]
+      }
+    }
+  }
+}

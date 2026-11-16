@@ -1,0 +1,50 @@
+{
+  "fields": [
+    {
+      "name": "temperature",
+      "shape": [],
+      "index": 0
+    },
+    {
+      "name": "displacement",
+      "shape": [
+        3
+      ],
+      "index": 1
+    }
+  ],
+  "operators": [
+    {
+      "index": 0,
+      "names": [
+        "temperature"
+      ],
+      "dimension": 8731,
+      "field_layouts": [
+        {
+          "name": "temperature",
+          "index": 0
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "names": [
+        "displacement"
+      ],
+      "dimension": 26193,
+      "field_layouts": [
+        {
+          "name": "displacement",
+          "index": 0
+        }
+      ]
+    }
+  ],
+  "diagnostics": {
+    "temperature_range_K": [
+      293.15,
+      326.48333333333295
+    ]
+  }
+}

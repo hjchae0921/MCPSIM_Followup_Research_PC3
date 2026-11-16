@@ -1,0 +1,46 @@
+{
+  "mesh": {
+    "path": "/home/hyeokjae/FENICS_Tutorial/fenicsx-autokg-main/fenicsx-eight-physics-benchmarks/experiments/glm_four_arm_20261114/inputs/cases/05_busbar/model.msh",
+    "coordinate_unit": "mm",
+    "target_coordinate_unit": "mm",
+    "dim": 3,
+    "regions": {
+      "Copper_Busbar": {
+        "dim": 3,
+        "tags": [
+          1
+        ]
+      },
+      "Titanium_Alloy_Bolts": {
+        "dim": 3,
+        "tags": [
+          2
+        ]
+      },
+      "Input_Terminal": {
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      },
+      "Output_Terminal_A": {
+        "dim": 2,
+        "tags": [
+          4
+        ]
+      },
+      "Output_Terminal_B": {
+        "dim": 2,
+        "tags": [
+          5
+        ]
+      },
+      "Exposed_Surface": {
+        "dim": 2,
+        "tags": [
+          6
+        ]
+      }
+    }
+  }
+}

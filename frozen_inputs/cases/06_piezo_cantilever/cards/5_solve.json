@@ -1,0 +1,49 @@
+{
+  "problem": {
+    "type": "piezoelectricity",
+    "linearity": "linear",
+    "time_type": "steady",
+    "dimension": 3,
+    "coupling": {
+      "type": "multi_physics_fully_coupled",
+      "dependencies": [
+        {
+          "from": "electric_potential",
+          "to": "displacement"
+        },
+        {
+          "from": "displacement",
+          "to": "electric_potential"
+        }
+      ]
+    }
+  },
+  "unknowns": [
+    {
+      "name": "displacement",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ]
+    },
+    {
+      "name": "electric_potential",
+      "quantity": "electric_potential",
+      "shape": []
+    }
+  ],
+  "state_variables": [],
+  "solver": {
+    "linear": {
+      "type": "direct",
+      "ksp_type": "preonly",
+      "pc_type": "lu",
+      "factor_solver": "mumps",
+      "rtol": null,
+      "atol": null,
+      "max_iterations": null,
+      "options": []
+    },
+    "nonlinear": null
+  }
+}

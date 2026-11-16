@@ -1,0 +1,17 @@
+{
+  "fenics-dolfinx": "0.10.0",
+  "fenics-ufl": "2025.2.1",
+  "fenics-basix": "0.10.0",
+  "fenics-ffcx": "0.10.0",
+  "petsc4py": "3.25.1",
+  "mpi4py": "4.1.2",
+  "numpy": "2.4.6",
+  "scipy": "1.17.1",
+  "openai": "3.14.1",
+  "pydantic": "2.13.4",
+  "tiktoken": "0.14.0",
+  "petsc": "3.25.1",
+  "mpi_library": "Open MPI v5.0.10, package: Open MPI conda@9ee00b64ad27 Distribution, ident: 5.0.10, repo rev: v5.0.10, Feb 23, 2026\u0000",
+  "gmsh": "4.15.2",
+  "has_mumps": true
+}

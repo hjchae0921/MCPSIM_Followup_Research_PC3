@@ -1,0 +1,288 @@
+IMPORTS (canonical modules from retrieved EXPORTS; import only what you use):
+  import dolfinx.fem  # EXPORTS: DirichletBC, Expression, Function, FunctionSpace, dirichletbc, extract_function_spaces, functionspace, locate_dofs_geometrical, locate_dofs_topological
+args are ordered as shown; explicit indices are zero-based. Missing args/returns are not empty contracts.
+FEEDS is source/demo dataflow; IS_VALID_INPUT_TO is type compatibility. Sets on both sides expand to every pair. self means receiver.
+
+API: basix.ufl.custom_element [function]
+  args: cell_type:basix.CellType, reference_value_shape:builtins.list[builtins.int] | builtins.tuple[builtins.int, ...], wcoeffs:numpy.typing.NDArray[numpy.floating], x:builtins.list[builtins.list[numpy.typing.NDArray[numpy.floating]]], M:builtins.list[builtins.list[numpy.typing.NDArray[numpy.floating]]], interpolation_nderivs:builtins.int, map_type:basix.MapType, sobolev_space:basix.SobolevSpace, discontinuous:builtins.bool, embedded_subdegree:builtins.int, embedded_superdegree:builtins.int, polyset_type:basix.PolysetType=_basix.PolysetType.standard, dtype:builtins.NoneType | numpy.typing.DTypeLike=None
+  returns: basix.ufl._ElementBase
+
+API: basix.ufl.element [function]
+  args: family:basix.ElementFamily | builtins.str, cell:basix.CellType | builtins.str, degree:builtins.int, lagrange_variant:basix.LagrangeVariant=_basix.LagrangeVariant.unset, dpc_variant:basix.DPCVariant=_basix.DPCVariant.unset, discontinuous:builtins.bool=False, shape:builtins.tuple[builtins.int, ...] | builtins.NoneType=None, symmetry:builtins.NoneType | builtins.bool=None, dof_ordering:builtins.list[builtins.int] | builtins.NoneType=None, dtype:builtins.NoneType | numpy.typing.DTypeLike=None
+  returns: basix.ufl._ElementBase
+
+API: basix.ufl.mixed_element [function]
+  args: elements:builtins.list[basix.ufl._ElementBase]
+  returns: basix.ufl._ElementBase
+
+API: dolfinx.fem.DirichletBC [class]
+  constructor: internal
+
+API: dolfinx.fem.DirichletBC.function_space [property]
+  returns: dolfinx.fem.FunctionSpace
+
+API: dolfinx.fem.DirichletBC.g [property]
+  returns: dolfinx.fem.Constant | dolfinx.fem.Function | numpy.ndarray as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.Expression [class]
+  constructor: public
+  args: e:ufl.core.expr.Expr, X:numpy.ndarray, comm:builtins.NoneType | mpi4py.MPI.Comm=None, form_compiler_options:builtins.NoneType | builtins.dict=None, jit_options:builtins.NoneType | builtins.dict=None, dtype:builtins.NoneType | numpy.typing.DTypeLike=None
+
+API: dolfinx.fem.Expression.argument_space [property]
+  returns: builtins.NoneType | dolfinx.fem.FunctionSpace as dolfinx.fem.FunctionSpace [union-alternative]
+
+API: dolfinx.fem.Function [class]
+  constructor: public
+  args: V:dolfinx.fem.FunctionSpace, x:builtins.NoneType | dolfinx.la.Vector=None, name:builtins.NoneType | builtins.str=None, dtype:builtins.NoneType | numpy.typing.DTypeLike=None
+  field: _V:dolfinx.fem.FunctionSpace
+  field: _cpp_object:dolfinx.cpp.fem.Function_complex128 | dolfinx.cpp.fem.Function_complex64 | dolfinx.cpp.fem.Function_float32 | dolfinx.cpp.fem.Function_float64
+  field: _x
+  bases: ufl.Coefficient
+
+API: dolfinx.fem.Function.collapse [method]
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.Function.copy [method]
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.Function.dtype [property]
+  returns: numpy.dtype
+
+API: dolfinx.fem.Function.eval [method]
+  args: x:numpy.typing.ArrayLike, cells:numpy.typing.ArrayLike, u=None
+  returns: numpy.ndarray
+
+API: dolfinx.fem.Function.function_space [property]
+  returns: dolfinx.fem.FunctionSpace
+
+API: dolfinx.fem.Function.interpolate [method]
+  args: u0:collections.abc.Callable | dolfinx.fem.Expression | dolfinx.fem.Function, cells0:builtins.NoneType | numpy.ndarray=None, cells1:builtins.NoneType | numpy.ndarray=None
+  returns: builtins.NoneType
+
+API: dolfinx.fem.Function.interpolate_nonmatching [method]
+  args: u0:dolfinx.fem.Function
+  returns: builtins.NoneType
+
+API: dolfinx.fem.Function.name [property]
+  returns: builtins.str
+
+API: dolfinx.fem.Function.split [method]
+  returns: builtins.tuple[dolfinx.fem.Function, ...]
+
+API: dolfinx.fem.Function.sub [method]
+  args: i:builtins.int
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.Function.x [property]
+  returns: dolfinx.la.Vector
+
+API: dolfinx.fem.FunctionSpace [class]
+  constructor: internal
+
+API: dolfinx.fem.FunctionSpace.clone [method]
+  returns: dolfinx.fem.FunctionSpace
+
+API: dolfinx.fem.FunctionSpace.collapse [method]
+  returns: builtins.tuple[dolfinx.fem.FunctionSpace, numpy.ndarray]; dolfinx.fem.FunctionSpace [source_path=[0]]; numpy.ndarray [source_path=[1]]
+
+API: dolfinx.fem.FunctionSpace.sub [method]
+  args: i:builtins.int
+  returns: dolfinx.fem.FunctionSpace
+
+API: dolfinx.fem.FunctionSpace.tabulate_dof_coordinates [method]
+  returns: numpy.typing.NDArray[numpy.float64]
+
+API: dolfinx.fem.dirichletbc [function]
+  args: value:dolfinx.fem.Constant | dolfinx.fem.Function | numpy.ndarray, dofs:numpy.typing.NDArray[numpy.int32], V:builtins.NoneType | dolfinx.fem.FunctionSpace=None
+  returns: dolfinx.fem.DirichletBC
+
+API: dolfinx.fem.extract_function_spaces [function]
+  returns: dolfinx.fem.FunctionSpace [conditional=return alternative: dolfinx.fem.FunctionSpace]
+
+API: dolfinx.fem.forms.derivative_block [function]
+  args: F:collections.abc.Sequence[ufl.Form] | ufl.Form, u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function, du:collections.abc.Sequence[ufl.Argument] | builtins.NoneType | ufl.Argument=None
+  returns: collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | ufl.Form; collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] [conditional=return alternative: collections.abc.Sequence[collections.abc.Sequence[ufl.Form]]]; ufl.Form [conditional=return alternative: ufl.Form]
+
+API: dolfinx.fem.functionspace [function]
+  args: mesh:dolfinx.mesh.Mesh, element:builtins.tuple[builtins.str, builtins.int, builtins.tuple, builtins.bool] | builtins.tuple[builtins.str, builtins.int, builtins.tuple] | builtins.tuple[builtins.str, builtins.int] | dolfinx.fem.ElementMetaData | ufl.finiteelement.AbstractFiniteElement
+  returns: dolfinx.fem.FunctionSpace
+
+API: dolfinx.fem.locate_dofs_geometrical [function]
+  args: V:collections.abc.Iterable[dolfinx.fem.FunctionSpace] | dolfinx.fem.FunctionSpace, marker:collections.abc.Callable
+  returns: numpy.ndarray
+
+API: dolfinx.fem.locate_dofs_topological [function]
+  args: V:collections.abc.Iterable[dolfinx.fem.FunctionSpace] | dolfinx.fem.FunctionSpace, entity_dim:builtins.int, entities:numpy.typing.NDArray[numpy.int32], remote:builtins.bool=True
+  returns: numpy.ndarray
+
+API: dolfinx.fem.petsc.LinearProblem [class]
+  constructor: public
+  args: a:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | ufl.Form, L:collections.abc.Sequence[ufl.Form] | ufl.Form, petsc_options_prefix:builtins.str [keyword_only], bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None [keyword_only], u:collections.abc.Sequence[dolfinx.fem.Function] | builtins.NoneType | dolfinx.fem.Function=None [keyword_only], P:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | builtins.NoneType | ufl.Form=None [keyword_only], kind:collections.abc.Sequence[collections.abc.Sequence[builtins.str]] | builtins.NoneType | builtins.str=None [keyword_only], petsc_options:builtins.NoneType | builtins.dict=None [keyword_only], form_compiler_options:builtins.NoneType | builtins.dict=None [keyword_only], jit_options:builtins.NoneType | builtins.dict=None [keyword_only], entity_maps:collections.abc.Sequence[dolfinx.mesh.EntityMap] | builtins.NoneType=None [keyword_only]
+  field: _u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.petsc.LinearProblem.solve [method]
+  returns: dolfinx.fem.Function [conditional=return alternative: dolfinx.fem.Function]
+
+API: dolfinx.fem.petsc.LinearProblem.u [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.petsc.NonlinearProblem [class]
+  constructor: public
+  args: F:collections.abc.Sequence[ufl.Form] | ufl.Form, u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function, petsc_options_prefix:builtins.str [keyword_only], bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None [keyword_only], J:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | builtins.NoneType | ufl.Form=None [keyword_only], P:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | builtins.NoneType | ufl.Form=None [keyword_only], kind:collections.abc.Sequence[collections.abc.Sequence[builtins.str]] | builtins.NoneType | builtins.str=None [keyword_only], petsc_options:builtins.NoneType | builtins.dict=None [keyword_only], form_compiler_options:builtins.NoneType | builtins.dict=None [keyword_only], jit_options:builtins.NoneType | builtins.dict=None [keyword_only], entity_maps:collections.abc.Sequence[dolfinx.mesh.EntityMap] | builtins.NoneType=None [keyword_only]
+  field: _u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.petsc.NonlinearProblem.solve [method]
+  returns: dolfinx.fem.Function [conditional=return alternative: dolfinx.fem.Function]
+
+API: dolfinx.fem.petsc.NonlinearProblem.u [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.petsc.assemble_jacobian [function]
+  args: 0:u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function, 5:x:petsc4py.PETSc.Vec
+  returns: builtins.NoneType
+
+API: dolfinx.fem.petsc.assemble_residual [function]
+  args: 0:u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function, 5:x:petsc4py.PETSc.Vec
+  returns: builtins.NoneType
+
+API: dolfinx.fem.petsc.assign [function]
+  args: 0:u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function, 0:x:petsc4py.PETSc.Vec, 1:x:petsc4py.PETSc.Vec, 1:u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function
+  returns: builtins.NoneType
+
+API: dolfinx.fem.petsc.create_vector [function]
+  args: V:collections.abc.Sequence[builtins.NoneType | dolfinx.fem.FunctionSpace] | dolfinx.fem.FunctionSpace [positional_only], kind:builtins.NoneType | builtins.str=None
+  returns: petsc4py.PETSc.Vec
+
+API: dolfinx.fem.petsc.discrete_gradient [function]
+  args: space0:dolfinx.fem.FunctionSpace, space1:dolfinx.fem.FunctionSpace
+  returns: petsc4py.PETSc.Mat
+
+API: dolfinx.fem.petsc.interpolation_matrix [function]
+  args: V0:dolfinx.fem.FunctionSpace, V1:dolfinx.fem.FunctionSpace
+  returns: petsc4py.PETSc.Mat
+
+API: dolfinx.mesh.Geometry.dim [property]
+
+API: dolfinx.mesh.Mesh [class]
+  constructor: public
+
+API: dolfinx.mesh.create_box [function]
+  args: comm:mpi4py.MPI.Comm, points:builtins.list[numpy.typing.ArrayLike], n:collections.abc.Sequence[builtins.int], cell_type=CellType.tetrahedron, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_rectangle [function]
+  args: comm:mpi4py.MPI.Comm, points:numpy.typing.ArrayLike, n:collections.abc.Sequence[builtins.int], cell_type=CellType.triangle, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None, diagonal:dolfinx.cpp.mesh.DiagonalType=DiagonalType.right
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_unit_cube [function]
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, ny:builtins.int, nz:builtins.int, cell_type=CellType.tetrahedron, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_unit_interval [function]
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_unit_square [function]
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, ny:builtins.int, cell_type=CellType.triangle, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None, diagonal:dolfinx.cpp.mesh.DiagonalType=DiagonalType.right
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.exterior_facet_indices [function]
+  args: topology:dolfinx.mesh.Topology
+  returns: numpy.typing.NDArray[numpy.int32]
+
+API: dolfinx.mesh.locate_entities_boundary [function]
+  args: msh:dolfinx.mesh.Mesh, dim:builtins.int, marker:collections.abc.Callable
+  returns: numpy.ndarray
+
+API: ufl.Argument [class]
+  constructor: public
+  args: function_space:ufl.functionspace.AbstractFunctionSpace
+
+API: ufl.BaseForm [class]
+  constructor: public
+
+API: ufl.BaseForm.coefficients [method]
+  returns: builtins.NoneType
+
+API: ufl.Form [class]
+  constructor: public
+  bases: ufl.BaseForm
+
+API: ufl.Form.coefficients [method]
+
+API: ufl.TestFunction [function]
+  args: function_space:ufl.functionspace.AbstractFunctionSpace, part=None
+  returns: ufl.Argument
+
+API: ufl.TestFunctions [function]
+  args: function_space:ufl.functionspace.AbstractFunctionSpace
+  returns: as ufl.Argument [source_path=[0];union-alternative]
+
+API: ufl.TrialFunction [function]
+  args: function_space:ufl.functionspace.AbstractFunctionSpace, part=None
+  returns: ufl.Argument
+
+API: ufl.TrialFunctions [function]
+  args: function_space:ufl.functionspace.AbstractFunctionSpace
+  returns: as ufl.Argument [source_path=[0];union-alternative]
+
+API: ufl.div [function]
+  args: f
+
+API: ufl.dot [function]
+  args: a, b
+
+API: ufl.grad [function]
+  args: f
+
+API: ufl.inner [function]
+  args: a, b
+
+API: ufl.split [function]
+  args: v
+VALUE: dolfinx.io.gmsh.MeshData.mesh [field]:dolfinx.mesh.Mesh
+
+RELATIONS:
+FEEDS:
+  {basix.ufl.custom_element.return,basix.ufl.mixed_element.return} -> dolfinx.fem.functionspace.element
+  basix.ufl.element.return -> {basix.ufl.mixed_element.elements[0],basix.ufl.mixed_element.elements[1],dolfinx.fem.functionspace.element}
+  {dolfinx.fem.Expression.instance,dolfinx.fem.Function.collapse.return} -> dolfinx.fem.Function.interpolate.u0
+  dolfinx.fem.Function.function_space.return -> {dolfinx.fem.Function.V,ufl.Argument.function_space,ufl.TrialFunction.function_space}
+  dolfinx.fem.Function.instance -> {dolfinx.fem.Expression.e,dolfinx.fem.Function.eval.self,dolfinx.fem.Function.interpolate.self,dolfinx.fem.Function.interpolate.u0,dolfinx.fem.Function.split.self,dolfinx.fem.Function.sub.self,dolfinx.fem.dirichletbc.value,dolfinx.fem.petsc.LinearProblem.u,dolfinx.fem.petsc.LinearProblem.u[0],dolfinx.fem.petsc.LinearProblem.u[1],dolfinx.fem.petsc.NonlinearProblem.u,dolfinx.fem.petsc.assign.u[0],dolfinx.fem.petsc.assign.u[1],ufl.div.f,ufl.dot.a,ufl.grad.f,ufl.inner.a,ufl.inner.b,ufl.split.v}
+  dolfinx.fem.Function.sub.return -> {dolfinx.fem.Function.collapse.self,dolfinx.fem.Function.interpolate.self}
+  dolfinx.fem.Function.x.return -> dolfinx.fem.Function.x
+  dolfinx.fem.FunctionSpace.collapse.return[0] -> {dolfinx.fem.Function.V,dolfinx.fem.locate_dofs_topological.V[1]}
+  dolfinx.fem.FunctionSpace.instance -> dolfinx.fem.Function.V
+  dolfinx.fem.FunctionSpace.sub.return -> {dolfinx.fem.Function.V,dolfinx.fem.FunctionSpace.collapse.self,dolfinx.fem.dirichletbc.V,dolfinx.fem.locate_dofs_topological.V[0]}
+  dolfinx.fem.dirichletbc.return -> {dolfinx.fem.petsc.LinearProblem.bcs[0],dolfinx.fem.petsc.LinearProblem.bcs[1]}
+  dolfinx.fem.extract_function_spaces.return -> dolfinx.fem.petsc.create_vector.V
+  dolfinx.fem.forms.derivative_block.return -> ufl.Form.coefficients.self
+  dolfinx.fem.functionspace.return -> {dolfinx.fem.Function.V,dolfinx.fem.FunctionSpace.sub.self,dolfinx.fem.FunctionSpace.tabulate_dof_coordinates.self,dolfinx.fem.dirichletbc.V,dolfinx.fem.locate_dofs_geometrical.V,dolfinx.fem.locate_dofs_topological.V,dolfinx.fem.petsc.create_vector.V[0],dolfinx.fem.petsc.create_vector.V[1],dolfinx.fem.petsc.discrete_gradient.space0,dolfinx.fem.petsc.discrete_gradient.space1,dolfinx.fem.petsc.interpolation_matrix.V0,dolfinx.fem.petsc.interpolation_matrix.V1,ufl.TestFunction.function_space,ufl.TestFunctions.function_space,ufl.TrialFunction.function_space,ufl.TrialFunctions.function_space}
+  {dolfinx.fem.locate_dofs_geometrical.return,dolfinx.fem.locate_dofs_topological.return} -> dolfinx.fem.dirichletbc.dofs
+  dolfinx.fem.petsc.LinearProblem.instance -> dolfinx.fem.petsc.LinearProblem.solve.self
+  dolfinx.fem.petsc.LinearProblem.solve.return -> {dolfinx.fem.Expression.e,dolfinx.fem.Function.interpolate.u0}
+  {dolfinx.fem.petsc.LinearProblem.u.return,dolfinx.fem.petsc.NonlinearProblem.u.return} -> dolfinx.fem.petsc.assign.u
+  dolfinx.fem.petsc.NonlinearProblem.instance -> dolfinx.fem.petsc.NonlinearProblem.solve.self
+  dolfinx.fem.petsc.create_vector.return -> dolfinx.fem.petsc.assign.x
+  {dolfinx.io.gmsh.MeshData.mesh,dolfinx.mesh.create_unit_cube.return,dolfinx.mesh.create_unit_interval.return} -> dolfinx.fem.functionspace.mesh
+  dolfinx.mesh.Geometry.dim.return -> {basix.ufl.element.shape[0],dolfinx.fem.functionspace.element[2][0]}
+  {dolfinx.mesh.create_box.return,dolfinx.mesh.create_rectangle.return,dolfinx.mesh.create_unit_square.return} -> {dolfinx.fem.functionspace.mesh,dolfinx.mesh.locate_entities_boundary.msh}
+  {dolfinx.mesh.exterior_facet_indices.return,dolfinx.mesh.locate_entities_boundary.return} -> dolfinx.fem.locate_dofs_topological.entities
+  ufl.Argument.instance -> ufl.split.v
+  {ufl.TestFunction.return,ufl.TestFunctions.return[0]} -> {ufl.div.f,ufl.grad.f,ufl.inner.b}
+  ufl.TestFunctions.return[1] -> {ufl.grad.f,ufl.inner.b}
+  ufl.TrialFunction.return -> {ufl.div.f,ufl.grad.f,ufl.inner.a,ufl.split.v}
+  ufl.TrialFunctions.return[0] -> {ufl.div.f,ufl.grad.f,ufl.inner.a}
+  ufl.TrialFunctions.return[1] -> {ufl.grad.f,ufl.inner.a}
+  {ufl.div.return,ufl.dot.return} -> {ufl.inner.a,ufl.inner.b}
+  ufl.grad.return -> {ufl.div.f,ufl.dot.a,ufl.dot.b,ufl.inner.a,ufl.inner.b}
+  {ufl.split.return[0],ufl.split.return[1]} -> ufl.inner.a
+IS_VALID_INPUT_TO:
+  {dolfinx.fem.Function.collapse.return,dolfinx.fem.Function.copy.return,dolfinx.fem.Function.sub.return,dolfinx.fem.petsc.LinearProblem.solve.return,dolfinx.fem.petsc.NonlinearProblem.solve.return} -> {dolfinx.fem.Function.interpolate.u0,dolfinx.fem.Function.interpolate_nonmatching.u0,dolfinx.fem.dirichletbc.value,dolfinx.fem.forms.derivative_block.u,dolfinx.fem.petsc.LinearProblem.u,dolfinx.fem.petsc.NonlinearProblem.u,dolfinx.fem.petsc.assemble_jacobian.u,dolfinx.fem.petsc.assemble_residual.u,dolfinx.fem.petsc.assign.u}
+  {dolfinx.fem.FunctionSpace.clone.return,dolfinx.fem.FunctionSpace.collapse.return[0],dolfinx.fem.FunctionSpace.sub.return,dolfinx.fem.extract_function_spaces.return,dolfinx.fem.functionspace.return} -> {dolfinx.fem.Function.V,dolfinx.fem.dirichletbc.V,dolfinx.fem.locate_dofs_geometrical.V,dolfinx.fem.locate_dofs_topological.V,dolfinx.fem.petsc.create_vector.V,dolfinx.fem.petsc.discrete_gradient.space0,dolfinx.fem.petsc.discrete_gradient.space1,dolfinx.fem.petsc.interpolation_matrix.V0,dolfinx.fem.petsc.interpolation_matrix.V1}
+  dolfinx.fem.forms.derivative_block.return -> {dolfinx.fem.forms.derivative_block.F,dolfinx.fem.petsc.LinearProblem.L,dolfinx.fem.petsc.LinearProblem.P,dolfinx.fem.petsc.LinearProblem.a,dolfinx.fem.petsc.NonlinearProblem.F,dolfinx.fem.petsc.NonlinearProblem.J,dolfinx.fem.petsc.NonlinearProblem.P}
+  dolfinx.fem.petsc.create_vector.return -> {dolfinx.fem.petsc.assemble_jacobian.x,dolfinx.fem.petsc.assemble_residual.x,dolfinx.fem.petsc.assign.x}
+  {dolfinx.mesh.create_box.return,dolfinx.mesh.create_rectangle.return,dolfinx.mesh.create_unit_cube.return,dolfinx.mesh.create_unit_interval.return,dolfinx.mesh.create_unit_square.return} -> {dolfinx.fem.functionspace.mesh,dolfinx.mesh.locate_entities_boundary.msh}
+  type(dolfinx.fem.Expression) -> dolfinx.fem.Function.interpolate.u0
+  type(dolfinx.la.Vector) -> dolfinx.fem.Function.x
+  {ufl.TestFunction.return,ufl.TrialFunction.return} -> dolfinx.fem.forms.derivative_block.du

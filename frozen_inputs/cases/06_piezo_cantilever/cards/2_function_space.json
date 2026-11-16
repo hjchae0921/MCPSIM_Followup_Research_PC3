@@ -1,0 +1,26 @@
+{
+  "unknowns": [
+    {
+      "name": "displacement",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ],
+      "function_space": {
+        "family": "Lagrange",
+        "degree": 2
+      }
+    },
+    {
+      "name": "electric_potential",
+      "quantity": "electric_potential",
+      "shape": [],
+      "function_space": {
+        "family": "Lagrange",
+        "degree": 1
+      }
+    }
+  ],
+  "coupling_type": "multi_physics_fully_coupled",
+  "state_variables": []
+}

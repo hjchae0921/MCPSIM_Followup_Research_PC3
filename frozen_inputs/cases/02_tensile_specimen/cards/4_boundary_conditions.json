@@ -1,0 +1,93 @@
+{
+  "unknowns": [
+    {
+      "name": "u",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ]
+    }
+  ],
+  "boundary_conditions": [
+    {
+      "field": "u",
+      "components": [
+        0
+      ],
+      "region": {
+        "name": "Grip_Left",
+        "dim": 2,
+        "tags": [
+          2
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "mm"
+        }
+      }
+    },
+    {
+      "field": "u",
+      "components": [
+        1
+      ],
+      "region": {
+        "name": "Grip_Left",
+        "dim": 2,
+        "tags": [
+          2
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "mm"
+        }
+      }
+    },
+    {
+      "field": "u",
+      "components": [
+        2
+      ],
+      "region": {
+        "name": "Grip_Left",
+        "dim": 2,
+        "tags": [
+          2
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "mm"
+        }
+      }
+    },
+    {
+      "field": "u",
+      "components": [
+        0
+      ],
+      "region": {
+        "name": "Grip_Right",
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.1,
+          "unit": "mm"
+        }
+      }
+    }
+  ]
+}

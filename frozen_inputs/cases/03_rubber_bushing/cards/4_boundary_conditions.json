@@ -1,0 +1,93 @@
+{
+  "unknowns": [
+    {
+      "name": "displacement",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ]
+    }
+  ],
+  "boundary_conditions": [
+    {
+      "field": "displacement",
+      "components": [
+        0
+      ],
+      "region": {
+        "name": "Collar_Left",
+        "dim": 2,
+        "tags": [
+          2
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "mm"
+        }
+      }
+    },
+    {
+      "field": "displacement",
+      "components": [
+        1
+      ],
+      "region": {
+        "name": "Collar_Left",
+        "dim": 2,
+        "tags": [
+          2
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "mm"
+        }
+      }
+    },
+    {
+      "field": "displacement",
+      "components": [
+        2
+      ],
+      "region": {
+        "name": "Collar_Left",
+        "dim": 2,
+        "tags": [
+          2
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "mm"
+        }
+      }
+    },
+    {
+      "field": "displacement",
+      "components": [
+        2
+      ],
+      "region": {
+        "name": "Collar_Right",
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": -8.0,
+          "unit": "mm"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "unknowns": [
+    {
+      "name": "electric_potential",
+      "quantity": "electric_potential",
+      "shape": []
+    },
+    {
+      "name": "temperature",
+      "quantity": "temperature",
+      "shape": []
+    }
+  ],
+  "boundary_conditions": [
+    {
+      "field": "electric_potential",
+      "components": [],
+      "region": {
+        "name": "Input_Terminal",
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.02,
+          "unit": "V"
+        }
+      }
+    },
+    {
+      "field": "electric_potential",
+      "components": [],
+      "region": {
+        "name": "Output_Terminal_A",
+        "dim": 2,
+        "tags": [
+          4
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "V"
+        }
+      }
+    },
+    {
+      "field": "electric_potential",
+      "components": [],
+      "region": {
+        "name": "Output_Terminal_B",
+        "dim": 2,
+        "tags": [
+          5
+        ]
+      },
+      "kind": "Dirichlet",
+      "parameters": {
+        "value": {
+          "value": 0.0,
+          "unit": "V"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "unknowns": [
+    {
+      "name": "temperature",
+      "quantity": "temperature",
+      "shape": []
+    }
+  ],
+  "boundary_conditions": []
+}

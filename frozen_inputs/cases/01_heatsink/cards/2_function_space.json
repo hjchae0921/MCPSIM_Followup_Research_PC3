@@ -1,0 +1,15 @@
+{
+  "unknowns": [
+    {
+      "name": "temperature",
+      "quantity": "temperature",
+      "shape": [],
+      "function_space": {
+        "family": "Lagrange",
+        "degree": 1
+      }
+    }
+  ],
+  "coupling_type": "single_physics",
+  "state_variables": []
+}

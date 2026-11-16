@@ -1,0 +1,169 @@
+{
+  "problem": {
+    "type": "heat_transfer",
+    "linearity": "linear",
+    "time_type": "steady",
+    "dimension": 3,
+    "coupling": {
+      "type": "single_physics",
+      "dependencies": [
+        {
+          "from": null,
+          "to": null
+        }
+      ]
+    }
+  },
+  "unknowns": [
+    {
+      "name": "temperature",
+      "quantity": "temperature",
+      "shape": []
+    }
+  ],
+  "constitutive_parameters": [
+    {
+      "name": "thermal_conductivity",
+      "symbol": "k",
+      "value": 0.205,
+      "unit": "W/(mm K)",
+      "regions": [
+        {
+          "name": "Solid",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ]
+    }
+  ],
+  "boundary_parameters": [
+    {
+      "name": "outward_heat_flux",
+      "symbol": "\\bar q",
+      "value": -0.01,
+      "unit": "W/mm^2",
+      "region": {
+        "name": "Base_Bottom",
+        "dim": 2,
+        "tags": [
+          2
+        ]
+      }
+    },
+    {
+      "name": "heat_transfer_coefficient",
+      "symbol": "h",
+      "value": 1e-05,
+      "unit": "W/(mm^2 K)",
+      "region": {
+        "name": "Exposed_Surface",
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      }
+    },
+    {
+      "name": "ambient_temperature",
+      "symbol": "T_\\infty",
+      "value": 293.15,
+      "unit": "K",
+      "region": {
+        "name": "Exposed_Surface",
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      }
+    }
+  ],
+  "source_parameters": [],
+  "parameter_usage": {
+    "boundary_parameters": [
+      {
+        "name": "outward_heat_flux",
+        "requirement": "needed",
+        "regions": [
+          {
+            "name": "Base_Bottom",
+            "dim": 2,
+            "tags": [
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "name": "heat_transfer_coefficient",
+        "requirement": "needed",
+        "regions": [
+          {
+            "name": "Exposed_Surface",
+            "dim": 2,
+            "tags": [
+              3
+            ]
+          }
+        ]
+      },
+      {
+        "name": "ambient_temperature",
+        "requirement": "needed",
+        "regions": [
+          {
+            "name": "Exposed_Surface",
+            "dim": 2,
+            "tags": [
+              3
+            ]
+          }
+        ]
+      }
+    ],
+    "source_parameters": []
+  },
+  "formulation": {
+    "weak_form": [
+      {
+        "field": "temperature",
+        "unknown": "T",
+        "test_function": "w",
+        "type": "linear",
+        "bilinear_form": "a_T(T,w)=\\int_{\\Omega}k\\nabla T\\cdot\\nabla w\\,dV+\\int_{\\Gamma_3}hTw\\,dS",
+        "linear_form": "L_T(w)=-\\int_{\\Gamma_2}\\bar q w\\,dS+\\int_{\\Gamma_3}hT_\\infty w\\,dS"
+      }
+    ],
+    "kinematics": null,
+    "constitutive": [
+      "\\mathbf q=-k\\nabla T",
+      "\\mathbf q\\cdot\\mathbf n|_{\\Gamma_2}=\\bar q",
+      "\\mathbf q\\cdot\\mathbf n|_{\\Gamma_3}=h(T-T_\\infty)"
+    ],
+    "constitutive_parameters": [
+      {
+        "name": "thermal_conductivity",
+        "symbol": "k"
+      }
+    ],
+    "boundary_parameters": [
+      {
+        "name": "outward_heat_flux",
+        "symbol": "\\bar q",
+        "kind": "neumann"
+      },
+      {
+        "name": "heat_transfer_coefficient",
+        "symbol": "h",
+        "kind": "robin"
+      },
+      {
+        "name": "ambient_temperature",
+        "symbol": "T_\\infty",
+        "kind": "robin"
+      }
+    ],
+    "source_parameters": []
+  }
+}

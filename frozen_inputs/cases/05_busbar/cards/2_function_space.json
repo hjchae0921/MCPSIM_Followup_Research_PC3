@@ -1,0 +1,24 @@
+{
+  "unknowns": [
+    {
+      "name": "electric_potential",
+      "quantity": "electric_potential",
+      "shape": [],
+      "function_space": {
+        "family": "Lagrange",
+        "degree": 1
+      }
+    },
+    {
+      "name": "temperature",
+      "quantity": "temperature",
+      "shape": [],
+      "function_space": {
+        "family": "Lagrange",
+        "degree": 1
+      }
+    }
+  ],
+  "coupling_type": "multi_physics_one_way",
+  "state_variables": []
+}

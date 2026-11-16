@@ -1,0 +1,30 @@
+{
+  "station": "pc3",
+  "models": [
+    {
+      "folder": "Deepseek V3.1",
+      "id": "deepseek/deepseek-chat-v3.1",
+      "transport": "openrouter"
+    },
+    {
+      "folder": "MiniMax M2.7",
+      "id": "minimax/minimax-m2.7",
+      "transport": "openrouter"
+    },
+    {
+      "folder": "Deepseek V4 Flash-0731",
+      "id": "deepseek/deepseek-v4-flash-0731",
+      "transport": "openrouter"
+    }
+  ],
+  "planned_workflows": 1440,
+  "repeats": 20,
+  "physics": 6,
+  "arms": [
+    "Card_Only",
+    "Document_Top3",
+    "KG_ver1",
+    "KG_ver2"
+  ],
+  "ownership": "Run this bundle on its assigned PC only. These models are excluded from PC1 continuation."
+}

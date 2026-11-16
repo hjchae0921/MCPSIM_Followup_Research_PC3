@@ -1,0 +1,26 @@
+{
+  "unknowns": [
+    {
+      "name": "temperature",
+      "quantity": "temperature",
+      "shape": [],
+      "function_space": {
+        "family": "Lagrange",
+        "degree": 1
+      }
+    },
+    {
+      "name": "displacement",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ],
+      "function_space": {
+        "family": "Lagrange",
+        "degree": 1
+      }
+    }
+  ],
+  "coupling_type": "multi_physics_one_way",
+  "state_variables": []
+}

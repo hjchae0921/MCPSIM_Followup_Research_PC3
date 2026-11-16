@@ -1,0 +1,40 @@
+{
+  "problem": {
+    "linearity": "linear",
+    "time_type": "steady",
+    "dimension": 3,
+    "type": "linear_elasticity",
+    "coupling": {
+      "type": "single_physics",
+      "dependencies": [
+        {
+          "from": null,
+          "to": null
+        }
+      ]
+    }
+  },
+  "unknowns": [
+    {
+      "name": "u",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ]
+    }
+  ],
+  "state_variables": [],
+  "solver": {
+    "linear": {
+      "type": "direct method",
+      "ksp_type": "preonly",
+      "pc_type": "lu",
+      "factor_solver": "mumps",
+      "rtol": null,
+      "atol": null,
+      "max_iterations": null,
+      "options": []
+    },
+    "nonlinear": null
+  }
+}

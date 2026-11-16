@@ -1,0 +1,93 @@
+# dolfinx.fem.Constant
+
+```python
+class dolfinx.fem.Constant(domain, c: float | floating | complex | complexfloating | Sequence | ndarray)
+```
+
+Bases: [`Constant`](https://docs.fenicsproject.org/ufl/main/api-doc/ufl.html#ufl.constant.Constant "(in Unified Form Language (UFL) v2025.2.0.dev0)")
+
+A constant with respect to a domain.
+
+**Parameters:**
+
+- **domain** – DOLFINx or UFL mesh
+- **c** – Value of the constant.
+
+# dolfinx.fem.assemble_scalar
+
+```python
+dolfinx.fem.assemble_scalar(M: Form, constants: ndarray[tuple[int, ...], dtype[_ScalarType_co]] | None = None, coeffs: dict[tuple[_IntegralType, int], ndarray[tuple[int, ...], dtype[_ScalarType_co]]] | None = None) → float | complex
+```
+
+Assemble functional. The returned value is local and not
+accumulated across processes.
+
+**Parameters:**
+
+- **M** – The functional to compute.
+- **constants** – Constants that appear in the form. If `None`, any
+  required constants will be computed.
+- **coeffs** – Coefficients that appear in the form. If not provided,
+  any required coefficients will be computed.
+
+**Returns:**
+
+The computed scalar on the calling rank.
+
+Note
+
+Passing constants and coefficients is a performance
+optimisation for when a form is assembled multiple times and
+when (some) constants and coefficients are unchanged.
+
+To compute the functional value on the whole domain, the output
+of this function is typically summed across all MPI ranks.
+
+# ufl.Form.constants
+
+```python
+constants()
+```
+
+Get constants.
+
+# ufl.Form
+
+```python
+class ufl.Form(integrals)
+```
+
+Bases: [`BaseForm`](https://docs.fenicsproject.org/ufl/2025.2.1/api-doc/ufl.html#ufl.form.BaseForm "ufl.form.BaseForm")
+
+Description of a weak form consisting of a sum of integrals over subdomains.
+
+# ufl.Measure
+
+```python
+class ufl.Measure(integral_type, domain=None, subdomain_id='everywhere', metadata=None, subdomain_data=None)
+```
+
+Bases: `object`
+
+Representation of an integration measure.
+
+The Measure object holds information about integration properties
+to be transferred to a Form on multiplication with a scalar
+expression.
+
+# ufl.Measure.reconstruct
+
+```python
+reconstruct(integral_type=None, subdomain_id=None, domain=None, metadata=None, subdomain_data=None)
+```
+
+Construct a new Measure object with some properties replaced with new values.
+
+Example:
+:   <dm = Measure instance>
+    b = dm.reconstruct(subdomain\_id=2)
+    c = dm.reconstruct(metadata={ “quadrature\_degree”: 3 })
+
+Used by the call operator, so this is equivalent:
+:   b = dm(2)
+    c = dm(0, { “quadrature\_degree”: 3 })

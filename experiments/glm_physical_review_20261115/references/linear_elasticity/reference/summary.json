@@ -1,0 +1,29 @@
+{
+  "fields": [
+    {
+      "name": "u",
+      "shape": [
+        3
+      ],
+      "index": 0
+    }
+  ],
+  "operators": [
+    {
+      "index": 0,
+      "names": [
+        "u"
+      ],
+      "dimension": 7860,
+      "field_layouts": [
+        {
+          "name": "u",
+          "index": 0
+        }
+      ]
+    }
+  ],
+  "diagnostics": {
+    "independent_reference": true
+  }
+}

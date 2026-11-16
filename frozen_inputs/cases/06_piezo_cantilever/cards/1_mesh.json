@@ -1,0 +1,52 @@
+{
+  "mesh": {
+    "path": "/home/hyeokjae/FENICS_Tutorial/fenicsx-autokg-main/fenicsx-eight-physics-benchmarks/experiments/glm_four_arm_20261114/inputs/cases/06_piezo_cantilever/model.msh",
+    "coordinate_unit": "mm",
+    "target_coordinate_unit": "mm",
+    "dim": 3,
+    "regions": {
+      "Clamp_End": {
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      },
+      "Free_End": {
+        "dim": 2,
+        "tags": [
+          4
+        ]
+      },
+      "Electrode_Top": {
+        "dim": 2,
+        "tags": [
+          5
+        ]
+      },
+      "Electrode_Bottom": {
+        "dim": 2,
+        "tags": [
+          6
+        ]
+      },
+      "Side_Surface": {
+        "dim": 2,
+        "tags": [
+          7
+        ]
+      },
+      "Piezo_Bottom": {
+        "dim": 3,
+        "tags": [
+          1
+        ]
+      },
+      "Piezo_Top": {
+        "dim": 3,
+        "tags": [
+          2
+        ]
+      }
+    }
+  }
+}

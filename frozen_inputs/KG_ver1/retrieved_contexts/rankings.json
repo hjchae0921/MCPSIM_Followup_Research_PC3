@@ -1,0 +1,267 @@
+{
+  "mesh": [
+    {
+      "query": "Read the existing Gmsh .msh file specified by the card as a finite element mesh.",
+      "top_3": [
+        {
+          "id": "n498",
+          "cosine_similarity": 0.5179084161472913
+        },
+        {
+          "id": "n502",
+          "cosine_similarity": 0.44379978656828933
+        },
+        {
+          "id": "n1062",
+          "cosine_similarity": 0.38641111858812277
+        }
+      ]
+    },
+    {
+      "query": "Access the imported mesh data: the mesh, its cell and boundary markers, and the physical-group information.",
+      "top_3": [
+        {
+          "id": "n1062",
+          "cosine_similarity": 0.5280402947359698
+        },
+        {
+          "id": "n517",
+          "cosine_similarity": 0.5021366131929424
+        },
+        {
+          "id": "n467",
+          "cosine_similarity": 0.49895249826341825
+        }
+      ]
+    },
+    {
+      "query": "Associate the card's tagged regions with the marker tables of the corresponding entity dimensions.",
+      "top_3": [
+        {
+          "id": "n547",
+          "cosine_similarity": 0.5261230166120717
+        },
+        {
+          "id": "n488",
+          "cosine_similarity": 0.3798369831871807
+        },
+        {
+          "id": "n505",
+          "cosine_similarity": 0.3648048767323596
+        }
+      ]
+    },
+    {
+      "query": "Define volume and exterior-boundary integration measures on the imported mesh, associating each measure with the corresponding marker table so that tagged regions can be selected for integration.",
+      "top_3": [
+        {
+          "id": "n655",
+          "cosine_similarity": 0.4436324383308874
+        },
+        {
+          "id": "n988",
+          "cosine_similarity": 0.4421828429163258
+        },
+        {
+          "id": "n547",
+          "cosine_similarity": 0.441802316411126
+        }
+      ]
+    }
+  ],
+  "function_space": [
+    {
+      "query": "Prepare UFL-compatible finite elements for the fields and combine their components into a mixed element where required, following the card's families, degrees and value shapes.",
+      "top_3": [
+        {
+          "id": "n35",
+          "cosine_similarity": 0.6907057089402451
+        },
+        {
+          "id": "n31",
+          "cosine_similarity": 0.5859139497584757
+        },
+        {
+          "id": "n22",
+          "cosine_similarity": 0.5458780689574831
+        }
+      ]
+    },
+    {
+      "query": "Create the function spaces on the existing mesh and initialize persistent finite element coefficient fields for the unknowns and internal states.",
+      "top_3": [
+        {
+          "id": "n336",
+          "cosine_similarity": 0.6493462631202184
+        },
+        {
+          "id": "n290",
+          "cosine_similarity": 0.5174254656687529
+        },
+        {
+          "id": "n281",
+          "cosine_similarity": 0.4834731349324764
+        }
+      ]
+    },
+    {
+      "query": "Prepare the trial and test arguments on each selected function space in the declared field order, using component arguments for a mixed variational form.",
+      "top_3": [
+        {
+          "id": "n1116",
+          "cosine_similarity": 0.5733226216558195
+        },
+        {
+          "id": "n336",
+          "cosine_similarity": 0.47478767380459397
+        },
+        {
+          "id": "n290",
+          "cosine_similarity": 0.47001605586819045
+        }
+      ]
+    }
+  ],
+  "weak_form": [
+    {
+      "query": "Define coefficients that are constant with respect to the domain for the supplied material parameters, loads, and sources.",
+      "top_3": [
+        {
+          "id": "n50",
+          "cosine_similarity": 0.5267586949487151
+        },
+        {
+          "id": "n240",
+          "cosine_similarity": 0.4100238016029995
+        },
+        {
+          "id": "n924",
+          "cosine_similarity": 0.40905208699785933
+        }
+      ]
+    },
+    {
+      "query": "Reconfigure the prepared integration measures with the card's selected subdomains and metadata to construct the supplied weak forms from their kinematic and constitutive expressions.",
+      "top_3": [
+        {
+          "id": "n896",
+          "cosine_similarity": 0.5295191642015091
+        },
+        {
+          "id": "n988",
+          "cosine_similarity": 0.4051992173169797
+        },
+        {
+          "id": "n1006",
+          "cosine_similarity": 0.39049388108757416
+        }
+      ]
+    }
+  ],
+  "boundary_conditions": [
+    {
+      "query": "Get all entity indices with a given mesh-tag value from the marker tables prepared by the mesh stage.",
+      "top_3": [
+        {
+          "id": "n547",
+          "cosine_similarity": 0.5885998991419401
+        },
+        {
+          "id": "n550",
+          "cosine_similarity": 0.5831185951489204
+        },
+        {
+          "id": "n655",
+          "cosine_similarity": 0.5648264778122555
+        }
+      ]
+    },
+    {
+      "query": "Retrieve the i-th subspace of the original finite element space for a constrained component and, when required, convert it into a new standalone function space with a map from new to old degrees of freedom; use the parent space for whole-field constraints.",
+      "top_3": [
+        {
+          "id": "n217",
+          "cosine_similarity": 0.6398943202598502
+        },
+        {
+          "id": "n203",
+          "cosine_similarity": 0.5817187328356146
+        },
+        {
+          "id": "n1085",
+          "cosine_similarity": 0.5767687182407766
+        }
+      ]
+    },
+    {
+      "query": "Locate degrees of freedom belonging to the boundary mesh entities topologically, then create Dirichlet boundary conditions using those degrees of freedom and the prescribed values.",
+      "top_3": [
+        {
+          "id": "n345",
+          "cosine_similarity": 0.6854519786719174
+        },
+        {
+          "id": "n292",
+          "cosine_similarity": 0.5917376273637801
+        },
+        {
+          "id": "n644",
+          "cosine_similarity": 0.5368501922046651
+        }
+      ]
+    }
+  ],
+  "solve": [
+    {
+      "query": "For a linear formulation, construct a high-level linear variational problem using PETSc from the prepared forms and boundary conditions.",
+      "top_3": [
+        {
+          "id": "n358",
+          "cosine_similarity": 0.6230160321686251
+        },
+        {
+          "id": "n388",
+          "cosine_similarity": 0.510838607140622
+        },
+        {
+          "id": "n292",
+          "cosine_similarity": 0.4880403678097198
+        }
+      ]
+    },
+    {
+      "query": "For a nonlinear formulation, construct a high-level nonlinear variational problem using PETSc from the prepared residual, derivatives, and boundary conditions.",
+      "top_3": [
+        {
+          "id": "n388",
+          "cosine_similarity": 0.6173928499585168
+        },
+        {
+          "id": "n358",
+          "cosine_similarity": 0.5558221424275249
+        },
+        {
+          "id": "n435",
+          "cosine_similarity": 0.4274702602820184
+        }
+      ]
+    },
+    {
+      "query": "Apply the card's solver settings, solve the variational problem to update its stored fields, and check convergence before committing any required states.",
+      "top_3": [
+        {
+          "id": "n404",
+          "cosine_similarity": 0.4516047061422144
+        },
+        {
+          "id": "n376",
+          "cosine_similarity": 0.4445740101828859
+        },
+        {
+          "id": "n358",
+          "cosine_similarity": 0.3436246973310767
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "problem": {
+    "type": "hyperelasticity",
+    "linearity": "nonlinear",
+    "time_type": "steady",
+    "dimension": 3,
+    "coupling": {
+      "type": "single_physics",
+      "dependencies": [
+        {
+          "from": null,
+          "to": null
+        }
+      ]
+    }
+  },
+  "unknowns": [
+    {
+      "name": "displacement",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ]
+    }
+  ],
+  "constitutive_parameters": [
+    {
+      "name": "shear_modulus",
+      "symbol": "\\mu",
+      "value": 5.0,
+      "unit": "MPa",
+      "regions": [
+        {
+          "name": "Rubber",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "first_lame_parameter",
+      "symbol": "\\lambda",
+      "value": 46.6666666667,
+      "unit": "MPa",
+      "regions": [
+        {
+          "name": "Rubber",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ]
+    }
+  ],
+  "boundary_parameters": [],
+  "source_parameters": [],
+  "parameter_usage": {
+    "boundary_parameters": [],
+    "source_parameters": []
+  },
+  "formulation": {
+    "weak_form": [
+      {
+        "field": "displacement",
+        "unknown": "\\mathbf u",
+        "test_function": "\\mathbf v",
+        "type": "nonlinear",
+        "residual": "F(\\mathbf u;\\mathbf v)=\\int_{\\Omega_0}\\mathbf P(\\mathbf F):\\nabla_0\\mathbf v\\,dV=0",
+        "jacobian": "J(\\mathbf u;\\delta\\mathbf u,\\mathbf v)=D_\\mathbf uF[\\delta\\mathbf u]"
+      }
+    ],
+    "kinematics": [
+      "\\mathbf F=\\mathbf I+\\nabla_0\\mathbf u,\\quad J=\\det\\mathbf F>0"
+    ],
+    "constitutive": [
+      "\\psi=\\frac\\mu2(\\mathbf F:\\mathbf F-3)-\\mu\\ln J+\\frac\\lambda2(\\ln J)^2",
+      "\\mathbf P=\\partial\\psi/\\partial\\mathbf F=\\mu(\\mathbf F-\\mathbf F^{-T})+\\lambda\\ln J\\mathbf F^{-T}"
+    ],
+    "constitutive_parameters": [
+      {
+        "name": "shear_modulus",
+        "symbol": "\\mu"
+      },
+      {
+        "name": "first_lame_parameter",
+        "symbol": "\\lambda"
+      }
+    ],
+    "boundary_parameters": [],
+    "source_parameters": []
+  },
+  "quadrature_degree": 4
+}

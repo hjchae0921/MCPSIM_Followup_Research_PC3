@@ -1,0 +1,31 @@
+{
+  "fields": [
+    {
+      "name": "temperature",
+      "shape": [],
+      "index": 0
+    }
+  ],
+  "operators": [
+    {
+      "index": 0,
+      "names": [
+        "temperature"
+      ],
+      "dimension": 16484,
+      "field_layouts": [
+        {
+          "name": "temperature",
+          "index": 0
+        }
+      ]
+    }
+  ],
+  "diagnostics": {
+    "temperature_range_K": [
+      402.8518707223335,
+      405.28901775436293
+    ],
+    "convection_W": 47.999999999820744
+  }
+}

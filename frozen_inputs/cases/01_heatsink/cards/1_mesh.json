@@ -1,0 +1,28 @@
+{
+  "mesh": {
+    "path": "/home/hyeokjae/FENICS_Tutorial/fenicsx-autokg-main/fenicsx-eight-physics-benchmarks/experiments/glm_four_arm_20261114/inputs/cases/01_heatsink/model.msh",
+    "coordinate_unit": "mm",
+    "target_coordinate_unit": "mm",
+    "dim": 3,
+    "regions": {
+      "Base_Bottom": {
+        "dim": 2,
+        "tags": [
+          2
+        ]
+      },
+      "Exposed_Surface": {
+        "dim": 2,
+        "tags": [
+          3
+        ]
+      },
+      "Solid": {
+        "dim": 3,
+        "tags": [
+          1
+        ]
+      }
+    }
+  }
+}

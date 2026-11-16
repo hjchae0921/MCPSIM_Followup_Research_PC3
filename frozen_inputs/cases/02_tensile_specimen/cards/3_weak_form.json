@@ -1,0 +1,139 @@
+{
+  "problem": {
+    "linearity": "linear",
+    "time_type": "steady",
+    "dimension": 3,
+    "type": "linear_elasticity",
+    "coupling": {
+      "type": "single_physics",
+      "dependencies": [
+        {
+          "from": null,
+          "to": null
+        }
+      ]
+    }
+  },
+  "unknowns": [
+    {
+      "name": "u",
+      "quantity": "displacement",
+      "shape": [
+        3
+      ]
+    }
+  ],
+  "constitutive_parameters": [
+    {
+      "name": "youngs_modulus",
+      "regions": [
+        {
+          "name": "Specimen",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ],
+      "value": 210000.0,
+      "unit": "MPa",
+      "symbol": "E"
+    },
+    {
+      "name": "poissons_ratio",
+      "regions": [
+        {
+          "name": "Specimen",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ],
+      "value": 0.3,
+      "unit": "",
+      "symbol": "\\nu"
+    }
+  ],
+  "boundary_parameters": [],
+  "source_parameters": [],
+  "parameter_usage": {
+    "boundary_parameters": [
+      {
+        "name": "prescribed_traction",
+        "requirement": "not_needed",
+        "regions": []
+      },
+      {
+        "name": "robin_stiffness",
+        "requirement": "not_needed",
+        "regions": []
+      },
+      {
+        "name": "robin_reference_displacement",
+        "requirement": "not_needed",
+        "regions": []
+      }
+    ],
+    "source_parameters": [
+      {
+        "name": "body_force",
+        "requirement": "not_needed",
+        "regions": []
+      }
+    ]
+  },
+  "formulation": {
+    "weak_form": [
+      {
+        "field": "u",
+        "unknown": "\\mathbf{u}",
+        "test_function": "\\mathbf{v}",
+        "type": "linear",
+        "bilinear_form": "a_u(U,\\mathbf{v})=\\int_{\\Omega} \\boldsymbol{\\sigma}(\\mathbf{u}):\\boldsymbol{\\varepsilon}(\\mathbf{v})\\,d\\Omega+\\int_{\\Gamma_R^u}(\\mathbf{K}_R\\mathbf{u})\\cdot\\mathbf{v}\\,d\\Gamma",
+        "linear_form": "L_u(\\mathbf{v})=\\int_{\\Omega}\\mathbf{b}\\cdot\\mathbf{v}\\,d\\Omega+\\int_{\\Gamma_N^u}\\bar{\\mathbf{t}}\\cdot\\mathbf{v}\\,d\\Gamma+\\int_{\\Gamma_R^u}(\\mathbf{K}_R\\mathbf{u}_R)\\cdot\\mathbf{v}\\,d\\Gamma"
+      }
+    ],
+    "kinematics": [
+      "\\boldsymbol{\\varepsilon}(\\mathbf{u})=\\frac{1}{2}\\left(\\nabla\\mathbf{u}+\\nabla\\mathbf{u}^{T}\\right)"
+    ],
+    "constitutive": [
+      "\\boldsymbol{\\sigma}(\\mathbf{u})=\\mathbb{C}:\\boldsymbol{\\varepsilon}(\\mathbf{u})",
+      "\\mathbb{C}:\\boldsymbol{\\varepsilon}=\\lambda\\,\\operatorname{tr}(\\boldsymbol{\\varepsilon})\\mathbf{I}+2\\mu\\boldsymbol{\\varepsilon}",
+      "\\lambda=\\frac{E\\nu}{(1+\\nu)(1-2\\nu)},\\qquad \\mu=\\frac{E}{2(1+\\nu)}"
+    ],
+    "constitutive_parameters": [
+      {
+        "name": "youngs_modulus",
+        "symbol": "E"
+      },
+      {
+        "name": "poissons_ratio",
+        "symbol": "\\nu"
+      }
+    ],
+    "boundary_parameters": [
+      {
+        "name": "prescribed_traction",
+        "symbol": "\\bar{\\mathbf{t}}",
+        "kind": "neumann"
+      },
+      {
+        "name": "robin_stiffness",
+        "symbol": "\\mathbf{K}_R",
+        "kind": "robin"
+      },
+      {
+        "name": "robin_reference_displacement",
+        "symbol": "\\mathbf{u}_R",
+        "kind": "robin"
+      }
+    ],
+    "source_parameters": [
+      {
+        "name": "body_force",
+        "symbol": "\\mathbf{b}"
+      }
+    ]
+  }
+}

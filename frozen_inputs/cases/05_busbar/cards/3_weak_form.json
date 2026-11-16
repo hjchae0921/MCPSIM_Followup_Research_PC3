@@ -1,0 +1,206 @@
+{
+  "problem": {
+    "type": "joule_heating",
+    "linearity": "nonlinear",
+    "time_type": "steady",
+    "dimension": 3,
+    "coupling": {
+      "type": "multi_physics_one_way",
+      "dependencies": [
+        {
+          "from": "electric_potential",
+          "to": "temperature"
+        }
+      ]
+    }
+  },
+  "unknowns": [
+    {
+      "name": "electric_potential",
+      "quantity": "electric_potential",
+      "shape": []
+    },
+    {
+      "name": "temperature",
+      "quantity": "temperature",
+      "shape": []
+    }
+  ],
+  "constitutive_parameters": [
+    {
+      "name": "electrical_conductivity",
+      "symbol": "\\sigma_e",
+      "regions": [
+        {
+          "name": "Copper_Busbar",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ],
+      "value": 58000.0,
+      "unit": "S/mm"
+    },
+    {
+      "name": "thermal_conductivity",
+      "symbol": "k",
+      "regions": [
+        {
+          "name": "Copper_Busbar",
+          "dim": 3,
+          "tags": [
+            1
+          ]
+        }
+      ],
+      "value": 0.4,
+      "unit": "W/(mm K)"
+    },
+    {
+      "name": "electrical_conductivity",
+      "symbol": "\\sigma_e",
+      "regions": [
+        {
+          "name": "Titanium_Alloy_Bolts",
+          "dim": 3,
+          "tags": [
+            2
+          ]
+        }
+      ],
+      "value": 584.7953216374269,
+      "unit": "S/mm"
+    },
+    {
+      "name": "thermal_conductivity",
+      "symbol": "k",
+      "regions": [
+        {
+          "name": "Titanium_Alloy_Bolts",
+          "dim": 3,
+          "tags": [
+            2
+          ]
+        }
+      ],
+      "value": 0.0075,
+      "unit": "W/(mm K)"
+    }
+  ],
+  "boundary_parameters": [
+    {
+      "name": "heat_transfer_coefficient",
+      "symbol": "h",
+      "value": 1e-05,
+      "unit": "W/(mm^2 K)",
+      "region": {
+        "name": "Exposed_Surface",
+        "dim": 2,
+        "tags": [
+          6
+        ]
+      }
+    },
+    {
+      "name": "ambient_temperature",
+      "symbol": "T_\\infty",
+      "value": 293.15,
+      "unit": "K",
+      "region": {
+        "name": "Exposed_Surface",
+        "dim": 2,
+        "tags": [
+          6
+        ]
+      }
+    }
+  ],
+  "source_parameters": [],
+  "parameter_usage": {
+    "boundary_parameters": [
+      {
+        "name": "heat_transfer_coefficient",
+        "requirement": "needed",
+        "regions": [
+          {
+            "name": "Exposed_Surface",
+            "dim": 2,
+            "tags": [
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "name": "ambient_temperature",
+        "requirement": "needed",
+        "regions": [
+          {
+            "name": "Exposed_Surface",
+            "dim": 2,
+            "tags": [
+              6
+            ]
+          }
+        ]
+      }
+    ],
+    "source_parameters": []
+  },
+  "formulation": {
+    "weak_form": [
+      {
+        "field": "electric_potential",
+        "unknown": "\\phi",
+        "test_function": "\\eta",
+        "type": "linear",
+        "bilinear_form": "a_\\phi(\\phi,\\eta)=\\sum_{m=1}^{2}\\int_{\\Omega_m}\\sigma_{e,m}\\nabla\\phi\\cdot\\nabla\\eta\\,dV",
+        "linear_form": "L_\\phi(\\eta)=\\sum_{m=1}^{2}\\int_{\\Omega_m}0\\eta\\,dV"
+      },
+      {
+        "field": "temperature",
+        "unknown": "T",
+        "test_function": "w",
+        "type": "linear",
+        "bilinear_form": "a_T(T,w)=\\sum_{m=1}^{2}\\int_{\\Omega_m}k_m\\nabla T\\cdot\\nabla w\\,dV+\\int_{\\Gamma_6}hTw\\,dS",
+        "linear_form": "L_T(w;\\phi)=\\sum_{m=1}^{2}\\int_{\\Omega_m}\\sigma_{e,m}(\\nabla\\phi\\cdot\\nabla\\phi)w\\,dV+\\int_{\\Gamma_6}hT_\\infty w\\,dS"
+      }
+    ],
+    "kinematics": [
+      "\\mathbf E=-\\nabla\\phi"
+    ],
+    "constitutive": [
+      "\\mathbf J_m=\\sigma_{e,m}\\mathbf E=-\\sigma_{e,m}\\nabla\\phi",
+      "\\mathbf q_m=-k_m\\nabla T",
+      "Q_{J,m}=\\mathbf J_m\\cdot\\mathbf E=\\sigma_{e,m}\\nabla\\phi\\cdot\\nabla\\phi",
+      "\\nabla\\cdot\\mathbf J=0,\\qquad\\nabla\\cdot\\mathbf q=Q_J",
+      "\\mathbf J\\cdot\\mathbf n|_{\\Gamma_6}=0",
+      "\\mathbf q\\cdot\\mathbf n|_{\\Gamma_3\\cup\\Gamma_4\\cup\\Gamma_5}=0,\\qquad\\mathbf q\\cdot\\mathbf n|_{\\Gamma_6}=h(T-T_\\infty)",
+      "[\\![\\phi]\\!]_{\\Gamma_{\\mathrm{int}}}=[\\![T]\\!]_{\\Gamma_{\\mathrm{int}}}=0,\\qquad[\\![\\mathbf J\\cdot\\mathbf n]\\!]_{\\Gamma_{\\mathrm{int}}}=[\\![\\mathbf q\\cdot\\mathbf n]\\!]_{\\Gamma_{\\mathrm{int}}}=0"
+    ],
+    "constitutive_parameters": [
+      {
+        "name": "electrical_conductivity",
+        "symbol": "\\sigma_e"
+      },
+      {
+        "name": "thermal_conductivity",
+        "symbol": "k"
+      }
+    ],
+    "boundary_parameters": [
+      {
+        "name": "heat_transfer_coefficient",
+        "symbol": "h",
+        "kind": "robin"
+      },
+      {
+        "name": "ambient_temperature",
+        "symbol": "T_\\infty",
+        "kind": "robin"
+      }
+    ],
+    "source_parameters": []
+  }
+}

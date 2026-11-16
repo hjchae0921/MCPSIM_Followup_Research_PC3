@@ -1,0 +1,39 @@
+{
+  "fields": [
+    {
+      "name": "displacement",
+      "shape": [
+        3
+      ],
+      "index": 0
+    },
+    {
+      "name": "electric_potential",
+      "shape": [],
+      "index": 1
+    }
+  ],
+  "operators": [
+    {
+      "index": 0,
+      "names": [
+        "displacement",
+        "electric_potential"
+      ],
+      "dimension": 119157,
+      "field_layouts": [
+        {
+          "name": "displacement",
+          "index": 0
+        },
+        {
+          "name": "electric_potential",
+          "index": 1
+        }
+      ]
+    }
+  ],
+  "diagnostics": {
+    "maximum_displacement_mm": 0.006653835700481563
+  }
+}

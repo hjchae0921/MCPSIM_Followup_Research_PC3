@@ -1,0 +1,12 @@
+outputs/
+__pycache__/
+*.py[cod]
+*.log
+*.zip
+.env
+.env.*
+.openai_key
+.openrouter_key
+.venv/
+core
+core.*
