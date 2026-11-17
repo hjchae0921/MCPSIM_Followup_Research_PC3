@@ -189,7 +189,8 @@
     "experiments/glm_physical_review_20261115/references/heat_transfer/reference/summary.json": "a70f83102b60fb948829838cb8e6490e6b7f612e85a98c83b0153b50e3d01903",
     "experiments/glm_physical_review_20261115/references/heat_transfer/reference/solution.npz": "5c962717a441e10bee5b9b31bb20a816440e596be65c145e672be1abe5e51851",
     "experiments/glm_physical_review_20261115/references/joule_heating/reference/summary.json": "7b8f2d58b470022e4b1f5153fade8a3f7aa16670925b111c9becac42fbc4fa4f",
-    "experiments/glm_physical_review_20261115/references/joule_heating/reference/solution.npz": "e3f375f5f0c4fc8774e2437c94f1f2242c44b90618134bc799e94add2c84ea7c"
+    "experiments/glm_physical_review_20261115/references/joule_heating/reference/solution.npz": "e3f375f5f0c4fc8774e2437c94f1f2242c44b90618134bc799e94add2c84ea7c",
+    ".gitattributes": "4d5d4658f03b0b6a785a2914549c0adf342dc37003fa55eeb16992fdc3a3ef01"
   },
   "station": "pc3",
   "campaign": "three_arm_20261117"
