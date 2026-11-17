@@ -1,6 +1,6 @@
 {
   "mesh": {
-    "path": "/home/hyeokjae/FENICS_Tutorial/fenicsx-autokg-main/fenicsx-eight-physics-benchmarks/experiments/glm_four_arm_20261114/inputs/cases/02_tensile_specimen/model.msh",
+    "path": "frozen_inputs/cases/02_tensile_specimen/model.msh",
     "coordinate_unit": "mm",
     "target_coordinate_unit": "mm",
     "dim": 3,

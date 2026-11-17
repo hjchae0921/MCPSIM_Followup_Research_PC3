@@ -1,0 +1,395 @@
+IMPORTS (canonical modules from retrieved EXPORTS; import only what you use):
+  import dolfinx.fem  # EXPORTS: DirichletBC, Function, FunctionSpace, apply_lifting, assemble_matrix, bcs_by_block, dirichletbc, functionspace, locate_dofs_geometrical, locate_dofs_topological
+  import dolfinx.mesh  # EXPORTS: Mesh, MeshTags, compute_incident_entities, create_rectangle, entities_to_geometry, exterior_facet_indices, locate_entities, locate_entities_boundary, meshtags, meshtags_from_entities, transfer_meshtag
+args are ordered as shown; explicit indices are zero-based. Missing args/returns are not empty contracts.
+FEEDS is source/demo dataflow; Sets on both sides expand to every pair. self means receiver.
+cases: when sibling inputs match => value constraint; alternatives are partial; missing guards are unspecified.
+
+API: dolfinx.fem.DirichletBC [class]
+  description: Representation of Dirichlet boundary condition which is imposed
+on a linear system.
+  constructor: internal
+
+API: dolfinx.fem.DirichletBC.g [property]
+  returns: dolfinx.fem.Constant | dolfinx.fem.Function | numpy.ndarray as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.DirichletBC.set [method]
+  description: Set entries in an array that are constrained by Dirichlet
+boundary conditions.
+  args: x:numpy.typing.NDArray, x0:numpy.typing.NDArray[numpy.int32] | builtins.NoneType=None, alpha:builtins.float=1
+  x: Array to modify for Dirichlet boundary conditions.
+  x cases:
+    when x0:numpy.ndarray | builtins.NoneType[ndim=1]; alpha:builtins.float => numpy.ndarray[ndim=1]
+  x0: Optional array used in computing the value to set. If not provided it is treated as zero.
+  x0 cases:
+    when x:numpy.ndarray[ndim=1]; alpha:builtins.float => numpy.ndarray | builtins.NoneType[ndim=1]
+  alpha: Scaling factor.
+  alpha cases:
+    when x:numpy.ndarray[ndim=1]; x0:numpy.ndarray | builtins.NoneType[ndim=1] => builtins.float
+  returns: builtins.NoneType
+
+API: dolfinx.fem.Function [class]
+  description: A finite element function that is represented by a function space
+(domain, element and dofmap) and a vector holding the
+degrees-of-freedom.
+  constructor: public
+  args: V:dolfinx.fem.FunctionSpace, x:builtins.NoneType | dolfinx.la.Vector=None, name:builtins.NoneType | builtins.str=None, dtype:builtins.NoneType | numpy.typing.DTypeLike=None
+  V: The function space that the Function is defined on.
+  x: Function degree-of-freedom vector. Typically required only when reading a saved Function from file.
+  name: Function name.
+  dtype: Scalar type. Is not set, the DOLFINx default scalar type is used.
+
+API: dolfinx.fem.Function.collapse [method]
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.Function.copy [method]
+  description: Create a copy of the Function.
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.Function.interpolate [method]
+  description: Interpolate an expression.
+  args: u0:collections.abc.Callable | dolfinx.fem.Expression | dolfinx.fem.Function, cells0:builtins.NoneType | numpy.ndarray=None, cells1:builtins.NoneType | numpy.ndarray=None
+  u0: Callable function, Expression or Function to interpolate.
+  cells0: Cells in mesh associated with ``u0`` to interpolate over. If ``None`` then all cells are interpolated over.
+  cells1: Cells in the mesh associated with ``self`` to interpolate over. If ``None``, then taken to be the same cells as ``cells0``. If ``cells1`` is not ``None``, then it must have the same length as ``cells0``.
+  returns: builtins.NoneType
+
+API: dolfinx.fem.Function.sub [method]
+  description: Return a sub-function (a view into the ``Function``).
+  args: i:builtins.int
+  i: Index of the sub-function to extract.
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.FunctionSpace [class]
+  description: A space on which Functions (fields) can be defined.
+  constructor: internal
+
+API: dolfinx.fem.FunctionSpace.collapse [method]
+  description: Collapse a subspace and return a new function space and a map
+from new to old dofs.
+  returns: builtins.tuple[dolfinx.fem.FunctionSpace, numpy.ndarray]; dolfinx.fem.FunctionSpace [source_path=[0]]; numpy.ndarray [source_path=[1]]
+
+API: dolfinx.fem.FunctionSpace.sub [method]
+  description: Return the i-th sub space.
+  args: i:builtins.int
+  i: Index of the subspace to extract.
+  returns: dolfinx.fem.FunctionSpace
+
+API: dolfinx.fem.apply_lifting [function]
+  description: Modify right-hand side vector ``b`` for lifting of Dirichlet
+boundary conditions.
+  args: b:numpy.typing.NDArray, a:collections.abc.Sequence[dolfinx.fem.Form], bcs:collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.DirichletBC]], x0:collections.abc.Sequence[numpy.typing.NDArray] | builtins.NoneType=None, alpha:builtins.float=1, constants:builtins.NoneType | numpy.typing.NDArray=None, coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | builtins.NoneType=None
+  b: The array to modify inplace.
+  a: List of bilinear forms, where ``a[i]`` is the form that generates the matrix :math"`A_{i}`. All forms in ``a`` must share the same test function space. The trial function spaces can differ.
+  bcs: Boundary conditions that provide the :math:`g_{i}` values. ``bcs1[i]`` is the sequence of boundary conditions on :math:`u_{i}`. Helper functions exist to build a list-of-lists of `DirichletBC` from a list of forms ``a`` and a flat list of `DirichletBC` objects ``bcs``:: bcs1 = fem.bcs_by_block( fem.extract_function_spaces([a], 1), bcs )
+  x0: The array :math:`x_{i}` above. If ``None`` it is set to zero.
+  alpha: Scalar used in the modification of ``b``.
+  constants: Packed constant data appearing in the forms ``a``. If ``None``, the constant data will be packed by the function.
+  coeffs: Packed coefficient data appearing in the forms ``a``. If ``None``, the coefficient data will be packed by the function.
+  returns: builtins.NoneType
+
+API: dolfinx.fem.assemble_matrix [function]
+  description: Assemble bilinear form into a matrix.
+  args: 0:a:typing.Any, 0:A:dolfinx.la.MatrixCSR, 1:bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None, 1:a:dolfinx.fem.Form, 2:diag:builtins.float=1.0, 2:bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None, 3:constants:builtins.NoneType | numpy.typing.NDArray=None, 3:diag:builtins.float=1.0, 4:coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | builtins.NoneType=None, 4:constants:builtins.NoneType | numpy.typing.NDArray=None, 5:block_mode:builtins.NoneType | dolfinx.la.BlockMode=None, 5:coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | builtins.NoneType=None
+  a: The bilinear form assemble.
+  A: The matrix to assemble into. It must have been initialized with the correct sparsity pattern.
+  bcs: Boundary conditions that affect the assembled matrix. Degrees-of-freedom constrained by a boundary condition will have their rows/columns zeroed and the value ``diagonal`` set on on the matrix diagonal.
+  a: The bilinear form assemble.
+  bcs: Boundary conditions that affect the assembled matrix. Degrees-of-freedom constrained by a boundary condition will have their rows/columns zeroed and the value ``diagonal`` set on the diagonal.
+  constants: Constants that appear in the form. If ``None``, any required constants will be computed.
+  coeffs: Coefficients that appear in the form. If not provided, any required coefficients will be computed. block_mode: Block size mode for the returned space matrix. If ``None``, default is used.
+  constants: Constants that appear in the form. If not provided, any required constants will be computed. the matrix diagonal.
+  coeffs: Coefficients that appear in the form. If not provided, any required coefficients will be computed.
+  returns: dolfinx.la.MatrixCSR; dolfinx.la.MatrixCSR
+
+API: dolfinx.fem.bcs_by_block [function]
+  description: Arrange Dirichlet boundary conditions by the function space that
+they constrain.
+  args: spaces:collections.abc.Iterable[builtins.NoneType | dolfinx.fem.FunctionSpace], bcs:collections.abc.Iterable[dolfinx.fem.DirichletBC]
+  returns: builtins.list[builtins.list[dolfinx.fem.DirichletBC]]
+
+API: dolfinx.fem.dirichletbc [function]
+  description: Create a representation of Dirichlet boundary condition which
+is imposed on a linear system.
+  args: value:dolfinx.fem.Constant | dolfinx.fem.Function | numpy.ndarray, dofs:numpy.typing.NDArray[numpy.int32], V:builtins.NoneType | dolfinx.fem.FunctionSpace=None
+  value: Lifted boundary values function. It must have a ``dtype`` property.
+  value cases:
+    when dofs:numpy.ndarray[ndim=1]; V:dolfinx.fem.FunctionSpace => dolfinx.fem.Constant
+    when dofs:sequence[length=2;items=numpy.ndarray[ndim=1]]; V:dolfinx.fem.FunctionSpace => dolfinx.fem.Function
+    when dofs:numpy.ndarray[ndim=1] => dolfinx.fem.Function
+    when dofs:numpy.ndarray[ndim=1]; V:dolfinx.fem.FunctionSpace => numpy.ndarray
+  dofs: Local indices of degrees of freedom in function space to which boundary condition applies. Expects array of size (number of dofs, 2) if function space of the problem, ``V``, is passed. Otherwise assumes function space of the problem is the same of function space of boundary values function.
+  dofs cases:
+    when value:dolfinx.fem.Function; V:dolfinx.fem.FunctionSpace => sequence[length=2;items=numpy.ndarray[ndim=1]]
+    when value:dolfinx.fem.Constant; V:dolfinx.fem.FunctionSpace => numpy.ndarray[ndim=1]
+    when value:numpy.ndarray; V:dolfinx.fem.FunctionSpace => numpy.ndarray[ndim=1]
+    when value:dolfinx.fem.Function => numpy.ndarray[ndim=1]
+  V: Function space of a problem to which boundary conditions are applied.
+  V cases:
+    when value:dolfinx.fem.Function; dofs:sequence[length=2;items=numpy.ndarray[ndim=1]] => dolfinx.fem.FunctionSpace
+    when value:dolfinx.fem.Constant; dofs:numpy.ndarray[ndim=1] => dolfinx.fem.FunctionSpace
+    when value:numpy.ndarray; dofs:numpy.ndarray[ndim=1] => dolfinx.fem.FunctionSpace
+  returns: dolfinx.fem.DirichletBC
+
+API: dolfinx.fem.functionspace [function]
+  description: Create a finite element function space.
+  args: mesh:dolfinx.mesh.Mesh, element:builtins.tuple[builtins.str, builtins.int, builtins.tuple, builtins.bool] | builtins.tuple[builtins.str, builtins.int, builtins.tuple] | builtins.tuple[builtins.str, builtins.int] | dolfinx.fem.ElementMetaData | ufl.finiteelement.AbstractFiniteElement
+  mesh: Mesh that space is defined on.
+  element: Finite element description.
+  returns: dolfinx.fem.FunctionSpace
+
+API: dolfinx.fem.locate_dofs_geometrical [function]
+  description: Locate degrees-of-freedom geometrically using a marker function.
+  args: V:collections.abc.Iterable[dolfinx.fem.FunctionSpace] | dolfinx.fem.FunctionSpace, marker:collections.abc.Callable
+  V: Function space(s) in which to search for degree-of-freedom indices.
+  V cases:
+    when marker:collections.abc.Callable => sequence[items=dolfinx.fem.FunctionSpace]
+    when marker:collections.abc.Callable => dolfinx.fem.FunctionSpace
+  marker: A function that takes an array of points ``x`` with shape ``(gdim, num_points)`` and returns an array of booleans of length ``num_points``, evaluating to ``True`` for entities whose degree-of-freedom should be returned.
+  marker cases:
+    when V:sequence[items=dolfinx.fem.FunctionSpace] => collections.abc.Callable
+    when V:dolfinx.fem.FunctionSpace => collections.abc.Callable
+  returns: numpy.ndarray
+
+API: dolfinx.fem.locate_dofs_topological [function]
+  description: Locate degrees-of-freedom belonging to mesh entities topologically.
+  args: V:collections.abc.Iterable[dolfinx.fem.FunctionSpace] | dolfinx.fem.FunctionSpace, entity_dim:builtins.int, entities:numpy.typing.NDArray[numpy.int32], remote:builtins.bool=True
+  V: Function space(s) in which to search for degree-of-freedom indices.
+  V cases:
+    when entity_dim:builtins.int; entities:numpy.ndarray[ndim=1]; remote:builtins.bool => sequence[items=dolfinx.fem.FunctionSpace]
+    when entity_dim:builtins.int; entities:numpy.ndarray[ndim=1]; remote:builtins.bool => dolfinx.fem.FunctionSpace
+  entity_dim: Topological dimension of entities where degrees-of-freedom are located.
+  entity_dim cases:
+    when V:sequence[items=dolfinx.fem.FunctionSpace]; entities:numpy.ndarray[ndim=1]; remote:builtins.bool => builtins.int
+    when V:dolfinx.fem.FunctionSpace; entities:numpy.ndarray[ndim=1]; remote:builtins.bool => builtins.int
+  entities: Indices of mesh entities of dimension ``entity_dim`` where degrees-of-freedom are located.
+  entities cases:
+    when V:sequence[items=dolfinx.fem.FunctionSpace]; entity_dim:builtins.int; remote:builtins.bool => numpy.ndarray[ndim=1]
+    when V:dolfinx.fem.FunctionSpace; entity_dim:builtins.int; remote:builtins.bool => numpy.ndarray[ndim=1]
+  remote: True to return also "remotely located" degree-of-freedom indices.
+  remote cases:
+    when V:sequence[items=dolfinx.fem.FunctionSpace]; entity_dim:builtins.int; entities:numpy.ndarray[ndim=1] => builtins.bool
+    when V:dolfinx.fem.FunctionSpace; entity_dim:builtins.int; entities:numpy.ndarray[ndim=1] => builtins.bool
+  returns: numpy.ndarray
+  return cases:
+    when V:sequence[items=dolfinx.fem.FunctionSpace]; entity_dim:builtins.int; entities:numpy.ndarray[ndim=1]; remote:builtins.bool => sequence[length=2;items=numpy.ndarray]
+
+API: dolfinx.fem.petsc.LinearProblem [class]
+  description: High-level class for solving a linear variational problem using
+a PETSc KSP.
+  constructor: public
+  args: a:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | ufl.Form, L:collections.abc.Sequence[ufl.Form] | ufl.Form, petsc_options_prefix:builtins.str [keyword_only], bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None [keyword_only], u:collections.abc.Sequence[dolfinx.fem.Function] | builtins.NoneType | dolfinx.fem.Function=None [keyword_only], P:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | builtins.NoneType | ufl.Form=None [keyword_only], kind:collections.abc.Sequence[collections.abc.Sequence[builtins.str]] | builtins.NoneType | builtins.str=None [keyword_only], petsc_options:builtins.NoneType | builtins.dict=None [keyword_only], form_compiler_options:builtins.NoneType | builtins.dict=None [keyword_only], jit_options:builtins.NoneType | builtins.dict=None [keyword_only], entity_maps:collections.abc.Sequence[dolfinx.mesh.EntityMap] | builtins.NoneType=None [keyword_only]
+  a: Bilinear UFL form or a nested sequence of bilinear forms, the left-hand side of the variational problem.
+  L: Linear UFL form or a sequence of linear forms, the right-hand side of the variational problem.
+  petsc_options_prefix: Mandatory named argument. Options prefix used as root prefix on all internally created PETSc objects. Typically ends with ``_``. Must be the same on all ranks, and is usually unique within the programme.
+  bcs: Sequence of Dirichlet boundary conditions to apply to the variational problem and the preconditioner matrix.
+  u: Solution function. It is created if not provided.
+  P: Bilinear UFL form or a sequence of sequence of bilinear forms, used as a preconditioner.
+  kind: The PETSc matrix and vector kind. Common choices are ``mpi`` and ``nest``. See :func:`dolfinx.fem.petsc.create_matrix` and :func:`dolfinx.fem.petsc.create_vector` for more information.
+  petsc_options: Options set on the underlying PETSc KSP only. The options must be the same on all ranks. For available choices for the ``petsc_options`` kwarg, see the `PETSc KSP documentation <https://petsc4py.readthedocs.io/en/stable/manual/ksp/>`_. Options on other objects (matrices, vectors) should be set explicitly by the user.
+  form_compiler_options: Options used in FFCx compilation of all forms. Run ``ffcx --help`` at the commandline to see all available options.
+  jit_options: Options used in CFFI JIT compilation of C code generated by FFCx. See ``python/dolfinx/jit.py`` for all available options. Takes priority over all other option values.
+  entity_maps: If any trial functions, test functions, or coefficients in the form are not defined over the same mesh as the integration domain, a corresponding :class: `EntityMap<dolfinx.mesh.EntityMap>` must be provided.
+  field: _u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.petsc.LinearProblem.solve [method]
+  description: Solve the problem.
+  returns: dolfinx.fem.Function [conditional=return alternative: dolfinx.fem.Function]
+
+API: dolfinx.fem.petsc.LinearProblem.u [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.petsc.NonlinearProblem.solve [method]
+  description: Solve the problem.
+  returns: dolfinx.fem.Function [conditional=return alternative: dolfinx.fem.Function]
+
+API: dolfinx.fem.petsc.NonlinearProblem.u [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.petsc.apply_lifting [function]
+  description: Modify the right-hand side PETSc vector ``b`` to account for
+constraints (Dirichlet boundary conitions).
+  args: b:petsc4py.PETSc.Vec, a:collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.Form]] | collections.abc.Sequence[dolfinx.fem.Form], bcs:collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.DirichletBC]] | collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType, x0:collections.abc.Sequence[petsc4py.PETSc.Vec] | builtins.NoneType=None, alpha:builtins.float=1, constants:collections.abc.Sequence[collections.abc.Sequence[numpy.typing.NDArray]] | collections.abc.Sequence[numpy.typing.NDArray] | builtins.NoneType=None, coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | collections.abc.Sequence[collections.abc.Sequence[builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray]]] | builtins.NoneType=None
+  b: Vector to modify in-place.
+  a: List of bilinear forms. If ``b`` is not blocked or a nest, then ``a`` is a 1D sequence. If ``b`` is blocked or a nest, then ``a`` is  a 2D array of forms, with the ``a[i]`` forms used to modify the block/nest vector ``b[i]``.
+  bcs: Boundary conditions to apply, which form a 2D array. If ``b`` is nested or blocked then ``bcs[i]`` are the boundary conditions to apply to block/nest ``i``. The function :func:`dolfinx.fem.bcs_by_block` can be used to prepare the 2D array of ``DirichletBC`` objects from the 2D sequence ``a``:: bcs1 = fem.bcs_by_block( fem.extract_function_spaces(a, 1), bcs ) If ``b`` is not blocked or nest, then ``len(bcs)`` must be equal to 1. The function :func:`dolfinx.fem.bcs_by_block` can be used to prepare the 2D array of ``DirichletBC`` from the 1D sequence ``a``:: bcs1 = fem.bcs_by_block( fem.extract_function_spaces([a], 1), bcs )
+  x0: Vector to use in modify ``b`` (see :func:`dolfinx.fem.apply_lifting`). Treated as zero if ``None``.
+  alpha: Scalar parameter in lifting (see :func:`dolfinx.fem.apply_lifting`).
+  constants: Packed constant data appearing in the forms ``a``. If ``None``, the constant data will be packed by the function.
+  coeffs: Packed coefficient data appearing in the forms ``a``. If ``None``, the coefficient data will be packed by the function.
+  returns: builtins.NoneType
+
+API: dolfinx.fem.petsc.assemble_matrix [function]
+  description: Assemble a bilinear form into a matrix.
+  args: 0:a:collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.Form]] | dolfinx.fem.Form, 0:A:petsc4py.PETSc.Mat, 1:bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None, 1:a:collections.abc.Sequence[collections.abc.Sequence[dolfinx.fem.Form]] | dolfinx.fem.Form, 2:diag:builtins.float=1, 2:bcs:collections.abc.Sequence[dolfinx.fem.DirichletBC] | builtins.NoneType=None, 3:constants:collections.abc.Sequence[collections.abc.Sequence[numpy.typing.NDArray]] | collections.abc.Sequence[numpy.typing.NDArray] | builtins.NoneType=None, 3:diag:builtins.float=1, 4:coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | collections.abc.Sequence[builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray]] | builtins.NoneType=None, 4:constants:collections.abc.Sequence[collections.abc.Sequence[numpy.typing.NDArray]] | builtins.NoneType | numpy.typing.NDArray=None, 5:kind=None, 5:coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | collections.abc.Sequence[collections.abc.Sequence[builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray]]] | builtins.NoneType=None
+  a: Bilinear form(s) to assembled into a matrix.
+  diag: Value to set on the matrix diagonal for Dirichlet boundary condition constrained degrees-of-freedom belonging to the same trial and test space.
+  constants: Constants appearing the in the form.
+  coeffs: Coefficients appearing the in the form.
+  returns: petsc4py.PETSc.Mat; petsc4py.PETSc.Mat
+
+API: dolfinx.mesh.Mesh [class]
+  description: A mesh.
+  constructor: public
+
+API: dolfinx.mesh.MeshTags [class]
+  description: Mesh tags associate data (markers) with a subset of mesh entities of
+a given dimension.
+  constructor: public
+  args: meshtags
+  meshtags: C++ mesh tags object.
+  field: _cpp_object
+
+API: dolfinx.mesh.MeshTags.dim [property]
+  returns: builtins.int
+
+API: dolfinx.mesh.MeshTags.find [method]
+  description: Get a list of all entity indices with a given value.
+  args: value
+  value: Tag value to search for.
+  returns: numpy.typing.NDArray[numpy.int32]
+
+API: dolfinx.mesh.MeshTags.indices [property]
+  returns: numpy.typing.NDArray[numpy.int32]
+
+API: dolfinx.mesh.MeshTags.name [property]
+  returns: builtins.str
+
+API: dolfinx.mesh.MeshTags.topology [property]
+  returns: dolfinx.cpp.mesh.Topology
+
+API: dolfinx.mesh.MeshTags.ufl_id [method]
+  description: Identiftying integer used by UFL.
+
+API: dolfinx.mesh.MeshTags.values [property]
+
+API: dolfinx.mesh.Topology.dim [property]
+  returns: builtins.int
+
+API: dolfinx.mesh.compute_incident_entities [function]
+  description: Compute all entities of ``d1`` connected to ``entities`` of
+dimension ``d0``.
+  args: topology:dolfinx.mesh.Topology, entities:numpy.typing.NDArray[numpy.int32], d0:builtins.int, d1:builtins.int
+  topology: The topology.
+  topology cases:
+    when entities:numpy.ndarray[ndim=1]; d0:builtins.int; d1:builtins.int => dolfinx.mesh.Topology
+  entities: List of entities of dimension ``d0``.
+  entities cases:
+    when topology:dolfinx.mesh.Topology; d0:builtins.int; d1:builtins.int => numpy.ndarray[ndim=1]
+  d0: Topological dimension.
+  d0 cases:
+    when topology:dolfinx.mesh.Topology; entities:numpy.ndarray[ndim=1]; d1:builtins.int => builtins.int
+  d1: Topological dimension to map to.
+  d1 cases:
+    when topology:dolfinx.mesh.Topology; entities:numpy.ndarray[ndim=1]; d0:builtins.int => builtins.int
+  returns: numpy.typing.NDArray[numpy.int32]
+
+API: dolfinx.mesh.create_rectangle [function]
+  description: Create a rectangle mesh.
+  args: comm:mpi4py.MPI.Comm, points:numpy.typing.ArrayLike, n:collections.abc.Sequence[builtins.int], cell_type=CellType.triangle, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None, diagonal:dolfinx.cpp.mesh.DiagonalType=DiagonalType.right
+  comm: MPI communicator.
+  points: Coordinates of the lower - left and upper - right corners of the rectangle.
+  n: Number of cells in each direction.
+  cell_type: Mesh cell type.
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``)
+  ghost_mode: Ghost mode used in the mesh partitioning.
+  partitioner: Function that computes the parallel distribution of cells across MPI ranks.
+  diagonal: Direction of diagonal of triangular meshes. See :class:`DiagonalType` for available options.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.entities_to_geometry [function]
+  description: Compute the geometric DOFs associated with the closure of the
+given mesh entities.
+  args: msh:dolfinx.mesh.Mesh, dim:builtins.int, entities:numpy.typing.NDArray[numpy.int32], permute=False
+  msh: The mesh.
+  msh cases:
+    when dim:builtins.int; entities:numpy.ndarray[ndim=1]; permute:builtins.bool => dolfinx.mesh.Mesh
+  dim: Topological dimension of the entities of interest.
+  dim cases:
+    when msh:dolfinx.mesh.Mesh; entities:numpy.ndarray[ndim=1]; permute:builtins.bool => builtins.int
+  entities: Entity indices (local to the process).
+  entities cases:
+    when msh:dolfinx.mesh.Mesh; dim:builtins.int; permute:builtins.bool => numpy.ndarray[ndim=1]
+  permute: Permute the DOFs such that they are consistent with the orientation of `dim`-dimensional mesh entities. This requires `create_entity_permutations` to be called first.
+  permute cases:
+    when msh:dolfinx.mesh.Mesh; dim:builtins.int; entities:numpy.ndarray[ndim=1] => builtins.bool
+  returns: numpy.typing.NDArray[numpy.int32]
+
+API: dolfinx.mesh.exterior_facet_indices [function]
+  description: Compute the indices of all exterior facets that are owned by the
+caller.
+  args: topology:dolfinx.mesh.Topology
+  topology: The topology
+  returns: numpy.typing.NDArray[numpy.int32]
+
+API: dolfinx.mesh.locate_entities [function]
+  description: Compute mesh entities satisfying a geometric marking function.
+  args: msh:dolfinx.mesh.Mesh, dim:builtins.int, marker:collections.abc.Callable
+  msh: Mesh to locate entities on.
+  dim: Topological dimension of the mesh entities to consider.
+  marker: A function that takes an array of points ``x`` with shape ``(gdim, num_points)`` and returns an array of booleans of length ``num_points``, evaluating to `True` for entities to be located.
+  returns: numpy.ndarray
+
+API: dolfinx.mesh.locate_entities_boundary [function]
+  description: Compute mesh entities that are connected to an owned boundary
+facet and satisfy a geometric marking function.
+  args: msh:dolfinx.mesh.Mesh, dim:builtins.int, marker:collections.abc.Callable
+  msh: Mesh to locate boundary entities on.
+  dim: Topological dimension of the mesh entities to consider
+  marker: Function that takes an array of points ``x`` with shape ``(gdim, num_points)`` and returns an array of booleans of length ``num_points``, evaluating to ``True`` for entities to be located.
+  returns: numpy.ndarray
+
+API: dolfinx.mesh.meshtags [function]
+  description: Create a MeshTags object that associates data with a subset of
+mesh entities.
+  args: msh:dolfinx.mesh.Mesh, dim:builtins.int, entities:numpy.typing.NDArray[numpy.int32], values:builtins.float | builtins.int | numpy.ndarray
+  msh: The mesh.
+  dim: Topological dimension of the mesh entity.
+  entities: Indices(local to process) of entities to associate values with . The array must be sorted and must not contain duplicates.
+  values: The corresponding value for each entity.
+  returns: dolfinx.mesh.MeshTags
+
+API: dolfinx.mesh.meshtags_from_entities [function]
+  description: Create a :class:dolfinx.mesh.MeshTags` object that associates
+data with a subset of mesh entities, where the entities are defined
+by their vertices.
+  args: msh:dolfinx.mesh.Mesh, dim:builtins.int
+  msh: The mesh.
+  dim: Topological dimension of the mesh entity.
+  returns: dolfinx.mesh.MeshTags
+
+API: dolfinx.mesh.transfer_meshtag [function]
+  description: Generate cell mesh tags on a refined mesh from the mesh tags on the
+coarse parent mesh.
+  returns: dolfinx.mesh.MeshTags
+
+API: ufl.MixedFunctionSpace [class]
+  description: Mixed function space.
+  constructor: public
+
+API: ufl.MixedFunctionSpace.ufl_sub_space [method]
+  description: Return i-th ufl sub space.
+  args: i
+VALUE: dolfinx.io.gmsh.MeshData.cell_tags [field]:builtins.NoneType | dolfinx.mesh.MeshTags as dolfinx.mesh.MeshTags [union-alternative]
+VALUE: dolfinx.io.gmsh.MeshData.facet_tags [field]:builtins.NoneType | dolfinx.mesh.MeshTags as dolfinx.mesh.MeshTags [union-alternative]
+
+RELATIONS:
+FEEDS:
+  {dolfinx.fem.Function.collapse.return,dolfinx.fem.petsc.LinearProblem.solve.return} -> dolfinx.fem.Function.interpolate.u0
+  dolfinx.fem.Function.instance -> {dolfinx.fem.Function.interpolate.self,dolfinx.fem.Function.interpolate.u0,dolfinx.fem.Function.sub.self,dolfinx.fem.dirichletbc.value,dolfinx.fem.petsc.LinearProblem.u,dolfinx.fem.petsc.LinearProblem.u[0],dolfinx.fem.petsc.LinearProblem.u[1]}
+  dolfinx.fem.Function.sub.return -> {dolfinx.fem.Function.collapse.self,dolfinx.fem.Function.interpolate.self}
+  dolfinx.fem.FunctionSpace.collapse.return[0] -> {dolfinx.fem.Function.V,dolfinx.fem.locate_dofs_topological.V[1]}
+  dolfinx.fem.FunctionSpace.instance -> dolfinx.fem.Function.V
+  dolfinx.fem.FunctionSpace.sub.return -> {dolfinx.fem.Function.V,dolfinx.fem.FunctionSpace.collapse.self,dolfinx.fem.dirichletbc.V,dolfinx.fem.locate_dofs_topological.V[0]}
+  dolfinx.fem.bcs_by_block.return -> {dolfinx.fem.apply_lifting.bcs,dolfinx.fem.petsc.apply_lifting.bcs}
+  dolfinx.fem.dirichletbc.return -> {dolfinx.fem.DirichletBC.set.self,dolfinx.fem.apply_lifting.bcs[0][0],dolfinx.fem.assemble_matrix.bcs[0],dolfinx.fem.bcs_by_block.bcs[0],dolfinx.fem.bcs_by_block.bcs[1],dolfinx.fem.petsc.LinearProblem.bcs[0],dolfinx.fem.petsc.LinearProblem.bcs[1],dolfinx.fem.petsc.apply_lifting.bcs[0][0],dolfinx.fem.petsc.assemble_matrix.bcs[0],dolfinx.fem.petsc.assemble_matrix.bcs[1]}
+  dolfinx.fem.functionspace.return -> {dolfinx.fem.Function.V,dolfinx.fem.FunctionSpace.sub.self,dolfinx.fem.dirichletbc.V,dolfinx.fem.locate_dofs_geometrical.V,dolfinx.fem.locate_dofs_topological.V}
+  {dolfinx.fem.locate_dofs_geometrical.return,dolfinx.fem.locate_dofs_topological.return} -> dolfinx.fem.dirichletbc.dofs
+  dolfinx.fem.petsc.LinearProblem.instance -> dolfinx.fem.petsc.LinearProblem.solve.self
+  {dolfinx.io.gmsh.MeshData.cell_tags,dolfinx.io.gmsh.MeshData.facet_tags,dolfinx.mesh.meshtags.return} -> dolfinx.mesh.MeshTags.find.self
+  dolfinx.mesh.MeshTags.find.return -> {dolfinx.fem.Function.interpolate.cells0,dolfinx.mesh.compute_incident_entities.entities}
+  dolfinx.mesh.Topology.dim.return -> {dolfinx.mesh.compute_incident_entities.d1,dolfinx.mesh.locate_entities.dim,dolfinx.mesh.meshtags.dim}
+  {dolfinx.mesh.compute_incident_entities.return,dolfinx.mesh.locate_entities.return} -> dolfinx.fem.Function.interpolate.cells0
+  dolfinx.mesh.create_rectangle.return -> {dolfinx.fem.functionspace.mesh,dolfinx.mesh.locate_entities.msh,dolfinx.mesh.locate_entities_boundary.msh}
+  dolfinx.mesh.exterior_facet_indices.return -> dolfinx.fem.locate_dofs_topological.entities
+  dolfinx.mesh.locate_entities_boundary.return -> {dolfinx.fem.locate_dofs_topological.entities,dolfinx.mesh.compute_incident_entities.entities}

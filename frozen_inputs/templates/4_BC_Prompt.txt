@@ -14,8 +14,9 @@ Do the following, in order.
 3. Locate degrees of freedom belonging to the boundary mesh entities topologically, then create Dirichlet boundary conditions using those degrees of freedom and the prescribed values.
 
 RULES
-- Apply each condition to the selected space or subspace of the original problem. When boundary values use a standalone space, define the boundary-value field on that space and preserve its degree-of-freedom correspondence with the constrained problem space.
-- Use the declared field shapes and component selections. Keep the boundary-value shape, scalar type, and degree-of-freedom representation consistent with the chosen construction and its documented input requirements.
+- Apply each boundary condition to the selected field or component of the original problem. Do not add constraints to unselected components.
+- When boundary values are represented in a separate standalone space, distinguish its degrees of freedom from those of the constrained problem space and preserve their correspondence. Do not replace the boundary-condition target space with the boundary-value representation space.
+- Keep the boundary-value shape and scalar type, and the degree-of-freedom representation, consistent with the input requirements of the chosen construction.
 
 The card is:
 

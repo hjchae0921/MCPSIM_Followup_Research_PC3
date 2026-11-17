@@ -1,0 +1,138 @@
+# dolfinx.fem.functionspace
+
+```python
+dolfinx.fem.functionspace(mesh: Mesh, element: ufl.finiteelement.AbstractFiniteElement | ElementMetaData | tuple[str, int] | tuple[str, int, tuple] | tuple[str, int, tuple, bool]) → FunctionSpace
+```
+
+Create a finite element function space.
+
+**Parameters:**
+
+- **mesh** – Mesh that space is defined on.
+- **element** – Finite element description.
+
+**Returns:**
+
+A function space.
+
+# dolfinx.fem.Function.split
+
+```python
+split() → tuple[Function, ...]
+```
+
+Extract (any) sub-functions.
+
+A sub-function can be extracted from a discrete function that is
+in a mixed, vector, or tensor FunctionSpace. The sub-function
+resides in the subspace of the mixed space.
+
+**Returns:**
+
+First level of subspaces of the function space.
+
+# dolfinx.fem.Function
+
+```python
+class dolfinx.fem.Function(*args, **kw)
+```
+
+Bases: [`Coefficient`](https://docs.fenicsproject.org/ufl/main/api-doc/ufl.html#ufl.coefficient.Coefficient "(in Unified Form Language (UFL) v2025.2.0.dev0)")
+
+A finite element function that is represented by a function space
+(domain, element and dofmap) and a vector holding the
+degrees-of-freedom.
+
+Initialize a finite element Function.
+
+**Parameters:**
+
+- **V** – The function space that the Function is defined on.
+- **x** – Function degree-of-freedom vector. Typically required
+  only when reading a saved Function from file.
+- **name** – Function name.
+- **dtype** – Scalar type. Is not set, the DOLFINx default scalar
+  type is used.
+
+# dolfinx.fem.FunctionSpace.tabulate_dof_coordinates
+
+```python
+tabulate_dof_coordinates() → ndarray[tuple[int, ...], dtype[float64]]
+```
+
+Tabulate the coordinates of the degrees-of-freedom in the
+function space.
+
+**Returns:**
+
+Coordinates of the degrees-of-freedom.
+
+Note
+
+This method is only for elements with point evaluation
+degrees-of-freedom.
+
+# dolfinx.fem.locate_dofs_geometrical
+
+```python
+dolfinx.fem.locate_dofs_geometrical(V: FunctionSpace | Iterable[FunctionSpace], marker: Callable) → ndarray
+```
+
+Locate degrees-of-freedom geometrically using a marker function.
+
+**Parameters:**
+
+- **V** – Function space(s) in which to search for degree-of-freedom
+  indices.
+- **marker** – A function that takes an array of points `x` with
+  shape `(gdim, num_points)` and returns an array of
+  booleans of length `num_points`, evaluating to `True`
+  for entities whose degree-of-freedom should be returned.
+
+**Returns:**
+
+An array of degree-of-freedom indices (local to the process) for
+degrees-of-freedom whose coordinate evaluates to True for the
+marker function.
+
+If `V` is a list of two function spaces, then a 2-D array of
+shape (number of dofs, 2) is returned.
+
+Returned degree-of-freedom indices are unique and ordered by the
+first column.
+
+# dolfinx.fem.Function.copy
+
+```python
+copy() → Function
+```
+
+Create a copy of the Function.
+
+The function space is shared and the degree-of-freedom vector is
+copied.
+
+**Returns:**
+
+A new Function with a copy of the degree-of-freedom vector.
+
+# ufl.Mesh.ufl_coordinate_element
+
+```python
+ufl_coordinate_element()
+```
+
+Get the coordinate element.
+
+# dolfinx.mesh.Topology.get_cell_permutation_info
+
+```python
+get_cell_permutation_info() → ndarray[tuple[int, ...], dtype[uint32]]
+```
+
+Get permutation information.
+
+The returned data is used for packing coefficients and
+assembling of tensors. The bits of each integer encodes the
+number of reflections and permutations for each sub-entity of
+the cell to be able to map it to the reference element.

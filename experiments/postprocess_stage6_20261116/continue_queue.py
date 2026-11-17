@@ -109,6 +109,11 @@ def main():
     assert read(HERE/'pilot_gate.json')['passed']
     protocol=read(HERE/'protocol.json')
     assert all((Path(j['directory'])/'result.json').exists() for j in protocol['jobs']), 'GLM/Qwen backfill must finish first'
+    if (HERE/'glm46/protocol.json').exists():
+        if (HERE/'STOP').exists():return
+        import subprocess
+        write(HERE/'continuation.json',{'status':'running_glm46_backfill','updated_at':now()})
+        subprocess.run([sys.executable,'-u','-B',str(HERE/'run_glm46.py'),'run'],check=True)
     drain=read(HERE/'drain.json')
     while alive(drain['child']['pid']):
         write(HERE/'continuation.json',{'status':'waiting_for_original_active_jobs','updated_at':now()})

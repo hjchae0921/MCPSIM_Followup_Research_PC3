@@ -1,0 +1,382 @@
+IMPORTS (canonical modules from retrieved EXPORTS; import only what you use):
+  import basix.ufl  # EXPORTS: custom_element, element, enriched_element, mixed_element
+  import dolfinx.fem  # EXPORTS: DirichletBC, FiniteElement, Function, FunctionSpace, create_interpolation_data, create_vector, dirichletbc, finiteelement, functionspace, locate_dofs_geometrical, locate_dofs_topological
+  import ufl  # EXPORTS: Argument, Mesh, MixedFunctionSpace, TestFunction, TestFunctions, TrialFunction, TrialFunctions
+args are ordered as shown; explicit indices are zero-based. Missing args/returns are not empty contracts.
+FEEDS is source/demo dataflow; Sets on both sides expand to every pair. self means receiver.
+cases: when sibling inputs match => value constraint; alternatives are partial; missing guards are unspecified.
+
+API: basix.ufl.custom_element [function]
+  description: Create a UFL compatible custom Basix element.
+  args: cell_type:basix.CellType, reference_value_shape:builtins.list[builtins.int] | builtins.tuple[builtins.int, ...], wcoeffs:numpy.typing.NDArray[numpy.floating], x:builtins.list[builtins.list[numpy.typing.NDArray[numpy.floating]]], M:builtins.list[builtins.list[numpy.typing.NDArray[numpy.floating]]], interpolation_nderivs:builtins.int, map_type:basix.MapType, sobolev_space:basix.SobolevSpace, discontinuous:builtins.bool, embedded_subdegree:builtins.int, embedded_superdegree:builtins.int, polyset_type:basix.PolysetType=_basix.PolysetType.standard, dtype:builtins.NoneType | numpy.typing.DTypeLike=None
+  cell_type: The cell type
+  reference_value_shape: The reference value shape of the element
+  wcoeffs: Matrices for the kth value index containing the expansion coefficients defining a polynomial basis spanning the polynomial space for this element. Shape is ``(dim(finite element polyset), dim(Legenre polynomials))``.
+  x: Interpolation points. Indices are ``(tdim, entity index, point index, dim)``.
+  M: The interpolation matrices. Indices are ``(tdim, entity index, dof, vs, point_index, derivative)``.
+  interpolation_nderivs: The number of derivatives that need to be used during interpolation.
+  map_type: The type of map to be used to map values from the reference to a cell.
+  sobolev_space: Underlying Sobolev space for the element.
+  discontinuous: Indicates whether or not this is the discontinuous version of the element.
+  embedded_subdegree: The highest degree ``n`` such that a Lagrange (or vector Lagrange) element of degree ``n`` is a subspace of this element.
+  embedded_superdegree: The highest degree of a polynomial in this element's polyset.
+  polyset_type: Polyset type for the element.
+  dtype: Floating point data type.
+  returns: basix.ufl._ElementBase
+
+API: basix.ufl.element [function]
+  description: Create a UFL compatible element using Basix.
+  args: family:basix.ElementFamily | builtins.str, cell:basix.CellType | builtins.str, degree:builtins.int, lagrange_variant:basix.LagrangeVariant=_basix.LagrangeVariant.unset, dpc_variant:basix.DPCVariant=_basix.DPCVariant.unset, discontinuous:builtins.bool=False, shape:builtins.tuple[builtins.int, ...] | builtins.NoneType=None, symmetry:builtins.NoneType | builtins.bool=None, dof_ordering:builtins.list[builtins.int] | builtins.NoneType=None, dtype:builtins.NoneType | numpy.typing.DTypeLike=None
+  family: Element family/type.
+  cell: Element cell type.
+  degree: Degree of the finite element.
+  lagrange_variant: Variant of Lagrange to be used.
+  dpc_variant: Variant of DPC to be used.
+  discontinuous: If ``True``, the discontinuous version of the element is created.
+  shape: Value shape of the element. For scalar-valued families, this can be used to create vector and tensor elements.
+  symmetry: Set to ``True`` if the tensor is symmetric. Valid for rank 2 elements only.
+  dof_ordering: Ordering of dofs for ``ElementDofLayout``.
+  dtype: Floating point data type.
+  returns: basix.ufl._ElementBase
+
+API: basix.ufl.enriched_element [function]
+  description: Create an UFL compatible enriched element from a list of elements.
+  args: elements:builtins.list[basix.ufl._ElementBase], map_type:basix.MapType | builtins.NoneType=None
+  elements: The list of elements
+  map_type: The map type for the enriched element.
+  returns: basix.ufl._ElementBase
+
+API: basix.ufl.mixed_element [function]
+  description: Create a UFL compatible mixed element from a list of elements.
+  args: elements:builtins.list[basix.ufl._ElementBase]
+  elements: The list of elements
+  returns: basix.ufl._ElementBase
+
+API: dolfinx.fem.DirichletBC [class]
+  description: Representation of Dirichlet boundary condition which is imposed
+on a linear system.
+  constructor: internal
+
+API: dolfinx.fem.DirichletBC.g [property]
+  returns: dolfinx.fem.Constant | dolfinx.fem.Function | numpy.ndarray as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.FiniteElement [class]
+  description: Creates a Python wrapper for the exported finite element class.
+  constructor: public
+
+API: dolfinx.fem.Form.dtype [property]
+  returns: numpy.dtype
+
+API: dolfinx.fem.Form.function_spaces [property]
+  returns: builtins.list[dolfinx.fem.FunctionSpace]
+
+API: dolfinx.fem.Function [class]
+  description: A finite element function that is represented by a function space
+(domain, element and dofmap) and a vector holding the
+degrees-of-freedom.
+  constructor: public
+  args: V:dolfinx.fem.FunctionSpace, x:builtins.NoneType | dolfinx.la.Vector=None, name:builtins.NoneType | builtins.str=None, dtype:builtins.NoneType | numpy.typing.DTypeLike=None
+  V: The function space that the Function is defined on.
+  x: Function degree-of-freedom vector. Typically required only when reading a saved Function from file.
+  name: Function name.
+  dtype: Scalar type. Is not set, the DOLFINx default scalar type is used.
+
+API: dolfinx.fem.Function.collapse [method]
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.Function.copy [method]
+  description: Create a copy of the Function.
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.Function.sub [method]
+  description: Return a sub-function (a view into the ``Function``).
+  args: i:builtins.int
+  i: Index of the sub-function to extract.
+  returns: dolfinx.fem.Function
+
+API: dolfinx.fem.FunctionSpace [class]
+  description: A space on which Functions (fields) can be defined.
+  constructor: internal
+
+API: dolfinx.fem.FunctionSpace.sub [method]
+  description: Return the i-th sub space.
+  args: i:builtins.int
+  i: Index of the subspace to extract.
+  returns: dolfinx.fem.FunctionSpace
+
+API: dolfinx.fem.FunctionSpace.tabulate_dof_coordinates [method]
+  description: Tabulate the coordinates of the degrees-of-freedom in the
+function space.
+  returns: numpy.typing.NDArray[numpy.float64]
+
+API: dolfinx.fem.create_interpolation_data [function]
+  description: Generate data needed to interpolate discrete functions across
+different meshes.
+  args: V_to:dolfinx.fem.FunctionSpace, V_from:dolfinx.fem.FunctionSpace, cells:numpy.typing.NDArray[numpy.int32], padding:builtins.float=1e-14
+  V_to: Function space to interpolate into
+  V_from: Function space to interpolate from
+  cells: Indices of the cells associated with `V_to` on which to interpolate into.
+  padding: Absolute padding of bounding boxes of all entities on mesh_to
+  returns: dolfinx.geometry.PointOwnershipData
+
+API: dolfinx.fem.create_vector [function]
+  description: Create a Vector that is compatible with the given function space.
+  args: V:dolfinx.fem.FunctionSpace, dtype:numpy.typing.DTypeLike=default_scalar_type
+  V: A function space.
+  returns: dolfinx.la.Vector
+
+API: dolfinx.fem.dirichletbc [function]
+  description: Create a representation of Dirichlet boundary condition which
+is imposed on a linear system.
+  args: value:dolfinx.fem.Constant | dolfinx.fem.Function | numpy.ndarray, dofs:numpy.typing.NDArray[numpy.int32], V:builtins.NoneType | dolfinx.fem.FunctionSpace=None
+  value: Lifted boundary values function. It must have a ``dtype`` property.
+  value cases:
+    when dofs:numpy.ndarray[ndim=1]; V:dolfinx.fem.FunctionSpace => dolfinx.fem.Constant
+    when dofs:sequence[length=2;items=numpy.ndarray[ndim=1]]; V:dolfinx.fem.FunctionSpace => dolfinx.fem.Function
+    when dofs:numpy.ndarray[ndim=1] => dolfinx.fem.Function
+    when dofs:numpy.ndarray[ndim=1]; V:dolfinx.fem.FunctionSpace => numpy.ndarray
+  dofs: Local indices of degrees of freedom in function space to which boundary condition applies. Expects array of size (number of dofs, 2) if function space of the problem, ``V``, is passed. Otherwise assumes function space of the problem is the same of function space of boundary values function.
+  dofs cases:
+    when value:dolfinx.fem.Function; V:dolfinx.fem.FunctionSpace => sequence[length=2;items=numpy.ndarray[ndim=1]]
+    when value:dolfinx.fem.Constant; V:dolfinx.fem.FunctionSpace => numpy.ndarray[ndim=1]
+    when value:numpy.ndarray; V:dolfinx.fem.FunctionSpace => numpy.ndarray[ndim=1]
+    when value:dolfinx.fem.Function => numpy.ndarray[ndim=1]
+  V: Function space of a problem to which boundary conditions are applied.
+  V cases:
+    when value:dolfinx.fem.Function; dofs:sequence[length=2;items=numpy.ndarray[ndim=1]] => dolfinx.fem.FunctionSpace
+    when value:dolfinx.fem.Constant; dofs:numpy.ndarray[ndim=1] => dolfinx.fem.FunctionSpace
+    when value:numpy.ndarray; dofs:numpy.ndarray[ndim=1] => dolfinx.fem.FunctionSpace
+  returns: dolfinx.fem.DirichletBC
+
+API: dolfinx.fem.finiteelement [function]
+  description: Create a DOLFINx element from a basix.ufl element.
+  args: cell_type:dolfinx.cpp.mesh.CellType, ufl_e:basix.ufl._ElementBase, FiniteElement_dtype:numpy.dtype
+  cell_type: Element cell type, see ``mesh.CellType``
+  ufl_e: UFL element, holding quadrature rule and other properties of the selected element.
+  FiniteElement_dtype: Geometry type of the element.
+  returns: dolfinx.fem.FiniteElement
+
+API: dolfinx.fem.functionspace [function]
+  description: Create a finite element function space.
+  args: mesh:dolfinx.mesh.Mesh, element:builtins.tuple[builtins.str, builtins.int, builtins.tuple, builtins.bool] | builtins.tuple[builtins.str, builtins.int, builtins.tuple] | builtins.tuple[builtins.str, builtins.int] | dolfinx.fem.ElementMetaData | ufl.finiteelement.AbstractFiniteElement
+  mesh: Mesh that space is defined on.
+  element: Finite element description.
+  returns: dolfinx.fem.FunctionSpace
+
+API: dolfinx.fem.locate_dofs_geometrical [function]
+  description: Locate degrees-of-freedom geometrically using a marker function.
+  args: V:collections.abc.Iterable[dolfinx.fem.FunctionSpace] | dolfinx.fem.FunctionSpace, marker:collections.abc.Callable
+  V: Function space(s) in which to search for degree-of-freedom indices.
+  V cases:
+    when marker:collections.abc.Callable => sequence[items=dolfinx.fem.FunctionSpace]
+    when marker:collections.abc.Callable => dolfinx.fem.FunctionSpace
+  marker: A function that takes an array of points ``x`` with shape ``(gdim, num_points)`` and returns an array of booleans of length ``num_points``, evaluating to ``True`` for entities whose degree-of-freedom should be returned.
+  marker cases:
+    when V:sequence[items=dolfinx.fem.FunctionSpace] => collections.abc.Callable
+    when V:dolfinx.fem.FunctionSpace => collections.abc.Callable
+  returns: numpy.ndarray
+
+API: dolfinx.fem.locate_dofs_topological [function]
+  description: Locate degrees-of-freedom belonging to mesh entities topologically.
+  args: V:collections.abc.Iterable[dolfinx.fem.FunctionSpace] | dolfinx.fem.FunctionSpace, entity_dim:builtins.int, entities:numpy.typing.NDArray[numpy.int32], remote:builtins.bool=True
+  V: Function space(s) in which to search for degree-of-freedom indices.
+  V cases:
+    when entity_dim:builtins.int; entities:numpy.ndarray[ndim=1]; remote:builtins.bool => sequence[items=dolfinx.fem.FunctionSpace]
+    when entity_dim:builtins.int; entities:numpy.ndarray[ndim=1]; remote:builtins.bool => dolfinx.fem.FunctionSpace
+  entity_dim: Topological dimension of entities where degrees-of-freedom are located.
+  entity_dim cases:
+    when V:sequence[items=dolfinx.fem.FunctionSpace]; entities:numpy.ndarray[ndim=1]; remote:builtins.bool => builtins.int
+    when V:dolfinx.fem.FunctionSpace; entities:numpy.ndarray[ndim=1]; remote:builtins.bool => builtins.int
+  entities: Indices of mesh entities of dimension ``entity_dim`` where degrees-of-freedom are located.
+  entities cases:
+    when V:sequence[items=dolfinx.fem.FunctionSpace]; entity_dim:builtins.int; remote:builtins.bool => numpy.ndarray[ndim=1]
+    when V:dolfinx.fem.FunctionSpace; entity_dim:builtins.int; remote:builtins.bool => numpy.ndarray[ndim=1]
+  remote: True to return also "remotely located" degree-of-freedom indices.
+  remote cases:
+    when V:sequence[items=dolfinx.fem.FunctionSpace]; entity_dim:builtins.int; entities:numpy.ndarray[ndim=1] => builtins.bool
+    when V:dolfinx.fem.FunctionSpace; entity_dim:builtins.int; entities:numpy.ndarray[ndim=1] => builtins.bool
+  returns: numpy.ndarray
+  return cases:
+    when V:sequence[items=dolfinx.fem.FunctionSpace]; entity_dim:builtins.int; entities:numpy.ndarray[ndim=1]; remote:builtins.bool => sequence[length=2;items=numpy.ndarray]
+
+API: dolfinx.fem.petsc.LinearProblem.solve [method]
+  description: Solve the problem.
+  returns: dolfinx.fem.Function [conditional=return alternative: dolfinx.fem.Function]
+
+API: dolfinx.fem.petsc.LinearProblem.u [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.petsc.NonlinearProblem.solve [method]
+  description: Solve the problem.
+  returns: dolfinx.fem.Function [conditional=return alternative: dolfinx.fem.Function]
+
+API: dolfinx.fem.petsc.NonlinearProblem.u [property]
+  returns: collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function as dolfinx.fem.Function [union-alternative]
+
+API: dolfinx.fem.petsc.create_vector [function]
+  description: Create a PETSc vector that is compatible with a linear form(s)
+or functionspace(s).
+Three cases are supported:
+  args: V:collections.abc.Sequence[builtins.NoneType | dolfinx.fem.FunctionSpace] | dolfinx.fem.FunctionSpace [positional_only], kind:builtins.NoneType | builtins.str=None
+  V: Function space or a sequence of such.
+  kind: PETSc vector type (``VecType``) to create.
+  returns: petsc4py.PETSc.Vec
+
+API: dolfinx.fem.petsc.discrete_gradient [function]
+  description: Assemble a discrete gradient operator.
+  args: space0:dolfinx.fem.FunctionSpace, space1:dolfinx.fem.FunctionSpace
+  space0: H1 space to interpolate the gradient from.
+  space1: H(curl) space to interpolate into.
+  returns: petsc4py.PETSc.Mat
+
+API: dolfinx.fem.petsc.interpolation_matrix [function]
+  description: Assemble an interpolation operator matrix for discreye
+interpolation between finite element spaces.
+  args: V0:dolfinx.fem.FunctionSpace, V1:dolfinx.fem.FunctionSpace
+  V0: Space to interpolate from.
+  V1: Space to interpolate into.
+  returns: petsc4py.PETSc.Mat
+
+API: dolfinx.io.gmsh.ufl_mesh [function]
+  description: Create a UFL mesh from a Gmsh cell identifier and geometric
+dimension.
+  args: 2:dtype:numpy.typing.DTypeLike
+  returns: ufl.Mesh
+
+API: dolfinx.mesh.Geometry.dim [property]
+
+API: dolfinx.mesh.Mesh [class]
+  description: A mesh.
+  constructor: public
+  field: _ufl_domain:builtins.NoneType | ufl.Mesh as ufl.Mesh [union-alternative]
+
+API: dolfinx.mesh.Mesh.basix_cell [method]
+  description: Return the Basix cell type.
+  returns: basix.CellType
+
+API: dolfinx.mesh.Mesh.ufl_domain [method]
+  description: Return the ufl domain corresponding to the mesh.
+  returns: ufl.Mesh [conditional=return alternative: ufl.Mesh]
+
+API: dolfinx.mesh.create_box [function]
+  description: Create a box mesh.
+  args: comm:mpi4py.MPI.Comm, points:builtins.list[numpy.typing.ArrayLike], n:collections.abc.Sequence[builtins.int], cell_type=CellType.tetrahedron, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None
+  comm: MPI communicator.
+  points: Coordinates of the 'lower-left' and 'upper-right' corners of the box.
+  n: List of cells in each direction
+  cell_type: The cell type.
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``).
+  ghost_mode: The ghost mode used in the mesh partitioning.
+  partitioner: Function that computes the parallel distribution of cells across MPI ranks.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_rectangle [function]
+  description: Create a rectangle mesh.
+  args: comm:mpi4py.MPI.Comm, points:numpy.typing.ArrayLike, n:collections.abc.Sequence[builtins.int], cell_type=CellType.triangle, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None, diagonal:dolfinx.cpp.mesh.DiagonalType=DiagonalType.right
+  comm: MPI communicator.
+  points: Coordinates of the lower - left and upper - right corners of the rectangle.
+  n: Number of cells in each direction.
+  cell_type: Mesh cell type.
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``)
+  ghost_mode: Ghost mode used in the mesh partitioning.
+  partitioner: Function that computes the parallel distribution of cells across MPI ranks.
+  diagonal: Direction of diagonal of triangular meshes. See :class:`DiagonalType` for available options.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_unit_cube [function]
+  description: Create a mesh of a unit cube.
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, ny:builtins.int, nz:builtins.int, cell_type=CellType.tetrahedron, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None
+  comm: MPI communicator.
+  nx: Number of cells in "x" direction.
+  ny: Number of cells in "y" direction.
+  nz: Number of cells in "z" direction.
+  cell_type: Mesh cell type
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``).
+  ghost_mode: Ghost mode used in the mesh partitioning.
+  partitioner: Function that computes the parallel distribution of cells across MPI ranks.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_unit_interval [function]
+  description: Create a mesh on the unit interval.
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None
+  comm: MPI communicator.
+  nx: Number of cells.
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``).
+  ghost_mode: Ghost mode used in the mesh partitioning. Options are ``GhostMode.none`` and ``GhostMode.shared_facet``.
+  partitioner: Partitioning function to use for determining the parallel distribution of cells across MPI ranks.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_unit_square [function]
+  description: Create a mesh of a unit square.
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, ny:builtins.int, cell_type=CellType.triangle, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None, diagonal:dolfinx.cpp.mesh.DiagonalType=DiagonalType.right
+  comm: MPI communicator.
+  nx: Number of cells in the "x" direction.
+  ny: Number of cells in the "y" direction.
+  cell_type: Mesh cell type.
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``).
+  ghost_mode: Ghost mode used in the mesh partitioning.
+  partitioner: Function that computes the parallel distribution of cells across MPI ranks.
+  diagonal:  Direction of diagonal. See :class:`DiagonalType` for available options.
+  returns: dolfinx.mesh.Mesh
+
+API: ufl.AbstractDomain.topological_dimension [method]
+  description: Return the dimension of the topology of this domain.
+  returns: ufl.Mesh [conditional=return alternative: ufl.Mesh]
+
+API: ufl.Argument [class]
+  description: UFL value: Representation of an argument to a form.
+  constructor: public
+  args: function_space:ufl.functionspace.AbstractFunctionSpace
+
+API: ufl.Mesh [class]
+  description: Symbolic representation of a mesh.
+  constructor: public
+  args: coordinate_element, ufl_id=None, cargo=None
+
+API: ufl.Mesh.meshes [property]
+  returns: builtins.tuple[ufl.Mesh] as ufl.Mesh [source_path=[0]]
+
+API: ufl.MixedFunctionSpace [class]
+  description: Mixed function space.
+  constructor: public
+  args: args [var_positional] [optional]
+
+API: ufl.TestFunction [function]
+  description: UFL value: Create a test function argument to a form.
+  args: function_space:ufl.functionspace.AbstractFunctionSpace, part=None
+  returns: ufl.Argument
+
+API: ufl.TestFunctions [function]
+  description: Create a TestFunction in a mixed space.
+  args: function_space:ufl.functionspace.AbstractFunctionSpace
+  returns: as ufl.Argument [source_path=[0];union-alternative]
+
+API: ufl.TrialFunction [function]
+  description: UFL value: Create a trial function argument to a form.
+  args: function_space:ufl.functionspace.AbstractFunctionSpace, part=None
+  returns: ufl.Argument
+
+API: ufl.TrialFunctions [function]
+  description: Create a TrialFunction in a mixed space.
+  args: function_space:ufl.functionspace.AbstractFunctionSpace
+  returns: as ufl.Argument [source_path=[0];union-alternative]
+VALUE: dolfinx.io.gmsh.MeshData.mesh [field]:dolfinx.mesh.Mesh
+
+RELATIONS:
+FEEDS:
+  {basix.ufl.custom_element.return,basix.ufl.mixed_element.return} -> dolfinx.fem.functionspace.element
+  basix.ufl.element.return -> {basix.ufl.mixed_element.elements[0],basix.ufl.mixed_element.elements[1],dolfinx.fem.finiteelement.ufl_e,dolfinx.fem.functionspace.element,ufl.Mesh.coordinate_element}
+  dolfinx.fem.Form.dtype.return -> dolfinx.fem.create_vector.dtype
+  dolfinx.fem.Form.function_spaces.return[0] -> dolfinx.fem.create_vector.V
+  dolfinx.fem.Function.instance -> {dolfinx.fem.Function.sub.self,dolfinx.fem.dirichletbc.value}
+  dolfinx.fem.Function.sub.return -> dolfinx.fem.Function.collapse.self
+  dolfinx.fem.FunctionSpace.instance -> dolfinx.fem.Function.V
+  dolfinx.fem.FunctionSpace.sub.return -> {dolfinx.fem.Function.V,dolfinx.fem.dirichletbc.V,dolfinx.fem.locate_dofs_topological.V[0]}
+  dolfinx.fem.functionspace.return -> {dolfinx.fem.Function.V,dolfinx.fem.FunctionSpace.sub.self,dolfinx.fem.FunctionSpace.tabulate_dof_coordinates.self,dolfinx.fem.dirichletbc.V,dolfinx.fem.locate_dofs_geometrical.V,dolfinx.fem.locate_dofs_topological.V,dolfinx.fem.petsc.create_vector.V[0],dolfinx.fem.petsc.create_vector.V[1],dolfinx.fem.petsc.discrete_gradient.space0,dolfinx.fem.petsc.discrete_gradient.space1,dolfinx.fem.petsc.interpolation_matrix.V0,dolfinx.fem.petsc.interpolation_matrix.V1,ufl.TestFunction.function_space,ufl.TestFunctions.function_space,ufl.TrialFunction.function_space,ufl.TrialFunctions.function_space}
+  {dolfinx.fem.locate_dofs_geometrical.return,dolfinx.fem.locate_dofs_topological.return} -> dolfinx.fem.dirichletbc.dofs
+  {dolfinx.io.gmsh.MeshData.mesh,dolfinx.mesh.create_rectangle.return,dolfinx.mesh.create_unit_square.return} -> {dolfinx.fem.functionspace.mesh,dolfinx.mesh.Mesh.basix_cell.self}
+  {dolfinx.io.gmsh.ufl_mesh.return,ufl.Mesh.instance} -> dolfinx.mesh.Mesh.domain
+  dolfinx.mesh.Geometry.dim.return -> {basix.ufl.element.shape[0],dolfinx.fem.functionspace.element[2][0]}
+  dolfinx.mesh.Mesh.basix_cell.return -> basix.ufl.element.cell
+  {dolfinx.mesh.create_box.return,dolfinx.mesh.create_unit_cube.return,dolfinx.mesh.create_unit_interval.return} -> dolfinx.fem.functionspace.mesh
+  ufl.MixedFunctionSpace.instance -> {ufl.TestFunctions.function_space,ufl.TrialFunctions.function_space}

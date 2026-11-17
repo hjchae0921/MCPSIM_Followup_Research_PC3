@@ -1,2 +1,0 @@
-Temperature: 0
-Reasoning: Low (If the Low setting is unavailable, disable reasoning or set it to the lowest available level.)

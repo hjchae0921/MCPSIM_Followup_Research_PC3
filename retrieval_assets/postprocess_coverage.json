@@ -1,0 +1,8 @@
+{
+  "dolfinx.fem.Function.collapse": true,
+  "dolfinx.fem.Function.split": true,
+  "dolfinx.fem.Function.x": true,
+  "dolfinx.fem.FunctionSpace.tabulate_dof_coordinates": true,
+  "dolfinx.fem.DofMap.index_map_bs": false,
+  "dolfinx.la.Vector.array": false
+}

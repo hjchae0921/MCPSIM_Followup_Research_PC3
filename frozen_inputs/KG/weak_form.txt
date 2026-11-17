@@ -1,0 +1,265 @@
+IMPORTS (canonical modules from retrieved EXPORTS; import only what you use):
+  import dolfinx.fem  # EXPORTS: Constant, Form, assemble_scalar, form
+  import ufl  # EXPORTS: BaseForm, Form, Measure, conj, derivative, inner
+args are ordered as shown; explicit indices are zero-based. Missing args/returns are not empty contracts.
+FEEDS is source/demo dataflow; Sets on both sides expand to every pair. self means receiver.
+cases: when sibling inputs match => value constraint; alternatives are partial; missing guards are unspecified.
+
+API: dolfinx.fem.Constant [class]
+  description: A constant with respect to a domain.
+  constructor: public
+  args: domain, c:builtins.complex | builtins.float | collections.abc.Sequence | numpy.complexfloating | numpy.floating | numpy.ndarray
+  domain: DOLFINx or UFL mesh
+  c: Value of the constant.
+  field: _cpp_object:dolfinx.cpp.fem.Constant_complex128 | dolfinx.cpp.fem.Constant_complex64 | dolfinx.cpp.fem.Constant_float32 | dolfinx.cpp.fem.Constant_float64
+  bases: ufl.Constant
+
+API: dolfinx.fem.Constant.dtype [property]
+  returns: numpy.dtype
+
+API: dolfinx.fem.Constant.value [property]
+
+API: dolfinx.fem.DirichletBC.g [property]
+  returns: dolfinx.fem.Constant | dolfinx.fem.Function | numpy.ndarray as dolfinx.fem.Constant [union-alternative]
+
+API: dolfinx.fem.Form [class]
+  description: A finite element form.
+  constructor: internal
+
+API: dolfinx.fem.assemble_scalar [function]
+  description: Assemble functional. The returned value is local and not
+accumulated across processes.
+  args: M:dolfinx.fem.Form, constants:builtins.NoneType | numpy.typing.NDArray=None, coeffs:builtins.dict[builtins.tuple[dolfinx.fem.IntegralType, builtins.int], numpy.typing.NDArray] | builtins.NoneType=None
+  M: The functional to compute.
+  M cases:
+    when constants:numpy.ndarray[ndim=1]; coeffs:builtins.dict[items=tuple[length=2;items=(tuple[length=2;items=(dolfinx.fem.IntegralType,builtins.int)],numpy.ndarray[ndim=2])]] => dolfinx.fem.Form
+  constants: Constants that appear in the form. If ``None``, any required constants will be computed.
+  constants cases:
+    when M:dolfinx.fem.Form; coeffs:builtins.dict[items=tuple[length=2;items=(tuple[length=2;items=(dolfinx.fem.IntegralType,builtins.int)],numpy.ndarray[ndim=2])]] => numpy.ndarray[ndim=1]
+  coeffs: Coefficients that appear in the form. If not provided, any required coefficients will be computed.
+  coeffs cases:
+    when M:dolfinx.fem.Form; constants:numpy.ndarray[ndim=1] => builtins.dict[items=tuple[length=2;items=(tuple[length=2;items=(dolfinx.fem.IntegralType,builtins.int)],numpy.ndarray[ndim=2])]]
+  returns: builtins.complex | builtins.float; builtins.complex [conditional=return alternative: builtins.complex]; builtins.float [conditional=return alternative: builtins.float]
+
+API: dolfinx.fem.form [function]
+  description: Create a Form or list of Forms.
+  args: form:collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | collections.abc.Sequence[ufl.Form] | ufl.Form, dtype:numpy.typing.DTypeLike=default_scalar_type, form_compiler_options:builtins.NoneType | builtins.dict=None, jit_options:builtins.NoneType | builtins.dict=None, entity_maps:collections.abc.Sequence[dolfinx.mesh.EntityMap] | builtins.NoneType=None
+  form: A UFL form or iterable of UFL forms.
+  dtype: Scalar type to use for the compiled form.
+  form_compiler_options: See :func:`ffcx_jit <dolfinx.jit.ffcx_jit>`
+  jit_options: See :func:`ffcx_jit <dolfinx.jit.ffcx_jit>`.
+  entity_maps: If any trial functions, test functions, or coefficients in the form are not defined over the same mesh as the integration domain (the domain associated with the measure), `entity_maps` must be supplied. For each mesh in the form, there should be an entity map relating entities in that mesh to the integration domain mesh.
+  returns: builtins.list[builtins.list[dolfinx.fem.Form] | dolfinx.fem.Form] | dolfinx.fem.Form; builtins.list[builtins.list[dolfinx.fem.Form] | dolfinx.fem.Form] [conditional=return alternative: builtins.list[builtins.list[dolfinx.fem.Form] | dolfinx.fem.Form]]; dolfinx.fem.Form [conditional=return alternative: dolfinx.fem.Form]
+
+API: dolfinx.fem.forms.derivative_block [function]
+  description: Return the UFL derivative of a (list of) UFL rank one form(s).
+  args: F:collections.abc.Sequence[ufl.Form] | ufl.Form, u:collections.abc.Sequence[dolfinx.fem.Function] | dolfinx.fem.Function, du:collections.abc.Sequence[ufl.Argument] | builtins.NoneType | ufl.Argument=None
+  returns: collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] | ufl.Form; collections.abc.Sequence[collections.abc.Sequence[ufl.Form]] [conditional=return alternative: collections.abc.Sequence[collections.abc.Sequence[ufl.Form]]]; ufl.Form [conditional=return alternative: ufl.Form]
+
+API: dolfinx.mesh.Mesh [class]
+  description: A mesh.
+  constructor: public
+
+API: dolfinx.mesh.MeshTags [class]
+  description: Mesh tags associate data (markers) with a subset of mesh entities of
+a given dimension.
+  constructor: public
+
+API: dolfinx.mesh.create_rectangle [function]
+  description: Create a rectangle mesh.
+  args: comm:mpi4py.MPI.Comm, points:numpy.typing.ArrayLike, n:collections.abc.Sequence[builtins.int], cell_type=CellType.triangle, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None, diagonal:dolfinx.cpp.mesh.DiagonalType=DiagonalType.right
+  comm: MPI communicator.
+  points: Coordinates of the lower - left and upper - right corners of the rectangle.
+  n: Number of cells in each direction.
+  cell_type: Mesh cell type.
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``)
+  ghost_mode: Ghost mode used in the mesh partitioning.
+  partitioner: Function that computes the parallel distribution of cells across MPI ranks.
+  diagonal: Direction of diagonal of triangular meshes. See :class:`DiagonalType` for available options.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_unit_cube [function]
+  description: Create a mesh of a unit cube.
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, ny:builtins.int, nz:builtins.int, cell_type=CellType.tetrahedron, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None
+  comm: MPI communicator.
+  nx: Number of cells in "x" direction.
+  ny: Number of cells in "y" direction.
+  nz: Number of cells in "z" direction.
+  cell_type: Mesh cell type
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``).
+  ghost_mode: Ghost mode used in the mesh partitioning.
+  partitioner: Function that computes the parallel distribution of cells across MPI ranks.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_unit_square [function]
+  description: Create a mesh of a unit square.
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, ny:builtins.int, cell_type=CellType.triangle, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None, diagonal:dolfinx.cpp.mesh.DiagonalType=DiagonalType.right
+  comm: MPI communicator.
+  nx: Number of cells in the "x" direction.
+  ny: Number of cells in the "y" direction.
+  cell_type: Mesh cell type.
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``).
+  ghost_mode: Ghost mode used in the mesh partitioning.
+  partitioner: Function that computes the parallel distribution of cells across MPI ranks.
+  diagonal:  Direction of diagonal. See :class:`DiagonalType` for available options.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.meshtags [function]
+  description: Create a MeshTags object that associates data with a subset of
+mesh entities.
+  args: msh:dolfinx.mesh.Mesh, dim:builtins.int, entities:numpy.typing.NDArray[numpy.int32], values:builtins.float | builtins.int | numpy.ndarray
+  msh: The mesh.
+  dim: Topological dimension of the mesh entity.
+  entities: Indices(local to process) of entities to associate values with . The array must be sorted and must not contain duplicates.
+  values: The corresponding value for each entity.
+  returns: dolfinx.mesh.MeshTags
+
+API: ufl.BaseForm [class]
+  description: Description of an object containing arguments.
+  constructor: public
+
+API: ufl.Form [class]
+  description: Description of a weak form consisting of a sum of integrals over subdomains.
+  constructor: public
+  args: integrals
+  field: _arguments
+  field: _base_form_operators:builtins.NoneType
+  field: _cache
+  field: _coefficient_numbering:builtins.NoneType
+  field: _coefficients
+  field: _constant_numbering:builtins.NoneType
+  field: _constants
+  field: _domain_numbering:builtins.NoneType
+  field: _geometric_quantities
+  field: _hash:builtins.NoneType
+  field: _integrals
+  field: _integration_domains
+  field: _signature:builtins.NoneType
+  field: _subdomain_data
+  field: _terminal_numbering:builtins.NoneType
+  bases: ufl.BaseForm
+
+API: ufl.Form.__call__ [method]
+  description: UFL form operator: Evaluate form by replacing arguments and coefficients.
+  returns: ufl.Form
+
+API: ufl.Form.base_form_operators [method]
+  description: Return all ``BaseFormOperator`` objects found in form.
+
+API: ufl.Form.coefficient_numbering [method]
+  description: Return a contiguous numbering of coefficients in a mapping ``{coefficient:number}``.
+
+API: ufl.Form.coefficients [method]
+  description: Return all ``Coefficient`` objects found in form.
+
+API: ufl.Form.constant_numbering [method]
+  description: Return a contiguous numbering of constants in a mapping ``{constant:number}``.
+
+API: ufl.Form.constants [method]
+  description: Get constants.
+
+API: ufl.Form.domain_numbering [method]
+  description: Return a contiguous numbering of domains in a mapping ``{domain:number}``.
+
+API: ufl.Form.empty [method]
+  description: Returns whether the form has no integrals.
+
+API: ufl.Form.equals [method]
+  description: Evaluate ``bool(lhs_form == rhs_form)``.
+
+API: ufl.Form.geometric_dimension [method]
+  description: Return the geometric dimension shared by all domains and functions in this form.
+
+API: ufl.Form.integrals [method]
+  description: Return a sequence of all integrals in form.
+
+API: ufl.Form.integrals_by_domain [method]
+  description: Return a sequence of all integrals with a particular integration domain.
+
+API: ufl.Form.integrals_by_type [method]
+  description: Return a sequence of all integrals with a particular domain type.
+
+API: ufl.Form.signature [method]
+  description: Signature for use with jit cache (independent of incidental numbering of indices etc).
+
+API: ufl.Form.subdomain_data [method]
+  description: Returns a mapping on the form ``{domain:{integral_type: subdomain_data}}``.
+
+API: ufl.Form.terminal_numbering [method]
+  description: Return a contiguous numbering for all counted objects in the form.
+
+API: ufl.Form.ufl_cell [method]
+  description: Return the single cell this form is defined on.
+
+API: ufl.Form.ufl_domains [method]
+  description: Return the geometric integration domains occuring in the form.
+
+API: ufl.Measure [class]
+  description: Representation of an integration measure.
+  constructor: public
+  args: integral_type, domain=None, subdomain_id='everywhere', metadata=None, subdomain_data=None
+  integral_type: one of "cell", etc, or short form "dx", etc
+  domain: an AbstractDomain object (most often a Mesh)
+  subdomain_id: either string "everywhere", a single subdomain id int, or tuple of ints
+  metadata: dict, with additional compiler-specific parameters affecting how code is generated, including parameters for optimization or debugging of generated code
+  subdomain_data: object representing data to interpret subdomain_id with
+  field: _domain
+  field: _integral_type
+  field: _metadata
+  field: _subdomain_data
+  field: _subdomain_id
+
+API: ufl.Measure.__call__ [method]
+  description: Reconfigure measure with new domain specification or metadata.
+  args: subdomain_id=None, metadata=None, domain=None, subdomain_data=None, degree=None, scheme=None
+  returns: ufl.Measure
+
+API: ufl.Measure.integral_type [method]
+  description: Return the domain type.
+
+API: ufl.Measure.metadata [method]
+  description: Return the integral metadata.
+
+API: ufl.Measure.reconstruct [method]
+  description: Construct a new Measure object with some properties replaced with new values.
+  args: integral_type=None, subdomain_id=None, domain=None, metadata=None, subdomain_data=None
+  returns: ufl.Measure
+
+API: ufl.Measure.subdomain_data [method]
+  description: Return the integral subdomain_data.
+
+API: ufl.Measure.subdomain_id [method]
+  description: Return the domain id of this measure (integer).
+
+API: ufl.Measure.ufl_domain [method]
+  description: Return the domain associated with this measure.
+
+API: ufl.conj [function]
+  description: The complex conjugate of f.
+  args: f
+
+API: ufl.derivative [function]
+  description: Compute the Gateaux derivative of *form* w.r.t. *coefficient* in direction of *argument*.
+  returns: ufl.Form [conditional=return alternative: ufl.Form]
+
+API: ufl.inner [function]
+  description: Take the inner product of a and b.
+  args: a, b
+VALUE: dolfinx.io.gmsh.MeshData.cell_tags [field]:builtins.NoneType | dolfinx.mesh.MeshTags as dolfinx.mesh.MeshTags [union-alternative]
+VALUE: dolfinx.io.gmsh.MeshData.facet_tags [field]:builtins.NoneType | dolfinx.mesh.MeshTags as dolfinx.mesh.MeshTags [union-alternative]
+VALUE: dolfinx.io.gmsh.MeshData.mesh [field]:dolfinx.mesh.Mesh
+
+RELATIONS:
+FEEDS:
+  dolfinx.fem.Constant.instance -> {ufl.conj.f,ufl.inner.a}
+  dolfinx.fem.form.return -> dolfinx.fem.assemble_scalar.M
+  dolfinx.fem.forms.derivative_block.return -> {dolfinx.fem.form.form,ufl.Form.coefficients.self,ufl.Form.constants.self,ufl.Form.integrals.self,ufl.Form.subdomain_data.self,ufl.Form.ufl_domains.self}
+  {dolfinx.io.gmsh.MeshData.cell_tags,dolfinx.io.gmsh.MeshData.facet_tags,dolfinx.mesh.meshtags.return,ufl.Measure.subdomain_data.return} -> ufl.Measure.subdomain_data
+  dolfinx.io.gmsh.MeshData.mesh -> {dolfinx.fem.Constant.domain,ufl.Measure.domain}
+  dolfinx.mesh.create_rectangle.return -> dolfinx.fem.Constant.domain
+  {dolfinx.mesh.create_unit_cube.return,ufl.Measure.ufl_domain.return} -> ufl.Measure.domain
+  dolfinx.mesh.create_unit_square.return -> {dolfinx.fem.Constant.domain,dolfinx.mesh.meshtags.msh,ufl.Measure.domain}
+  ufl.Measure.instance -> ufl.Measure.__call__.self
+  ufl.Measure.integral_type.return -> ufl.Measure.integral_type
+  ufl.Measure.metadata.return -> ufl.Measure.metadata
+  ufl.Measure.subdomain_id.return -> ufl.Measure.subdomain_id

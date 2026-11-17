@@ -1,0 +1,538 @@
+{
+  "common/provenance.py": {
+    "source": "common/provenance.py",
+    "sha256": "b3afcfc974c04d0f6529711280be50e578070b0b7ba32e70882011ad67618be8"
+  },
+  "common/models.py": {
+    "source": "common/models.py",
+    "sha256": "e3e8000f18b553b7b5cabe204d8d29457ede11ed9e2104cfe373ff5dbe2c3633"
+  },
+  "common/authoring.py": {
+    "source": "common/authoring.py",
+    "sha256": "746c0369404ee945a173a8d1318979d4fe941487288f3ab28049ce47454d57d9"
+  },
+  "common/client.py": {
+    "source": "common/client.py",
+    "sha256": "8995daefd399c3edec7bc3cb0f697c97012aba72fe52e68b6b2165f60ed0491f"
+  },
+  "common/units.py": {
+    "source": "common/units.py",
+    "sha256": "b84d72e528658c9f74a46daf817aa391a2a1b534819a05112b49370121952662"
+  },
+  "common/schema.py": {
+    "source": "common/schema.py",
+    "sha256": "2c8ade0d6b3ac57fcbb2ebe69a4367d42fb604c1dcb411e909127971af1fcd9c"
+  },
+  "common/__init__.py": {
+    "source": "common/__init__.py",
+    "sha256": "e02ee429a50c12e92156e6da2c0f4b619b0c537274e059e5dc40ba88fb154a75"
+  },
+  "common/contracts.py": {
+    "source": "common/contracts.py",
+    "sha256": "f76ad67f743bca3c423b2b7cb58d85e6794c5768356f5ebdc11f23bd80e5bae9"
+  },
+  "common/coupling.py": {
+    "source": "common/coupling.py",
+    "sha256": "94fa760f2a5075ba795f1c6615165b43c0054f41e34d49aa4d340ca749c2f573"
+  },
+  "common/dialogue.py": {
+    "source": "common/dialogue.py",
+    "sha256": "feec6fcdd5941e220d279b5ecbcecc28d316c06fd76adbb555cc81ba1a32efe3"
+  },
+  "codegen/execute.py": {
+    "source": "codegen/execute.py",
+    "sha256": "29b5639a26c9151071e395db6a6ada2d1ce72e52f494f8042c785fc55794db68"
+  },
+  "codegen/service.py": {
+    "source": "codegen/service.py",
+    "sha256": "ec3ea1bc57aa59ff58bf6eb20ed3e09c1f5adc15f3e9db9f32bee28844f90f1a"
+  },
+  "codegen/__init__.py": {
+    "source": "codegen/__init__.py",
+    "sha256": "bc7bf15fe12d622e7e83a4187117734a1e4cf81c13e36b9424bb3cc6a6645773"
+  },
+  "codegen/cards.py": {
+    "source": "codegen/cards.py",
+    "sha256": "b297e79dc16d6e4d992a44b3d734b26f72b8444075d766d9734de6a2f4d60ffd"
+  },
+  "codegen/results.py": {
+    "source": "codegen/results.py",
+    "sha256": "f8e81cef85405774495f8b8e280d184ce44dd6a55a033429bd0b14814943f8cc"
+  },
+  "codegen/boundary_card.py": {
+    "source": "codegen/boundary_card.py",
+    "sha256": "4ff3e17ff6829a3424b9da0832d24a60af4cc9742e480249846ed994cf418c04"
+  },
+  "codegen/contours.py": {
+    "source": "codegen/contours.py",
+    "sha256": "dd61f4364816174e5cd21fbcec012c4206121a1fb240df677f6f542d02e150ca"
+  },
+  "codegen/runner.py": {
+    "source": "codegen/runner.py",
+    "sha256": "36f23c7202e017db96926dcc7a8a976523b0b3f56764ac764920ad8e2795d68b"
+  },
+  "codegen/postprocess.py": {
+    "source": "codegen/postprocess.py",
+    "sha256": "b2d2ea2d3ee913fa2b96b38d42897d5bcbbe2d5cfa5c70cf875879d4fde10d96"
+  },
+  "codegen/runtime.py": {
+    "source": "codegen/runtime.py",
+    "sha256": "6fc62e93cda7ea9d99ac5f73ec71a59817d7ada0dc4bf5bb3921d07a3c5996ad"
+  },
+  "boundary_condition_agent/mesh.py": {
+    "source": "boundary_condition_agent/mesh.py",
+    "sha256": "2e3b2bd5ec58fc35df6b48c568aaf3252e05dde667a5f1183a700dd36bf01d37"
+  },
+  "boundary_condition_agent/parameter_selection.py": {
+    "source": "boundary_condition_agent/parameter_selection.py",
+    "sha256": "b436830d26fd67e6012954759c931f7cb1ef224f0db09160de09866c5d45fc37"
+  },
+  "boundary_condition_agent/values.py": {
+    "source": "boundary_condition_agent/values.py",
+    "sha256": "549067a924de30253fe4a30d9fdfca0351ef9ffae51834d89ece9fe6a3fa7fc1"
+  },
+  "functionspace_agent/schema.py": {
+    "source": "functionspace_agent/schema.py",
+    "sha256": "3afc651bfbe4b3f2d0287a32a03f72e29dee1934db87a14b6efcfc34fd2cdb06"
+  },
+  "functionspace_agent/agent.py": {
+    "source": "functionspace_agent/agent.py",
+    "sha256": "040861e9d59024c2749de0ff2c887160c0d0e7896f9c155aa79fc38d703c2b7b"
+  },
+  "functionspace_agent/judgments.py": {
+    "source": "functionspace_agent/judgments.py",
+    "sha256": "7b9bd791728f42e7082c9bb45859860ea7f18e431b0cf65c2db0711a16b53057"
+  },
+  "material_agent/schema.py": {
+    "source": "material_agent/schema.py",
+    "sha256": "d24e8cffee7f1b5f0b598410147261d2ad1ed467ddfee7b60b3a18c0c45d6d58"
+  },
+  "material_agent/agent.py": {
+    "source": "material_agent/agent.py",
+    "sha256": "e1ca9731ac707cd4947287e3b08add64796cd74b472f9e62c25a1493cd998cc2"
+  },
+  "material_agent/recommendations.py": {
+    "source": "material_agent/recommendations.py",
+    "sha256": "e6e4469ce225ee56b5b2e25c00d4830988c8c34f07aaf72570d144a0e156a0f7"
+  },
+  "material_agent/judgments.py": {
+    "source": "material_agent/judgments.py",
+    "sha256": "5cf00b7b7b53a466e5957a0d571aebb71c02ac11ff60c6390c63f2aed59b4875"
+  },
+  "problem_selection_agent/catalog.py": {
+    "source": "problem_selection_agent/catalog.py",
+    "sha256": "2058771f39ce1e8fa3a6b0ebcec09493476524618db38bf6feff7d67b03ec5e7"
+  },
+  "problem_selection_agent/formulation.py": {
+    "source": "problem_selection_agent/formulation.py",
+    "sha256": "d28d8a5b5cf6742f1ad696b73a7a2550375ac6a4bed9de4774e2ad2ca41287b7"
+  },
+  "problem_selection_agent/service.py": {
+    "source": "problem_selection_agent/service.py",
+    "sha256": "39a5bfe20363f9b1df2091caddab1398838f049e7536750f899019c6da6bbfff"
+  },
+  "problem_selection_agent/workflow.py": {
+    "source": "problem_selection_agent/workflow.py",
+    "sha256": "413b1b4b2b6234f54431152ccb991c7545f10dffe596e0984488487dcf83c7bc"
+  },
+  "problem_selection_agent/questions.py": {
+    "source": "problem_selection_agent/questions.py",
+    "sha256": "a051e3575f2e3baa71959d5759461df49689c05e595e26aae71826333b62ddb3"
+  },
+  "problem_selection_agent/explanation.py": {
+    "source": "problem_selection_agent/explanation.py",
+    "sha256": "4557b33b19ccb3bea3c0013d121bbe55f21d82d99f0c5a2c8afe2680c54e8573"
+  },
+  "problem_selection_agent/library_matching.py": {
+    "source": "problem_selection_agent/library_matching.py",
+    "sha256": "bd148e341bdbde4771c75600dd718a0870ecd79ec2ae68d6b43a69ab252fdc1a"
+  },
+  "problem_selection_agent/spec.py": {
+    "source": "problem_selection_agent/spec.py",
+    "sha256": "696092393ed1d9eba0eebfac410a189280f81fdf418a543911ff4c5e4870ab6b"
+  },
+  "solver_agent/environment.py": {
+    "source": "solver_agent/environment.py",
+    "sha256": "82199fac43a2499b652ab76310930f637d51002fc9da68d5339429ba67f29b61"
+  },
+  "solver_agent/probe.py": {
+    "source": "solver_agent/probe.py",
+    "sha256": "e885232335183ab8d84971a0540fd3aafa1a9f91b36051dd3ee1b3fccaf8679d"
+  },
+  "solver_agent/__init__.py": {
+    "source": "solver_agent/__init__.py",
+    "sha256": "f5417fab9228fa3a95a7813982da868f423f273bf627944517c59b10b261902a"
+  },
+  "solver_agent/agent.py": {
+    "source": "solver_agent/agent.py",
+    "sha256": "e3a61f1b4449bf09a1a854e720fd485b6fae91ec6c5c6e01ca6f039dfe758b8d"
+  },
+  "experiments/kg_version_comparison/api.py": {
+    "source": "experiments/kg_version_comparison/api.py",
+    "sha256": "0bfcfd793db2516c7616f6d938badc606692ee5083fb3ecd3ef9ed68836a39bd"
+  },
+  "experiments/kg_version_comparison/campaign.py": {
+    "source": "experiments/kg_version_comparison/campaign.py",
+    "sha256": "2b9ef28dc990ea1bee57411cf1cbbecfa133fe58bc5fe1e0a527b427ef78e9db"
+  },
+  "experiments/kg_version_comparison/worker.py": {
+    "source": "experiments/kg_version_comparison/worker.py",
+    "sha256": "decb3ba76f3e0c7379cf7e15dbbd5a138044b955a7018539e1ebc386b041e360"
+  },
+  "experiments/kg_version_comparison/parallel.py": {
+    "source": "experiments/kg_version_comparison/parallel.py",
+    "sha256": "f97e871fb12e91fa5421d07ea03ee479bb801fa30ca810e6c6fcc4877904e060"
+  },
+  "experiments/glm_four_arm_20261114/run.py": {
+    "source": "experiments/glm_four_arm_20261114/run.py",
+    "sha256": "428471379243eab86c59d2022e4e4b58167d617018b25b383a4e9ddfb3883ccc"
+  },
+  "experiments/all_models_four_arm_20261114/run_queue.py": {
+    "source": "experiments/all_models_four_arm_20261114/run_queue.py",
+    "sha256": "e0f97d8dc273ada3d9f8bef2a64ec40bf91216784fabc8919b087078c234974d"
+  },
+  "experiments/source_type_graph/repair_feedback.py": {
+    "source": "experiments/source_type_graph/repair_feedback.py",
+    "sha256": "c9a0d83b3aff76d86e45afff8048d552a465899f06aa2179240d283475a42b1a"
+  },
+  "experiments/benchlm_model_screen/support.py": {
+    "source": "experiments/benchlm_model_screen/support.py",
+    "sha256": "2cd6500f2c482210610a10a83919ff126d68c023b1ed7cff68b45876bf968b68"
+  },
+  "experiments/tensile_server_export_20261117/server_export.py": {
+    "source": "experiments/tensile_server_export_20261117/server_export.py",
+    "sha256": "286eb0522731aa1bd361d570017d1b2b2d92d3fcb99074c04f5f219c7359da99"
+  },
+  "experiments/postprocess_stage6_20261116/run.py": {
+    "source": "experiments/postprocess_stage6_20261116/run.py",
+    "sha256": "136a21ea669d50ac39ec5910c8198433e938f5988ec95d53326e0ba3df8dd289"
+  },
+  "experiments/postprocess_stage6_20261116/session.py": {
+    "source": "experiments/postprocess_stage6_20261116/session.py",
+    "sha256": "6abcd5ad9c99d560795651179dd9dcdb08b6c3a22c38f34aa4346f0be5777954"
+  },
+  "experiments/postprocess_stage6_20261116/evaluate.py": {
+    "source": "experiments/postprocess_stage6_20261116/evaluate.py",
+    "sha256": "94fc2aa1702620bc6d686ee63d40be959c2dfab62b5c06e2249c5bf260c0d884"
+  },
+  "experiments/postprocess_stage6_20261116/continue_queue.py": {
+    "source": "experiments/postprocess_stage6_20261116/continue_queue.py",
+    "sha256": "57d949de4ee70c49beffe200359b82f668c1c12099517a3c8b06a5f2a46af2f8"
+  },
+  "run.py": {
+    "source": "experiments/distributed_three_arm_20261117/portable_worker.py",
+    "sha256": "18f481753fe6fab50a36553defdd1bb720b5a890c43877e44b1d66b72d207719"
+  },
+  "runtime_fingerprint.json": {
+    "source": "experiments/distributed_workers_20261116/runtime_fingerprint.json",
+    "sha256": "e8f2b8457c79825a2bb27c716b0e581756f032e5c34985436713da67a787d7b8"
+  },
+  "conda-linux-64.explicit.txt": {
+    "source": "experiments/distributed_workers_20261116/conda-linux-64.explicit.txt",
+    "sha256": "8a3b9fe9126921300fb92dd0e03d4fce4cbca458f58faf0cc79aee84f64d6442"
+  },
+  "frozen_inputs/templates/1_Mesh_Prompt.txt": {
+    "source": "experiments/tensile_server_export_20261117/inputs/templates/1_Mesh_Prompt.txt",
+    "sha256": "538adb3cf3a390f6cacea546d8d3aad2bbba0022c87f11ee797e2f916d2ad70a"
+  },
+  "frozen_inputs/templates/2_Functionspace_Prompt.txt": {
+    "source": "experiments/tensile_server_export_20261117/inputs/templates/2_Functionspace_Prompt.txt",
+    "sha256": "d4db98664c76dc60a65e2db47e6f33ddbb1d7db0f33d4f2b92beebd3a3b6e74d"
+  },
+  "frozen_inputs/templates/3_WeakForm_Prompt.txt": {
+    "source": "experiments/tensile_server_export_20261117/inputs/templates/3_WeakForm_Prompt.txt",
+    "sha256": "d02c8b804b36f8ed0654e22f762190c8c4fbc1d1c1c80bf447721ee97404217b"
+  },
+  "frozen_inputs/templates/4_BC_Prompt.txt": {
+    "source": "experiments/tensile_server_export_20261117/inputs/templates/4_BC_Prompt.txt",
+    "sha256": "9528ead22ab30d2ff21b861ac5d8c4491074a6ad2528fb1b44db39c20d3db282"
+  },
+  "frozen_inputs/templates/5_Solve_Prompt.txt": {
+    "source": "experiments/tensile_server_export_20261117/inputs/templates/5_Solve_Prompt.txt",
+    "sha256": "606273a7da6db831203601495a28857b5250fda8b33bb665123eb655e103444f"
+  },
+  "frozen_inputs/cases/01_heatsink/model.msh": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/01_heatsink/model.msh",
+    "sha256": "e063147460a9f08de91cc4fcb49d583a79ac6ea54cadf2ee5c10aab368074cae"
+  },
+  "frozen_inputs/cases/01_heatsink/prompt.txt": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/01_heatsink/prompt.txt",
+    "sha256": "a4bd6fbe8e35a21d895b35bdc7510e1614819e0a0f65216a524927b92e83c3d7"
+  },
+  "frozen_inputs/cases/02_tensile_specimen/model.msh": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/02_tensile_specimen/model.msh",
+    "sha256": "cb7f5921aa9de883e14f3b84145c1d2057a8b61ab93b432e2fa02a370dc490b5"
+  },
+  "frozen_inputs/cases/02_tensile_specimen/prompt.txt": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/02_tensile_specimen/prompt.txt",
+    "sha256": "ddb0541e1948d1f781cb3bd8b248f29302cd11641d82a59f53e101bd1129277d"
+  },
+  "frozen_inputs/cases/03_rubber_bushing/model.msh": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/03_rubber_bushing/model.msh",
+    "sha256": "0ee9f4973ced29798da8caee8f0028583e0cf441015add27c03e7087adae8504"
+  },
+  "frozen_inputs/cases/03_rubber_bushing/prompt.txt": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/03_rubber_bushing/prompt.txt",
+    "sha256": "f1cf82ba0f289b400817d5ea9058c25d9515744334ceccdb16f68f04b9958239"
+  },
+  "frozen_inputs/cases/04_I_beam/model.msh": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/04_I_beam/model.msh",
+    "sha256": "7dafd370f798c07d194e91c7b7188b7cb659e150b8197cc34f0dd9eece6d5d0f"
+  },
+  "frozen_inputs/cases/04_I_beam/prompt.txt": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/04_I_beam/prompt.txt",
+    "sha256": "8a75eee8a616007a5eb79b0ad995e815b01dd6ad2e9ffdc2009190a9eb2c880d"
+  },
+  "frozen_inputs/cases/05_busbar/model.msh": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/05_busbar/model.msh",
+    "sha256": "04241b1343afc17a6f038f4f16a2c629e4f427fc79ad7bc8cffc574a5ea4323a"
+  },
+  "frozen_inputs/cases/05_busbar/prompt.txt": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/05_busbar/prompt.txt",
+    "sha256": "5d063d9fc917822d927f979d3f1ab6ba50383c8dca2484ac12fdfff4ab36d31d"
+  },
+  "frozen_inputs/cases/06_piezo_cantilever/model.msh": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/06_piezo_cantilever/model.msh",
+    "sha256": "ae8e55c39b18383c7b3709362cf6253cca4205769a462572257bfa90c616fd6d"
+  },
+  "frozen_inputs/cases/06_piezo_cantilever/prompt.txt": {
+    "source": "experiments/glm_four_arm_20261114/inputs/cases/06_piezo_cantilever/prompt.txt",
+    "sha256": "067641d40bb3f2c55fb6804fa0cdfa2bb731cd5c9526fe2ec2863dbbee876535"
+  },
+  "frozen_postprocess/6_Postprocess_Prompt.txt": {
+    "source": "experiments/tensile_server_export_20261117/stage6/6_Postprocess_Prompt.txt",
+    "sha256": "3d95082f870969667c4c6b39ee5aa43e21b88c0f38a2383838bad0fd403e8473"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.io.gmsh/dolfinx.io.gmsh.read_from_msh.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.io.gmsh/dolfinx.io.gmsh.read_from_msh.md",
+    "sha256": "c2fb59e7877e180cb131aef67d1b9dd657b2a2fb114488c0e204ba458a8607c2"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.io.gmsh/dolfinx.io.gmsh.ufl_mesh.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.io.gmsh/dolfinx.io.gmsh.ufl_mesh.md",
+    "sha256": "8e4c6d35f54e3f74545ce01d66c65f0678a837153f9fa41f851ea2f823063c83"
+  },
+  "retrieval_assets/document_chunks/api_markdown/ufl/ufl.MeshView.ufl_mesh.md": {
+    "source": "results_for_paper/document_rag/api_markdown/ufl/ufl.MeshView.ufl_mesh.md",
+    "sha256": "0d84146a3c129803fb19bd2228f6d198f3d80f8d2f9dd5e669114952bc49ebe2"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.mesh/dolfinx.mesh.Geometry.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.mesh/dolfinx.mesh.Geometry.md",
+    "sha256": "bd6504e8c1d0317ed297751d3c7727f0daf7cde84bf998a7c79ea610b34b2e1b"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.io.gmsh/dolfinx.io.gmsh.MeshData.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.io.gmsh/dolfinx.io.gmsh.MeshData.md",
+    "sha256": "a2896959e830d4b3f7bab0122b197ab60b6c4932a647ce909c382a7750b732b5"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.mesh/dolfinx.mesh.MeshTags.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.mesh/dolfinx.mesh.MeshTags.md",
+    "sha256": "e76498a5bd3f28da7d77e9a233c5289c6a119ba62134b1f96a80777d0bfaf0d2"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.io.gmsh/dolfinx.io.gmsh.extract_topology_and_markers.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.io.gmsh/dolfinx.io.gmsh.extract_topology_and_markers.md",
+    "sha256": "2905376017d1201548df4c3710310a9b7f14cbaa7f412fcabb526da7738bf46d"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.mesh/dolfinx.mesh.EntityMap.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.mesh/dolfinx.mesh.EntityMap.md",
+    "sha256": "0449adb8c97944ebf606e614e171c9fe0ff789539d9a2054a21bd4d9302f6d65"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.mesh/dolfinx.mesh.locate_entities.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.mesh/dolfinx.mesh.locate_entities.md",
+    "sha256": "23e14fff696cce6daa2f19ec9a1bb2915d133802b27e80715bc843615f6335a0"
+  },
+  "retrieval_assets/document_chunks/api_markdown/ufl/ufl.Measure.md": {
+    "source": "results_for_paper/document_rag/api_markdown/ufl/ufl.Measure.md",
+    "sha256": "8151e4646f7a3578d1bb2e5598b5606a5220c9b5053efc71a8d20f5ac6f0a85b"
+  },
+  "retrieval_assets/document_chunks/api_markdown/basix.ufl/basix.ufl.mixed_element.md": {
+    "source": "results_for_paper/document_rag/api_markdown/basix.ufl/basix.ufl.mixed_element.md",
+    "sha256": "aaaa4906960128c55966fe54aa7bc48361fd0a38bd2e1fc7f8101064b4e1391f"
+  },
+  "retrieval_assets/document_chunks/api_markdown/basix.ufl/basix.ufl.enriched_element.md": {
+    "source": "results_for_paper/document_rag/api_markdown/basix.ufl/basix.ufl.enriched_element.md",
+    "sha256": "68af673fd1ee8304ab6bf14607fe44a0486d4107075d44b65897c99a08be0473"
+  },
+  "retrieval_assets/document_chunks/api_markdown/basix.ufl/basix.ufl.element.md": {
+    "source": "results_for_paper/document_rag/api_markdown/basix.ufl/basix.ufl.element.md",
+    "sha256": "6a4f3f5fee5d7768f0548e6a6a5b60569fab49f25ff8065458e6419cbdfa98d7"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.functionspace.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.functionspace.md",
+    "sha256": "7684941370f79564a5ac9c49a9088dfe19a1aa7dd75e703eec9058e36d04e73e"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.create_vector.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.create_vector.md",
+    "sha256": "c4ce08650be53806b8de1be81727964a6b79b56f71a9f71be11c12dd36487b9f"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.create_interpolation_data.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.create_interpolation_data.md",
+    "sha256": "62619f02efb8751ee371e93297a4f86c1e0dc8bf1677316a8eb832856c33530f"
+  },
+  "retrieval_assets/document_chunks/api_markdown/ufl/ufl.TrialFunctions.md": {
+    "source": "results_for_paper/document_rag/api_markdown/ufl/ufl.TrialFunctions.md",
+    "sha256": "5a2ebbeef5578103e06fdf5b9f44cf849ce8d5f5f2e3929b47ff8643e6ef9467"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.Constant.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.Constant.md",
+    "sha256": "af46a8ff6e246ef8b62c910df58c59189fb9bf5ec41d1fd9e5a2d40c1f3c973d"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.assemble_scalar.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.assemble_scalar.md",
+    "sha256": "b1c27caaaad1c7a3d63a651cd9736667b3d1932e1cacab8188fb47ead0879976"
+  },
+  "retrieval_assets/document_chunks/api_markdown/ufl/ufl.Form.constants.md": {
+    "source": "results_for_paper/document_rag/api_markdown/ufl/ufl.Form.constants.md",
+    "sha256": "075c8ac2973dff7ad30addb1d6e60adc36e1ef2e67e102567624b6143a377081"
+  },
+  "retrieval_assets/document_chunks/api_markdown/ufl/ufl.Form.md": {
+    "source": "results_for_paper/document_rag/api_markdown/ufl/ufl.Form.md",
+    "sha256": "2a081148a180c7b9391bcac4d82522bf1d124c41d36227fb03722276551f0c9e"
+  },
+  "retrieval_assets/document_chunks/api_markdown/ufl/ufl.Measure.reconstruct.md": {
+    "source": "results_for_paper/document_rag/api_markdown/ufl/ufl.Measure.reconstruct.md",
+    "sha256": "e0fefdb7b33e1aea055d3c8aeeea8485e396c2267db82fe19f3a1facb2693b20"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.mesh/dolfinx.mesh.MeshTags.find.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.mesh/dolfinx.mesh.MeshTags.find.md",
+    "sha256": "1b6dc2e9718a7cc19364cfdc7e60c312271f8b2621422f22978ec5641da9ed3a"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.FunctionSpace.sub.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.FunctionSpace.sub.md",
+    "sha256": "0b3597b6c233ac552388b6a72c7dcb3026e375dc9dac4e50cb84f63b5e3b0d06"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.FunctionSpace.collapse.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.FunctionSpace.collapse.md",
+    "sha256": "5ce3a124e3e68985998062ed545d2019c342210b09ce4d94407f372d04b69ffc"
+  },
+  "retrieval_assets/document_chunks/api_markdown/ufl/ufl.MixedFunctionSpace.ufl_sub_space.md": {
+    "source": "results_for_paper/document_rag/api_markdown/ufl/ufl.MixedFunctionSpace.ufl_sub_space.md",
+    "sha256": "4699a28003cfafec702867431930c46d59f91ef34d9fcd0d41f98de5a7019076"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.locate_dofs_topological.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.locate_dofs_topological.md",
+    "sha256": "824585a462563c53cfd6eea1a8dd2fd579b3d60db7e0e80e44c4cdfc71097424"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.dirichletbc.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.dirichletbc.md",
+    "sha256": "d1206fd21c0c5a94b148466449711096fd5d33c5ba5bf5326cedb4833fe7f14d"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.mesh/dolfinx.mesh.entities_to_geometry.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.mesh/dolfinx.mesh.entities_to_geometry.md",
+    "sha256": "bbe2d45edef4eb1fd3b22d08ca129e50fe74b76db223b440defc752975bb9a1b"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.LinearProblem.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.LinearProblem.md",
+    "sha256": "1ca603110a74b493cd03f803253d72f5c1969f8dfbe8e9528d4d5ba35e905c1a"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.NonlinearProblem.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.NonlinearProblem.md",
+    "sha256": "8f9509fa45ad5f7d1acd546314a9bf2b892729b1d5c069410434661478b2aff8"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.assemble_residual.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.assemble_residual.md",
+    "sha256": "29ad81bed4c3622b7d17b6d5d15d13f7996f50a12a0ab0b8c9d0da2ee96bd006"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.NonlinearProblem.solve.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.NonlinearProblem.solve.md",
+    "sha256": "596fcae4a3cb3eae682d62637d279fd0a5a631f35374167a1051f373e1603176"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.LinearProblem.solve.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.LinearProblem.solve.md",
+    "sha256": "9d2f84ebd400b87da00cf1aec8d370fac5afb4e6783b0944a6a2bc2adfb390d6"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.Function.split.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.Function.split.md",
+    "sha256": "3b6e177b99cb41cd41cf824729a7bf9c81a9abddb498b897f949fb032d0ccda8"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.Function.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.Function.md",
+    "sha256": "5fec1fbf0219a5ba9bdaf4736e65eaec571e2c8375c1f7adcf613c5da48094d7"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.FunctionSpace.tabulate_dof_coordinates.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.FunctionSpace.tabulate_dof_coordinates.md",
+    "sha256": "8b9918d1766984da236c2af917cb86c0696cb4d8d01f5be64a448bb6cd314108"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.locate_dofs_geometrical.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.locate_dofs_geometrical.md",
+    "sha256": "407a36a6bb8d09ae60e6fe6729db0881e8c3fd528e1f231b292d4875e2af8bb2"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.fem/dolfinx.fem.Function.copy.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.fem/dolfinx.fem.Function.copy.md",
+    "sha256": "bb0c81aea0029e82804283d67ca29fe3c549b585779f2235eec587591dc7dadf"
+  },
+  "retrieval_assets/document_chunks/api_markdown/ufl/ufl.Mesh.ufl_coordinate_element.md": {
+    "source": "results_for_paper/document_rag/api_markdown/ufl/ufl.Mesh.ufl_coordinate_element.md",
+    "sha256": "42361ddc53b1f85459d055b0eca03b06a6a9f4316ac81ae25f38962a57630323"
+  },
+  "retrieval_assets/document_chunks/api_markdown/dolfinx.mesh/dolfinx.mesh.Topology.get_cell_permutation_info.md": {
+    "source": "results_for_paper/document_rag/api_markdown/dolfinx.mesh/dolfinx.mesh.Topology.get_cell_permutation_info.md",
+    "sha256": "5fb30556ed530b318a5b090744f2fba2fe03415c2fcce7a7244b8fbf6236bfdf"
+  },
+  "retrieval_assets/review_id_map.json": {
+    "source": "results_for_paper/knowledge_graph/graph_ver2/graph/review_id_map.json",
+    "sha256": "07b4cfd4c5a0b59e39b1af2cd48ad6a451b90fa6df37537af98bd68ea843685a"
+  },
+  "retrieval_assets/api_embeddings.npz": {
+    "source": "results_for_paper/knowledge_graph/graph_ver2/graph/openai_embeddings/api_embeddings.npz",
+    "sha256": "e12db675ca4805508c0f2a125773171bf9cdfe5d6e7094592c8a61c9e366270e"
+  },
+  "retrieval_assets/procedure_embeddings.npz": {
+    "source": "results_for_paper/knowledge_graph/graph_ver2/graph/openai_embeddings/procedure_embeddings.npz",
+    "sha256": "7fac89a68dfa29723417748262216b215638905fb57873a98accbfbebea26f25"
+  },
+  "retrieval_assets/postprocess_query_embeddings.npz": {
+    "source": "experiments/tensile_server_export_20261117/query_embeddings.npz",
+    "sha256": "d226386b1262d830b02a3784e63da5c46746f9a84d34b8a912ed4ed9720cbf59"
+  },
+  "retrieval_assets/postprocess_coverage.json": {
+    "source": "experiments/tensile_server_export_20261117/stage6/coverage.json",
+    "sha256": "0be1971a61a8b7e2be79092940812e189aee68ee322e22bd54811943d0d0ea59"
+  },
+  "experiments/glm_physical_review_20261115/references/linear_elasticity/reference/summary.json": {
+    "source": "experiments/glm_physical_review_20261115/references/linear_elasticity/reference/summary.json",
+    "sha256": "93b5f9a0be6df1ad7dce033b052de997b0f66f9e11a23ce6d50aa84d761479b3"
+  },
+  "experiments/glm_physical_review_20261115/references/linear_elasticity/reference/solution.npz": {
+    "source": "experiments/glm_physical_review_20261115/references/linear_elasticity/reference/solution.npz",
+    "sha256": "b81ba1302d5a98c163f1bc7b3fea8c27cb4cef9e53db6bcdd7332f04546e2a60"
+  },
+  "experiments/glm_physical_review_20261115/references/piezoelectricity/reference/summary.json": {
+    "source": "experiments/glm_physical_review_20261115/references/piezoelectricity/reference/summary.json",
+    "sha256": "474f3b30766c3b943573d2a4b762eefd24700ab005a527dfe8e26ba0dcdb1fe3"
+  },
+  "experiments/glm_physical_review_20261115/references/piezoelectricity/reference/solution.npz": {
+    "source": "experiments/glm_physical_review_20261115/references/piezoelectricity/reference/solution.npz",
+    "sha256": "189b451d1b0654adef3cab0c24c6867cb0a5f832f02c85b2cf622ce1246f05e3"
+  },
+  "experiments/glm_physical_review_20261115/references/thermoelasticity/reference/summary.json": {
+    "source": "experiments/glm_physical_review_20261115/references/thermoelasticity/reference/summary.json",
+    "sha256": "e8ae3fcec76c72cd6a1d9d653691016cf9c11654b258726ad239a25c2ecb28bf"
+  },
+  "experiments/glm_physical_review_20261115/references/thermoelasticity/reference/solution.npz": {
+    "source": "experiments/glm_physical_review_20261115/references/thermoelasticity/reference/solution.npz",
+    "sha256": "a55edd9b6fd8eebaa627308e2e53f44797f73400fe44c3d7e48b006ca53ad5dd"
+  },
+  "experiments/glm_physical_review_20261115/references/hyperelasticity/reference/summary.json": {
+    "source": "experiments/glm_physical_review_20261115/references/hyperelasticity/reference/summary.json",
+    "sha256": "1ec9e50593fddff437f6477c6fce113ff70ceda5459ccf1ad365593e3fda819d"
+  },
+  "experiments/glm_physical_review_20261115/references/hyperelasticity/reference/solution.npz": {
+    "source": "experiments/glm_physical_review_20261115/references/hyperelasticity/reference/solution.npz",
+    "sha256": "408aa2d2762769b565d554f3ac4f770de3444c2058a8f51a9a17abeaea8ebe36"
+  },
+  "experiments/glm_physical_review_20261115/references/heat_transfer/reference/summary.json": {
+    "source": "experiments/glm_physical_review_20261115/references/heat_transfer/reference/summary.json",
+    "sha256": "a70f83102b60fb948829838cb8e6490e6b7f612e85a98c83b0153b50e3d01903"
+  },
+  "experiments/glm_physical_review_20261115/references/heat_transfer/reference/solution.npz": {
+    "source": "experiments/glm_physical_review_20261115/references/heat_transfer/reference/solution.npz",
+    "sha256": "5c962717a441e10bee5b9b31bb20a816440e596be65c145e672be1abe5e51851"
+  },
+  "experiments/glm_physical_review_20261115/references/joule_heating/reference/summary.json": {
+    "source": "experiments/glm_physical_review_20261115/references/joule_heating/reference/summary.json",
+    "sha256": "7b8f2d58b470022e4b1f5153fade8a3f7aa16670925b111c9becac42fbc4fa4f"
+  },
+  "experiments/glm_physical_review_20261115/references/joule_heating/reference/solution.npz": {
+    "source": "experiments/glm_physical_review_20261115/references/joule_heating/reference/solution.npz",
+    "sha256": "e3f375f5f0c4fc8774e2437c94f1f2242c44b90618134bc799e94add2c84ea7c"
+  }
+}

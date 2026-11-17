@@ -1,0 +1,365 @@
+IMPORTS (canonical modules from retrieved EXPORTS; import only what you use):
+  import dolfinx.io.gmsh  # EXPORTS: MeshData, extract_topology_and_markers, model_to_mesh, read_from_msh, ufl_mesh
+  import dolfinx.mesh  # EXPORTS: EntityMap, Geometry, Mesh, MeshTags, create_box, create_geometry, create_interval, create_mesh, create_rectangle, create_submesh, create_unit_cube, create_unit_interval, create_unit_square, locate_entities, meshtags, meshtags_from_entities, refine, transfer_meshtag, uniform_refine
+  import ufl  # EXPORTS: Measure, Mesh, MeshView
+args are ordered as shown; explicit indices are zero-based. Missing args/returns are not empty contracts.
+FEEDS is source/demo dataflow; Sets on both sides expand to every pair. self means receiver.
+cases: when sibling inputs match => value constraint; alternatives are partial; missing guards are unspecified.
+
+API: dolfinx.fem.Function.interpolate [method]
+  description: Interpolate an expression.
+  args: u0:collections.abc.Callable | dolfinx.fem.Expression | dolfinx.fem.Function, cells0:builtins.NoneType | numpy.ndarray=None, cells1:builtins.NoneType | numpy.ndarray=None
+  u0: Callable function, Expression or Function to interpolate.
+  cells0: Cells in mesh associated with ``u0`` to interpolate over. If ``None`` then all cells are interpolated over.
+  cells1: Cells in the mesh associated with ``self`` to interpolate over. If ``None``, then taken to be the same cells as ``cells0``. If ``cells1`` is not ``None``, then it must have the same length as ``cells0``.
+  returns: builtins.NoneType
+
+API: dolfinx.fem.FunctionSpace.mesh [property]
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.io.gmsh.MeshData [class]
+  description: Data for representing a mesh and associated tags.
+  constructor: not_declared
+  field: mesh:dolfinx.mesh.Mesh
+  field: cell_tags:builtins.NoneType | dolfinx.mesh.MeshTags as dolfinx.mesh.MeshTags [union-alternative]
+  field: facet_tags:builtins.NoneType | dolfinx.mesh.MeshTags as dolfinx.mesh.MeshTags [union-alternative]
+  field: peak_tags:builtins.NoneType | dolfinx.mesh.MeshTags as dolfinx.mesh.MeshTags [union-alternative]
+  field: ridge_tags:builtins.NoneType | dolfinx.mesh.MeshTags as dolfinx.mesh.MeshTags [union-alternative]
+  field: physical_groups:builtins.dict[builtins.str, dolfinx.io.gmsh.PhysicalGroup]
+  bases: typing.NamedTuple
+
+API: dolfinx.io.gmsh.extract_topology_and_markers [function]
+  description: Extract all entities tagged with a physical marker in the gmsh
+model.
+  args: model, name:builtins.NoneType | builtins.str=None
+  model: Gmsh model.
+  name: Name of the gmsh model. If not set the current model will be used.
+  returns: builtins.tuple[builtins.dict[builtins.int, dolfinx.io.gmsh.TopologyDict], builtins.dict[builtins.str, dolfinx.io.gmsh.PhysicalGroup]]; builtins.dict[builtins.int, dolfinx.io.gmsh.TopologyDict] [source_path=[0]]; builtins.dict[builtins.str, dolfinx.io.gmsh.PhysicalGroup] [source_path=[1]]
+
+API: dolfinx.io.gmsh.model_to_mesh [function]
+  description: Create a Mesh from a Gmsh model.
+  args: 1:comm:mpi4py.MPI.Comm, 2:rank:builtins.int, 3:gdim:builtins.int=3
+  comm: MPI communicator to use for mesh creation.
+  rank: MPI rank that the Gmsh model is initialized on.
+  gdim: Geometrical dimension of the mesh.
+  returns: dolfinx.io.gmsh.MeshData
+
+API: dolfinx.io.gmsh.read_from_msh [function]
+  description: Read a Gmsh .msh file and return a :class:`dolfinx.mesh.Mesh` and
+cell facet markers.
+  args: filename:builtins.str | pathlib.Path, comm:mpi4py.MPI.Comm, rank:builtins.int=0, gdim:builtins.int=3, partitioner:collections.abc.Callable[[_MPI.Comm, int, int, AdjacencyList], dolfinx.cpp.graph.AdjacencyList_int32] | builtins.NoneType=None
+  filename: Name of ``.msh`` file.
+  comm: MPI communicator to create the mesh on.
+  rank: Rank of ``comm`` responsible for reading the ``.msh`` file.
+  gdim: Geometric dimension of the mesh
+  returns: dolfinx.io.gmsh.MeshData
+
+API: dolfinx.io.gmsh.ufl_mesh [function]
+  description: Create a UFL mesh from a Gmsh cell identifier and geometric
+dimension.
+  args: gmsh_cell:builtins.int, gdim:builtins.int, dtype:numpy.typing.DTypeLike
+  gmsh_cell: Gmsh cell identifier.
+  gdim: Geometric dimension of the mesh.
+  returns: ufl.Mesh
+
+API: dolfinx.mesh.EntityMap [class]
+  description: A bidirectional map that relates entities in two different
+topologies.
+  constructor: public
+  args: entity_map
+  entity_map: A C++ `EntityMap` object
+  field: _cpp_object
+  field: _sub_topology:dolfinx.mesh.Topology
+  field: _topology:dolfinx.mesh.Topology
+
+API: dolfinx.mesh.EntityMap.dim [property]
+
+API: dolfinx.mesh.EntityMap.sub_topology [property]
+  returns: dolfinx.mesh.Topology
+
+API: dolfinx.mesh.EntityMap.sub_topology_to_topology [method]
+  description: Map entities between the sub-topology and the parent topology.
+
+API: dolfinx.mesh.EntityMap.topology [property]
+  returns: dolfinx.mesh.Topology
+
+API: dolfinx.mesh.Geometry [class]
+  description: The geometry of a :class:`dolfinx.mesh.Mesh`
+  constructor: public
+  args: geometry:dolfinx.cpp.mesh.Geometry_float32 | dolfinx.cpp.mesh.Geometry_float64
+  geometry: The C++ geometry object.
+  field: _cpp_object:dolfinx.cpp.mesh.Geometry_float32 | dolfinx.cpp.mesh.Geometry_float64
+
+API: dolfinx.mesh.Geometry.cmap [property]
+  returns: dolfinx.fem.CoordinateElement
+
+API: dolfinx.mesh.Geometry.dim [property]
+
+API: dolfinx.mesh.Geometry.dofmap [property]
+  returns: numpy.typing.NDArray[numpy.int32]
+
+API: dolfinx.mesh.Geometry.index_map [method]
+  description: Index map describing the layout of the geometry points
+(nodes).
+
+API: dolfinx.mesh.Geometry.input_global_indices [property]
+  returns: numpy.typing.NDArray[numpy.int64]
+
+API: dolfinx.mesh.Geometry.x [property]
+  returns: numpy.typing.NDArray[numpy.float32] | numpy.typing.NDArray[numpy.float64]
+
+API: dolfinx.mesh.Mesh [class]
+  description: A mesh.
+  constructor: public
+  args: msh:dolfinx.cpp.mesh.Mesh_float32 | dolfinx.cpp.mesh.Mesh_float64, domain:builtins.NoneType | ufl.Mesh
+  msh: A C++ mesh object.
+  domain: A UFL domain.
+  field: _geometry:dolfinx.mesh.Geometry
+
+API: dolfinx.mesh.Mesh.geometry [property]
+  returns: dolfinx.mesh.Geometry
+
+API: dolfinx.mesh.MeshTags [class]
+  description: Mesh tags associate data (markers) with a subset of mesh entities of
+a given dimension.
+  constructor: public
+  args: meshtags
+  meshtags: C++ mesh tags object.
+  field: _cpp_object
+
+API: dolfinx.mesh.MeshTags.dim [property]
+  returns: builtins.int
+
+API: dolfinx.mesh.MeshTags.find [method]
+  description: Get a list of all entity indices with a given value.
+
+API: dolfinx.mesh.MeshTags.indices [property]
+  returns: numpy.typing.NDArray[numpy.int32]
+
+API: dolfinx.mesh.MeshTags.name [property]
+  returns: builtins.str
+
+API: dolfinx.mesh.MeshTags.topology [property]
+  returns: dolfinx.cpp.mesh.Topology
+
+API: dolfinx.mesh.MeshTags.ufl_id [method]
+  description: Identiftying integer used by UFL.
+
+API: dolfinx.mesh.MeshTags.values [property]
+
+API: dolfinx.mesh.Topology.dim [property]
+  returns: builtins.int
+
+API: dolfinx.mesh.create_box [function]
+  description: Create a box mesh.
+  args: 0:comm:mpi4py.MPI.Comm, 2:n:collections.abc.Sequence[builtins.int], 4:dtype:numpy.typing.DTypeLike=default_real_type
+  comm: MPI communicator.
+  n: List of cells in each direction
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``).
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_geometry [function]
+  description: Create a Geometry object.
+  returns: dolfinx.mesh.Geometry
+
+API: dolfinx.mesh.create_interval [function]
+  description: Create an interval mesh.
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, points:numpy.typing.ArrayLike, dtype:numpy.typing.DTypeLike=default_real_type
+  comm: MPI communicator.
+  nx: Number of cells.
+  points: Coordinates of the end points.
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``).
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_mesh [function]
+  description: Create a mesh from topology and geometry arrays.
+  args: comm:mpi4py.MPI.Comm, cells:numpy.typing.NDArray[numpy.int64], e:basix.finite_element.FiniteElement | basix.ufl._BasixElement | dolfinx.fem.CoordinateElement | ufl.Mesh, x:numpy.typing.NDArray[numpy.floating], partitioner:builtins.NoneType | collections.abc.Callable=None, max_facet_to_cell_links:builtins.int=2
+  comm: MPI communicator to define the mesh on.
+  cells: Cells of the mesh. ``cells[i]`` are the 'nodes' of cell ``i``.
+  e: UFL mesh. The mesh scalar type is determined by the scalar type of ``e``.
+  x: Mesh geometry ('node' coordinates), with shape ``(num_nodes, gdim)``.
+  partitioner: Function that determines the parallel distribution of cells across MPI ranks.
+  max_facet_to_cell_links: Maximum number of cells a facet can be connected to.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_rectangle [function]
+  description: Create a rectangle mesh.
+  args: comm:mpi4py.MPI.Comm, points:numpy.typing.ArrayLike, n:collections.abc.Sequence[builtins.int], cell_type=CellType.triangle, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None, diagonal:dolfinx.cpp.mesh.DiagonalType=DiagonalType.right
+  comm: MPI communicator.
+  points: Coordinates of the lower - left and upper - right corners of the rectangle.
+  n: Number of cells in each direction.
+  cell_type: Mesh cell type.
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``)
+  ghost_mode: Ghost mode used in the mesh partitioning.
+  partitioner: Function that computes the parallel distribution of cells across MPI ranks.
+  diagonal: Direction of diagonal of triangular meshes. See :class:`DiagonalType` for available options.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_submesh [function]
+  description: Create a mesh with specified entities from another mesh.
+  args: msh:dolfinx.mesh.Mesh, dim:builtins.int, entities:numpy.typing.NDArray[numpy.int32]
+  msh: Mesh to create the sub-mesh from.
+  msh cases:
+    when dim:builtins.int; entities:numpy.ndarray[ndim=1] => dolfinx.mesh.Mesh
+  dim: Topological dimension of the entities in ``msh`` to include in the sub-mesh.
+  dim cases:
+    when msh:dolfinx.mesh.Mesh; entities:numpy.ndarray[ndim=1] => builtins.int
+  entities: Indices of entities in ``msh`` to include in the sub-mesh.
+  entities cases:
+    when msh:dolfinx.mesh.Mesh; dim:builtins.int => numpy.ndarray[ndim=1]
+  returns: dolfinx.mesh.Mesh [source_path=[0]]; dolfinx.mesh.EntityMap [source_path=[1]]; dolfinx.mesh.EntityMap [source_path=[2]]
+
+API: dolfinx.mesh.create_unit_cube [function]
+  description: Create a mesh of a unit cube.
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, ny:builtins.int, nz:builtins.int, cell_type=CellType.tetrahedron, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None
+  comm: MPI communicator.
+  nx: Number of cells in "x" direction.
+  ny: Number of cells in "y" direction.
+  nz: Number of cells in "z" direction.
+  cell_type: Mesh cell type
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``).
+  ghost_mode: Ghost mode used in the mesh partitioning.
+  partitioner: Function that computes the parallel distribution of cells across MPI ranks.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_unit_interval [function]
+  description: Create a mesh on the unit interval.
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, dtype:numpy.typing.DTypeLike=default_real_type
+  comm: MPI communicator.
+  nx: Number of cells.
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``).
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.create_unit_square [function]
+  description: Create a mesh of a unit square.
+  args: comm:mpi4py.MPI.Comm, nx:builtins.int, ny:builtins.int, cell_type=CellType.triangle, dtype:numpy.typing.DTypeLike=default_real_type, ghost_mode=GhostMode.shared_facet, partitioner=None, diagonal:dolfinx.cpp.mesh.DiagonalType=DiagonalType.right
+  comm: MPI communicator.
+  nx: Number of cells in the "x" direction.
+  ny: Number of cells in the "y" direction.
+  cell_type: Mesh cell type.
+  dtype: Float type for the mesh geometry(``numpy.float32`` or ``numpy.float64``).
+  ghost_mode: Ghost mode used in the mesh partitioning.
+  partitioner: Function that computes the parallel distribution of cells across MPI ranks.
+  diagonal:  Direction of diagonal. See :class:`DiagonalType` for available options.
+  returns: dolfinx.mesh.Mesh
+
+API: dolfinx.mesh.locate_entities [function]
+  description: Compute mesh entities satisfying a geometric marking function.
+  args: msh:dolfinx.mesh.Mesh, dim:builtins.int, marker:collections.abc.Callable
+  msh: Mesh to locate entities on.
+  dim: Topological dimension of the mesh entities to consider.
+  marker: A function that takes an array of points ``x`` with shape ``(gdim, num_points)`` and returns an array of booleans of length ``num_points``, evaluating to `True` for entities to be located.
+  returns: numpy.ndarray
+
+API: dolfinx.mesh.meshtags [function]
+  description: Create a MeshTags object that associates data with a subset of
+mesh entities.
+  args: msh:dolfinx.mesh.Mesh, dim:builtins.int, entities:numpy.typing.NDArray[numpy.int32], values:builtins.float | builtins.int | numpy.ndarray
+  msh: The mesh.
+  dim: Topological dimension of the mesh entity.
+  entities: Indices(local to process) of entities to associate values with . The array must be sorted and must not contain duplicates.
+  values: The corresponding value for each entity.
+  returns: dolfinx.mesh.MeshTags
+
+API: dolfinx.mesh.meshtags_from_entities [function]
+  description: Create a :class:dolfinx.mesh.MeshTags` object that associates
+data with a subset of mesh entities, where the entities are defined
+by their vertices.
+  args: msh:dolfinx.mesh.Mesh, dim:builtins.int
+  msh: The mesh.
+  dim: Topological dimension of the mesh entity.
+  returns: dolfinx.mesh.MeshTags
+
+API: dolfinx.mesh.refine [function]
+  description: Refine a mesh.
+  args: msh:dolfinx.mesh.Mesh
+  msh: Mesh from which to create the refined mesh.
+  msh cases:
+    when edges:numpy.ndarray | builtins.NoneType[ndim=1]; partitioner:collections.abc.Callable | builtins.NoneType | dolfinx.mesh.IdentityPartitionerPlaceholder; option:dolfinx.mesh.RefinementOption => dolfinx.mesh.Mesh
+  returns: dolfinx.mesh.Mesh [source_path=[0]]
+
+API: dolfinx.mesh.transfer_meshtag [function]
+  description: Generate cell mesh tags on a refined mesh from the mesh tags on the
+coarse parent mesh.
+  returns: dolfinx.mesh.MeshTags
+
+API: dolfinx.mesh.uniform_refine [function]
+  description: Uniformly refine a mesh.
+  args: msh:dolfinx.mesh.Mesh, partitioner:builtins.NoneType | collections.abc.Callable=None
+  msh: Mesh from which to create the refined mesh.
+  partitioner: Partitioner to distribute the refined mesh. If ``None`` is passed (default) no redistribution will happen.
+  returns: dolfinx.mesh.Mesh
+
+API: ufl.Measure [class]
+  description: Representation of an integration measure.
+  constructor: public
+  args: integral_type, domain=None, subdomain_id='everywhere', metadata=None, subdomain_data=None
+  integral_type: one of "cell", etc, or short form "dx", etc
+  domain: an AbstractDomain object (most often a Mesh)
+  subdomain_id: either string "everywhere", a single subdomain id int, or tuple of ints
+  metadata: dict, with additional compiler-specific parameters affecting how code is generated, including parameters for optimization or debugging of generated code
+  subdomain_data: object representing data to interpret subdomain_id with
+  field: _domain
+  field: _integral_type
+  field: _metadata
+  field: _subdomain_data
+  field: _subdomain_id
+
+API: ufl.Measure.__call__ [method]
+  description: Reconfigure measure with new domain specification or metadata.
+  args: subdomain_id=None, metadata=None, domain=None, subdomain_data=None, degree=None, scheme=None
+  returns: ufl.Measure
+
+API: ufl.Measure.integral_type [method]
+  description: Return the domain type.
+
+API: ufl.Measure.metadata [method]
+  description: Return the integral metadata.
+
+API: ufl.Measure.reconstruct [method]
+  description: Construct a new Measure object with some properties replaced with new values.
+  returns: ufl.Measure
+
+API: ufl.Measure.subdomain_data [method]
+  description: Return the integral subdomain_data.
+
+API: ufl.Measure.subdomain_id [method]
+  description: Return the domain id of this measure (integer).
+
+API: ufl.Measure.ufl_domain [method]
+  description: Return the domain associated with this measure.
+
+API: ufl.Mesh [class]
+  description: Symbolic representation of a mesh.
+  constructor: public
+
+API: ufl.Mesh.ufl_cell [method]
+  description: Get the cell.
+
+API: ufl.Mesh.ufl_coordinate_element [method]
+  description: Get the coordinate element.
+
+API: ufl.MeshView [class]
+  description: Symbolic representation of a mesh.
+  constructor: public
+
+API: ufl.MeshView.ufl_mesh [method]
+  description: Get the mesh.
+
+RELATIONS:
+FEEDS:
+  {dolfinx.io.gmsh.MeshData.cell_tags,dolfinx.io.gmsh.MeshData.facet_tags,dolfinx.mesh.meshtags.return} -> {dolfinx.mesh.MeshTags.find.self,ufl.Measure.subdomain_data}
+  {dolfinx.io.gmsh.MeshData.mesh,ufl.Measure.ufl_domain.return} -> ufl.Measure.domain
+  dolfinx.io.gmsh.ufl_mesh.return -> {dolfinx.mesh.Mesh.domain,dolfinx.mesh.create_mesh.e,ufl.Mesh.ufl_cell.self,ufl.Mesh.ufl_coordinate_element.self}
+  {dolfinx.mesh.MeshTags.find.return,dolfinx.mesh.locate_entities.return} -> dolfinx.fem.Function.interpolate.cells0
+  dolfinx.mesh.Topology.dim.return -> {dolfinx.mesh.locate_entities.dim,dolfinx.mesh.meshtags.dim}
+  dolfinx.mesh.create_mesh.return -> dolfinx.mesh.meshtags_from_entities.msh
+  dolfinx.mesh.create_rectangle.return -> dolfinx.mesh.locate_entities.msh
+  dolfinx.mesh.create_unit_cube.return -> {dolfinx.mesh.create_submesh.msh,ufl.Measure.domain}
+  dolfinx.mesh.create_unit_square.return -> {dolfinx.mesh.meshtags.msh,ufl.Measure.domain}
+  ufl.Measure.instance -> ufl.Measure.__call__.self
+  ufl.Measure.integral_type.return -> ufl.Measure.integral_type
+  ufl.Measure.metadata.return -> ufl.Measure.metadata
+  ufl.Measure.subdomain_data.return -> ufl.Measure.subdomain_data
+  ufl.Measure.subdomain_id.return -> ufl.Measure.subdomain_id
+  ufl.Mesh.instance -> dolfinx.mesh.Mesh.domain

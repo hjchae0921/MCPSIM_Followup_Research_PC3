@@ -4,9 +4,27 @@
   "api_timeout_seconds": 900,
   "runtime_timeout_seconds": 1200,
   "hyperelastic_runtime_timeout_seconds": 3600,
-  "source_protocol_sha256": "7ab9d7482ee73c862576f839eafe9ea7ae84c80c644691d194e995520c3ba78b",
   "web_search": false,
   "tools": false,
-  "temperature": "0; GPT-5 mini default 1 exception",
-  "reasoning": "low or lowest supported as recorded by capability preflight"
+  "temperature": 0,
+  "reasoning": "low; lowest supported enabled reasoning if low is unavailable",
+  "sampling": "All models require temperature 0; unsupported configurations block rather than silently switching to non-reasoning.",
+  "retrieval": "Identical description-embedding top3 seeds per Procedure for docs and KG. KG2 includes first-paragraph API and input-role descriptions, removes IS_VALID_INPUT_TO before expansion, and retains one-hop plus FEEDS-only definition expansion.",
+  "postprocess": "Stage six runs in the retained solve process. Coder returns postprocess_fields; server stores NPZ and metadata without correcting DOF ordering.",
+  "criterion": "Coordinate-matched relative L2 < 1e-5; hyperelastic < 2e-3. Temperature uses the established increment normalization. Not an independent equilibrium test.",
+  "feedback": "Runtime and output-interface errors only; reference values and mismatch are never sent to the coder.",
+  "timing": "Record full workflow time, successful API-response time, API-error time, admission waits and stage-six time separately; provider-internal waits cannot be subtracted.",
+  "usage": "Provider-returned input/output/cached/reasoning tokens and reported cost; missing fields remain null. Reasoning is a subset of output tokens.",
+  "repeats": 15,
+  "physics": 6,
+  "arms": [
+    "Card_Only",
+    "Document_Top3",
+    "KG"
+  ],
+  "versions": {
+    "dolfinx": "0.10.0",
+    "ufl": "2025.2.1",
+    "basix": "0.10.0"
+  }
 }
