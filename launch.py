@@ -34,6 +34,8 @@ def main(args):
         raise SystemExit('This station launcher is already running.')
     env = os.environ.copy()
     plan = json.loads((ROOT / 'assignment.json').read_text())
+    if args.station:
+        plan['models'] = json.loads((ROOT / 'station_assignments.json').read_text())['stations'][args.station]
     for transport in {m['transport'] for m in plan['models']}:
         credentials(env, transport)
     env['PYTHONUNBUFFERED'] = '1'
@@ -45,6 +47,8 @@ def main(args):
     # The controller writes directly to a file; no launcher output pipe can break.
     with (ROOT / 'worker.log').open('a', buffering=1) as log:
         for command in commands:
+            if args.station:
+                command = (*command, '--station', args.station)
             print('Starting: ' + ' '.join(command), file=log, flush=True)
             result = subprocess.run([sys.executable, '-u', '-B', str(ROOT / 'run.py'), *command],
                                     cwd=ROOT, env=env, stdin=subprocess.DEVNULL,
@@ -58,13 +62,17 @@ if __name__ == '__main__':
     parser.add_argument('--background', action='store_true')
     parser.add_argument('--workers', type=int, default=6)
     parser.add_argument('--per-model', type=int, default=2)
+    parser.add_argument('--station', choices=['pc1', 'pc2', 'pc3'])
     args = parser.parse_args()
     if not 1 <= args.per_model <= args.workers <= 32:
         parser.error('Require 1 <= per-model <= workers <= 32')
     if args.background:
         with (ROOT / 'launcher.log').open('a') as log:
-            process = subprocess.Popen([sys.executable, '-u', '-B', str(Path(__file__).resolve()),
-                                        '--workers', str(args.workers), '--per-model', str(args.per_model)],
+            command = [sys.executable, '-u', '-B', str(Path(__file__).resolve()),
+                       '--workers', str(args.workers), '--per-model', str(args.per_model)]
+            if args.station:
+                command += ['--station', args.station]
+            process = subprocess.Popen(command,
                                        cwd=ROOT, stdin=subprocess.DEVNULL, stdout=log,
                                        stderr=subprocess.STDOUT, start_new_session=True)
         print(f'Background launcher PID: {process.pid}')

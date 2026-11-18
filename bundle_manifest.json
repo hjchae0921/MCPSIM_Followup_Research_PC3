@@ -2,9 +2,9 @@
   "files": {
     "conda-linux-64.explicit.txt": "8a3b9fe9126921300fb92dd0e03d4fce4cbca458f58faf0cc79aee84f64d6442",
     "experiment_settings.json": "2a98ebc551f9ffbfa4eb01a90c6ffa7a540f78a6b7e2fba75b654e1a037012f3",
-    "run.py": "8b5e71f06562d28a46f37c7717cd950a4342f58990161869c36fd10e9d3235a1",
+    "run.py": "688c8ad43b3e4334cc4e663d84be4e62f1c0501efad10f09d41c8252bc747a24",
     ".gitignore": "6abbd28efd4f6f36eaf252f67e6f4e730b3cd0b65b627efe3ed6bb98f3dc0262",
-    "README.md": "aee4775d8365c3ddbc69d97dab828d86ea5d8e5515d5cb36b3c3d6fdf9a51cf0",
+    "README.md": "9c352c7da6af9d1f06b6d36a06bcb9c4ba14f5bc583a3a47ae580da8790925f7",
     "assignment.json": "0697a1a6680c601b9ca4148ce63d4bd7011a96e5ac2c28d92ae61fd1043d3e2d",
     "source_provenance.json": "42dee99eb31dd9dc24d1d72c7c25902f3903c55c1baaf3c797124324af35cbfa",
     "runtime_fingerprint.json": "e8f2b8457c79825a2bb27c716b0e581756f032e5c34985436713da67a787d7b8",
@@ -191,7 +191,7 @@
     "experiments/glm_physical_review_20261115/references/joule_heating/reference/summary.json": "7b8f2d58b470022e4b1f5153fade8a3f7aa16670925b111c9becac42fbc4fa4f",
     "experiments/glm_physical_review_20261115/references/joule_heating/reference/solution.npz": "e3f375f5f0c4fc8774e2437c94f1f2242c44b90618134bc799e94add2c84ea7c",
     ".gitattributes": "4d5d4658f03b0b6a785a2914549c0adf342dc37003fa55eeb16992fdc3a3ef01",
-    "launch.py": "a46018ea473ff854f6d1a953f1e4bb9395ca1aae1376009d700264b2934e5fba",
+    "launch.py": "7a3e0ebfe8343520f67286c7c28628e64d3f6fc76629c0ec45116f30cd88acd3",
     "organize.py": "65a720c1045c1d11a046e9a5166b54383df45b3681e3216953b440322131a318",
     "station_assignments.json": "1069e59f5fa9ec98e188d66feca16458e428f9f2ad948b93bddfee5c7a1005c9"
   },

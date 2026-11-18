@@ -29,6 +29,17 @@ INPUTS, POST = HOME / 'inputs', HOME / 'postprocess'
 ARMS = tuple(PLAN['arms'])
 
 
+def select_station(station):
+    global PLAN, HOME, INPUTS, POST
+    if station is None:
+        return
+    models = read(ROOT / 'station_assignments.json')['stations'][station]
+    PLAN = {**PLAN, 'station': station, 'models': models,
+            'planned_workflows': len(models) * PLAN['workflows_per_model']}
+    HOME = ROOT / 'outputs' / PLAN['campaign'] / station
+    INPUTS, POST = HOME / 'inputs', HOME / 'postprocess'
+
+
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
@@ -185,6 +196,9 @@ def run(workers, per_model):
         frozen.update({str(p): sha(p) for p in INPUTS.rglob('*') if p.is_file()})
         frozen.update({str(p): sha(p) for p in POST.glob('*') if p.is_file()})
         protocol = {**read(ROOT / 'experiment_settings.json'), 'study': PLAN['campaign'] + '_' + PLAN['station'],
+                    'temperature_exceptions': {m['id']: {'temperature': None, 'reasoning_effort': 'low',
+                                                       'policy': 'Omit temperature; retain low reasoning.'}
+                                               for m in PLAN['models'] if m.get('omit_temperature', False)},
                     'models': PLAN['models'], 'tasks': tasks(), 'planned_workflows': PLAN['planned_workflows'],
                     'model_configs': {m['folder']: e['config'] for m, e in zip(PLAN['models'], evidence)},
                     'frozen_sha256': frozen, 'api_concurrency': workers, 'per_model_concurrency': per_model,
@@ -218,7 +232,9 @@ if __name__ == '__main__':
     parser.add_argument('command', choices=['check', 'prepare', 'run', 'status', 'stop', 'organize', 'export'])
     parser.add_argument('--workers', type=int, default=12)
     parser.add_argument('--per-model', type=int, default=4)
+    parser.add_argument('--station', choices=['pc1', 'pc2', 'pc3'])
     args = parser.parse_args()
+    select_station(args.station)
     if not 1 <= args.per_model <= args.workers <= 32:
         parser.error('Require 1 <= per-model <= workers <= 32')
     if args.command == 'check':

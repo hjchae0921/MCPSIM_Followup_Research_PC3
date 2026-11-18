@@ -47,3 +47,7 @@ python -B run.py stop
 ```
 
 Organized results use `organized_results/model/KG|Card|RAG/physics/Success|Fail/timestamp`. Success means execution success. `index.csv` lists timestamp identities. All organization is copied from the raw results. Export includes this organized view. After a stop, remove the campaign's `STOP` and `postprocess/STOP` files before resuming. Unreceipted submissions are not silently repeated.
+
+## Select another station from the same source
+
+All station assignments are published in this repository. To use this source for PC1, run `python -u -B launch.py --station pc1 --background --workers 6 --per-model 2`. Inspect that station with `python -B run.py status --station pc1`. The default remains the station in `assignment.json`. Use a dedicated checkout for each running station.
