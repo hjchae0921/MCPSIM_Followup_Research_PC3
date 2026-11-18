@@ -1,20 +1,21 @@
 {
-  "campaign": "three_arm_20261117",
+  "campaign": "three_arm_low_timestamp_20261118",
   "station": "pc3",
   "models": [
     {
-      "folder": "Deepseek V3.1",
-      "id": "deepseek/deepseek-chat-v3.1",
+      "folder": "GPT-5 mini",
+      "id": "gpt-5-mini",
+      "transport": "openai",
+      "omit_temperature": true
+    },
+    {
+      "folder": "GLM 4.7 Flash",
+      "id": "z-ai/glm-4.7-flash",
       "transport": "openrouter"
     },
     {
-      "folder": "GPT-5.4 mini",
-      "id": "gpt-5.4-mini",
-      "transport": "openai"
-    },
-    {
-      "folder": "Qwen 3.8 27B",
-      "id": "qwen/qwen3.8-27b",
+      "folder": "GLM 5.3 Flash",
+      "id": "z-ai/glm-5.3-flash",
       "transport": "openrouter"
     }
   ],

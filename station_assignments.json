@@ -1,0 +1,50 @@
+{
+  "campaign": "three_arm_low_timestamp_20261118",
+  "stations": {
+    "pc1": [
+      {
+        "folder": "Claude Haiku 4.5",
+        "id": "anthropic/claude-haiku-4.5",
+        "transport": "openrouter",
+        "omit_temperature": true
+      },
+      {
+        "folder": "Gemma 4 31B",
+        "id": "google/gemma-4-31b-it",
+        "transport": "openrouter"
+      }
+    ],
+    "pc2": [
+      {
+        "folder": "MiniMax M3.1 Flash",
+        "id": "minimax/minimax-m3.1-flash",
+        "transport": "openrouter"
+      },
+      {
+        "folder": "Qwen 3.8 27B",
+        "id": "qwen/qwen3.8-27b",
+        "transport": "openrouter"
+      }
+    ],
+    "pc3": [
+      {
+        "folder": "GPT-5 mini",
+        "id": "gpt-5-mini",
+        "transport": "openai",
+        "omit_temperature": true
+      },
+      {
+        "folder": "GLM 4.7 Flash",
+        "id": "z-ai/glm-4.7-flash",
+        "transport": "openrouter"
+      },
+      {
+        "folder": "GLM 5.3 Flash",
+        "id": "z-ai/glm-5.3-flash",
+        "transport": "openrouter"
+      }
+    ]
+  },
+  "repeats_per_model_method_physics": 15,
+  "reasoning_effort": "low"
+}

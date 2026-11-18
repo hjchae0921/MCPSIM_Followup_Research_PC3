@@ -10,3 +10,10 @@ __pycache__/
 .venv/
 core
 core.*
+
+# Local credentials and detached-launch state
+openrouter_api_key.txt
+openai_api.txt
+.env
+.env.*
+launcher.lock

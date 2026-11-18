@@ -11,6 +11,8 @@ from pathlib import Path
 import shutil
 import sys
 import zipfile
+from datetime import datetime, timedelta, timezone
+import signal
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
@@ -40,6 +42,8 @@ def verify_bundle():
 def environment():
     from mpi4py import MPI
     from petsc4py import PETSc
+    # Preserve Python's recoverable BrokenPipeError in the controller.
+    signal.signal(signal.SIGPIPE, signal.SIG_IGN)
     expected = read(ROOT / 'runtime_fingerprint.json')
     measured = {name: importlib.metadata.version(name) for name in
                 ('fenics-dolfinx', 'fenics-basix', 'fenics-ufl', 'fenics-ffcx', 'petsc4py', 'numpy', 'scipy', 'mpi4py', 'gmsh')}
@@ -79,21 +83,34 @@ def prepare_inputs():
 
 
 def tasks():
+    path = HOME / 'task_plan.json'
+    if path.exists():
+        return read(path)['tasks']
     result = []
-    for repeat in range(1, PLAN['repeats'] + 1):
+    previous = None
+    for cycle in range(PLAN['repeats']):
         for i, (case, case_folder) in enumerate(base.CASES):
-            shift = (repeat - 1 + i) % len(ARMS)
+            shift = (cycle + i) % len(ARMS)
             for arm in ARMS[shift:] + ARMS[:shift]:
                 for model in PLAN['models']:
+                    created = datetime.now(timezone(timedelta(hours=9)))
+                    if previous is not None and created <= previous:
+                        created = previous + timedelta(microseconds=1)
+                    previous = created
+                    stamp = created.strftime('%Y_%m_%d_%H_%M_%S_%f')
+                    label = {'Card_Only': 'Card', 'Document_Top3': 'RAG', 'KG': 'KG'}[arm]
                     result.append({'model': model['folder'], 'graph': arm, 'case': case, 'case_folder': case_folder,
-                                   'repeat': repeat, 'directory': str(HOME / 'runs' / model['folder'] / arm / case / f'run_{repeat:02d}')})
+                                   'experiment_timestamp': stamp, 'created_at_kst': created.isoformat(),
+                                   'directory': str(HOME / 'records' / model['folder'] / label / case / stamp)})
     assert len(result) == PLAN['planned_workflows']
     assert len({t['directory'] for t in result}) == len(result)
+    write(path, {'identity': 'KST timestamp allocated at experiment registration; started_at records actual execution start.',
+                 'tasks': result})
     return result
 
 
 def post_path(task):
-    return POST / 'items' / task['model'] / task['graph'] / task['case'] / f"run_{task['repeat']:02d}"
+    return POST / 'items' / task['model'] / task['graph'] / task['case'] / task['experiment_timestamp']
 
 
 def report(_=None):
@@ -109,7 +126,7 @@ def report(_=None):
         post_result = pp / 'result.json'
         post_state = pp / 'state.json'
         post = read(post_result if post_result.exists() else post_state) if post_result.exists() or post_state.exists() else {}
-        row = {k: task[k] for k in ('model', 'graph', 'case', 'repeat')}
+        row = {k: task[k] for k in ('model', 'graph', 'case', 'experiment_timestamp')}
         row.update({k: state.get(k) for k in ('status', 'stage', 'wall_seconds', 'api_response_seconds', 'api_error_seconds',
                                              'input_tokens', 'output_tokens', 'reasoning_tokens', 'cached_tokens', 'cost_usd', 'repair_calls')})
         row.update(postprocess_status=post.get('status'), reference_status=post.get('reference_status'),
@@ -152,8 +169,14 @@ def run(workers, per_model):
             raise ValueError('Resume with the frozen concurrency settings.')
     else:
         def probe(model):
-            value = preflight(model, HOME / 'preflight' / model['folder'])
-            if value.get('status') != 'ready' or value['config']['temperature'] != 0 or value['config']['reasoning'].get('enabled') is False:
+            value = preflight(model, HOME / 'preflight' / model['folder'],
+                              strict_low=True, omit_temperature=model.get('omit_temperature', False))
+            config = value.get('config', {})
+            expected_temperature = None if model.get('omit_temperature', False) else 0
+            if (value.get('status') != 'ready'
+                    or config.get('temperature') != expected_temperature
+                    or config.get('reasoning', {}).get('enabled') is False
+                    or config.get('reasoning', {}).get('effort') != 'low'):
                 raise ValueError('Reasoning/temperature preflight failed: ' + model['folder'])
             return value
         with ThreadPoolExecutor(max_workers=len(PLAN['models'])) as pool:
@@ -192,7 +215,7 @@ def export():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('command', choices=['check', 'prepare', 'run', 'status', 'stop', 'export'])
+    parser.add_argument('command', choices=['check', 'prepare', 'run', 'status', 'stop', 'organize', 'export'])
     parser.add_argument('--workers', type=int, default=12)
     parser.add_argument('--per-model', type=int, default=4)
     args = parser.parse_args()
@@ -211,6 +234,9 @@ if __name__ == '__main__':
         print(json.dumps(report(), indent=2))
     elif args.command == 'export':
         export()
+    elif args.command == 'organize':
+        from organize import organize
+        print(json.dumps(organize(HOME, tasks(), HOME / 'organized_results'), indent=2))
     else:
         HOME.mkdir(parents=True, exist_ok=True)
         POST.mkdir(parents=True, exist_ok=True)

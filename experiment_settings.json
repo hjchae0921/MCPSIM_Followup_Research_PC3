@@ -7,8 +7,8 @@
   "web_search": false,
   "tools": false,
   "temperature": 0,
-  "reasoning": "low; lowest supported enabled reasoning if low is unavailable",
-  "sampling": "All models require temperature 0; unsupported configurations block rather than silently switching to non-reasoning.",
+  "reasoning": "low; unsupported low reasoning blocks the station, with no effort fallback",
+  "sampling": "Low reasoning for every model. Temperature omitted for Claude Haiku 4.5 and GPT-5 mini; temperature 0 for remaining models. Actual accepted configurations are recorded by preflight.",
   "retrieval": "Identical description-embedding top3 seeds per Procedure for docs and KG. KG2 includes first-paragraph API and input-role descriptions, removes IS_VALID_INPUT_TO before expansion, and retains one-hop plus FEEDS-only definition expansion.",
   "postprocess": "Stage six runs in the retained solve process. Coder returns postprocess_fields; server stores NPZ and metadata without correcting DOF ordering.",
   "criterion": "Coordinate-matched relative L2 < 1e-5; hyperelastic < 2e-3. Temperature uses the established increment normalization. Not an independent equilibrium test.",
@@ -26,5 +26,23 @@
     "dolfinx": "0.10.0",
     "ufl": "2025.2.1",
     "basix": "0.10.0"
+  },
+  "temperature_exceptions": {
+    "gpt-5-mini": {
+      "transport": "openai",
+      "temperature": null,
+      "reasoning_effort": "low",
+      "policy": "Omit temperature to preserve low reasoning."
+    }
+  },
+  "identity_policy": {
+    "identifier": "experiment_timestamp",
+    "timezone": "Asia/Seoul",
+    "format": "YYYY_MM_DD_HH_MM_SS_microseconds",
+    "allocation": "Experiment registration time; actual execution start is recorded separately as started_at.",
+    "per_experiment_ordinal_persisted": false,
+    "generation_policy": "Paths and experiment identities are generated directly from timestamps; no numbered-run naming is used by the active pipeline.",
+    "content_filtering": false,
+    "raw_provider_records": "Unchanged provider responses and errors; no experiment-label redaction, rejection or replacement."
   }
 }

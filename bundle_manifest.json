@@ -1,11 +1,11 @@
 {
   "files": {
     "conda-linux-64.explicit.txt": "8a3b9fe9126921300fb92dd0e03d4fce4cbca458f58faf0cc79aee84f64d6442",
-    "experiment_settings.json": "be5ac87ac84d86801ec8dd0bcc060f965140c210f9af5c9f47b6bc30fe64055a",
-    "run.py": "18f481753fe6fab50a36553defdd1bb720b5a890c43877e44b1d66b72d207719",
-    ".gitignore": "8ae4955fad49964ecce315dccd584ab802faa8c7e5e97cf723c30cc5af4f2ded",
-    "README.md": "fa56d3e73af1d59d8fb94e7cab467f4e99d85ffd9ab8e55d3826671f3658e127",
-    "assignment.json": "d328cfb1a5f9109faa1b5ff3c60f7613f095c51de15e0903c4c3ff7f10797308",
+    "experiment_settings.json": "2a98ebc551f9ffbfa4eb01a90c6ffa7a540f78a6b7e2fba75b654e1a037012f3",
+    "run.py": "8b5e71f06562d28a46f37c7717cd950a4342f58990161869c36fd10e9d3235a1",
+    ".gitignore": "6abbd28efd4f6f36eaf252f67e6f4e730b3cd0b65b627efe3ed6bb98f3dc0262",
+    "README.md": "aee4775d8365c3ddbc69d97dab828d86ea5d8e5515d5cb36b3c3d6fdf9a51cf0",
+    "assignment.json": "0697a1a6680c601b9ca4148ce63d4bd7011a96e5ac2c28d92ae61fd1043d3e2d",
     "source_provenance.json": "42dee99eb31dd9dc24d1d72c7c25902f3903c55c1baaf3c797124324af35cbfa",
     "runtime_fingerprint.json": "e8f2b8457c79825a2bb27c716b0e581756f032e5c34985436713da67a787d7b8",
     "requirements.txt": "30c1fb5a39507d55595602e6edda7053ae987aa0f5593a8289f1bf6aae356906",
@@ -166,17 +166,17 @@
     "retrieval_assets/document_chunks/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.LinearProblem.solve.md": "9d2f84ebd400b87da00cf1aec8d370fac5afb4e6783b0944a6a2bc2adfb390d6",
     "retrieval_assets/document_chunks/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.NonlinearProblem.md": "8f9509fa45ad5f7d1acd546314a9bf2b892729b1d5c069410434661478b2aff8",
     "experiments/tensile_server_export_20261117/server_export.py": "286eb0522731aa1bd361d570017d1b2b2d92d3fcb99074c04f5f219c7359da99",
-    "experiments/glm_four_arm_20261114/run.py": "428471379243eab86c59d2022e4e4b58167d617018b25b383a4e9ddfb3883ccc",
+    "experiments/glm_four_arm_20261114/run.py": "d44220e5afb4f50917207b2d64a90025040ffdf6017269cf71b0459458de63f1",
     "experiments/all_models_four_arm_20261114/run_queue.py": "e0f97d8dc273ada3d9f8bef2a64ec40bf91216784fabc8919b087078c234974d",
     "experiments/source_type_graph/repair_feedback.py": "c9a0d83b3aff76d86e45afff8048d552a465899f06aa2179240d283475a42b1a",
     "experiments/benchlm_model_screen/support.py": "2cd6500f2c482210610a10a83919ff126d68c023b1ed7cff68b45876bf968b68",
-    "experiments/postprocess_stage6_20261116/run.py": "136a21ea669d50ac39ec5910c8198433e938f5988ec95d53326e0ba3df8dd289",
+    "experiments/postprocess_stage6_20261116/run.py": "6abf0abe3e7c7add470698c3703eab19c4ce6961e56d4c0b8a3cc34280b798bf",
     "experiments/postprocess_stage6_20261116/session.py": "6abcd5ad9c99d560795651179dd9dcdb08b6c3a22c38f34aa4346f0be5777954",
     "experiments/postprocess_stage6_20261116/evaluate.py": "94fc2aa1702620bc6d686ee63d40be959c2dfab62b5c06e2249c5bf260c0d884",
-    "experiments/postprocess_stage6_20261116/continue_queue.py": "57d949de4ee70c49beffe200359b82f668c1c12099517a3c8b06a5f2a46af2f8",
+    "experiments/postprocess_stage6_20261116/continue_queue.py": "76c3075fa57ff12fcb110c4ebd472b16d199d3e3fbe31533a8cec2482be901cc",
     "experiments/kg_version_comparison/worker.py": "decb3ba76f3e0c7379cf7e15dbbd5a138044b955a7018539e1ebc386b041e360",
     "experiments/kg_version_comparison/parallel.py": "f97e871fb12e91fa5421d07ea03ee479bb801fa30ca810e6c6fcc4877904e060",
-    "experiments/kg_version_comparison/api.py": "0bfcfd793db2516c7616f6d938badc606692ee5083fb3ecd3ef9ed68836a39bd",
+    "experiments/kg_version_comparison/api.py": "93f8fe6b7c87c4704c462077c66a22751ab03192a6577ea56e4e79d15dae403b",
     "experiments/kg_version_comparison/campaign.py": "2b9ef28dc990ea1bee57411cf1cbbecfa133fe58bc5fe1e0a527b427ef78e9db",
     "experiments/glm_physical_review_20261115/references/linear_elasticity/reference/summary.json": "93b5f9a0be6df1ad7dce033b052de997b0f66f9e11a23ce6d50aa84d761479b3",
     "experiments/glm_physical_review_20261115/references/linear_elasticity/reference/solution.npz": "b81ba1302d5a98c163f1bc7b3fea8c27cb4cef9e53db6bcdd7332f04546e2a60",
@@ -190,8 +190,11 @@
     "experiments/glm_physical_review_20261115/references/heat_transfer/reference/solution.npz": "5c962717a441e10bee5b9b31bb20a816440e596be65c145e672be1abe5e51851",
     "experiments/glm_physical_review_20261115/references/joule_heating/reference/summary.json": "7b8f2d58b470022e4b1f5153fade8a3f7aa16670925b111c9becac42fbc4fa4f",
     "experiments/glm_physical_review_20261115/references/joule_heating/reference/solution.npz": "e3f375f5f0c4fc8774e2437c94f1f2242c44b90618134bc799e94add2c84ea7c",
-    ".gitattributes": "4d5d4658f03b0b6a785a2914549c0adf342dc37003fa55eeb16992fdc3a3ef01"
+    ".gitattributes": "4d5d4658f03b0b6a785a2914549c0adf342dc37003fa55eeb16992fdc3a3ef01",
+    "launch.py": "a46018ea473ff854f6d1a953f1e4bb9395ca1aae1376009d700264b2934e5fba",
+    "organize.py": "65a720c1045c1d11a046e9a5166b54383df45b3681e3216953b440322131a318",
+    "station_assignments.json": "1069e59f5fa9ec98e188d66feca16458e428f9f2ad948b93bddfee5c7a1005c9"
   },
   "station": "pc3",
-  "campaign": "three_arm_20261117"
+  "campaign": "three_arm_low_timestamp_20261118"
 }

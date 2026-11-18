@@ -227,7 +227,7 @@ def run(protocol):
             if not running and pending:time.sleep(1)
             for future in done:
                 task=running.pop(future);result=future.result()
-                print(json.dumps({k:result.get(k) for k in ('model','case','graph','repeat','status','wall_seconds')}),flush=True)
+                print(json.dumps({k:result.get(k) for k in ('model','case','graph','experiment_timestamp','status','wall_seconds')}),flush=True)
                 if result.get('status')=='provider_error':
                     receipts=[read(p) for p in Path(task['directory']).glob('[1-5]_*/attempt_*/api_call.json')]
                     if any(r.get('status_code')==402 for r in receipts):enabled=False;blocked_balance=balance

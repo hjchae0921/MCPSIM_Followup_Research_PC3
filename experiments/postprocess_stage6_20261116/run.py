@@ -119,7 +119,7 @@ def run_job(job,config,held_session=None):
         value={'status':'stage6_error' if session is not None else 'replay_failed','error':traceback.format_exc()}
     finally:
         if session is not None:session.close()
-    value.update({k:job[k] for k in ('model','graph','case','repeat')},finished_at=now(),wall_seconds=time.monotonic()-started,
+    value.update({k:job[k] for k in ('model','graph','case','experiment_timestamp')},finished_at=now(),wall_seconds=time.monotonic()-started,
         replay_seconds=session.ready['replay_seconds'] if session is not None else None,
         original_sources_unchanged=all(sha(p)==h for p,h in hashes.items()),**usage(folder))
     if not value['original_sources_unchanged']:raise RuntimeError('Accepted source changed during stage-six execution')

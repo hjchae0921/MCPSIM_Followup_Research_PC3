@@ -27,7 +27,7 @@ BASE_RUN=queue.base.run
 def make_job(task,result):
     original=Path(task['directory'])
     return {**task,'original_directory':str(original),
-        'directory':str(HERE/'items'/task['model']/task['graph']/task['case']/f"run_{task['repeat']:02d}"),
+        'directory':str(HERE/'items'/task['model']/task['graph']/task['case']/task['experiment_timestamp']),
         'sources':[str(original/p) for p in result['accepted_sources']]}
 
 

@@ -1,72 +1,49 @@
-# MCPSIM benchmark worker — PC3
+# MCPSIM timestamp worker — PC3
 
-## Files and folders
+Assigned models: GPT-5 mini (low), GLM 4.7 Flash (low), GLM 5.3 Flash (low). Each model runs six physics cases × three methods × 15 independent workflows (270 workflows). This station has **810 workflows**.
 
-- `assignment.json`: Deepseek V3.1, GPT-5.4 mini, Qwen 3.8 27B; 15 repeats per physics and input method, 810 workflows.
-- `run.py`: runtime checks, model preflight, parallel execution, progress and result export.
-- `frozen_inputs/`: cards, meshes, five-stage templates and Card Only / Document Top3 / KG contexts.
-- `frozen_postprocess/`: current sixth-stage prompt and corresponding contexts.
-- `retrieval_assets/`: KG2 without `IS_VALID_INPUT_TO`, API embeddings, selected document chunks, rankings and token counts. KG includes API first-paragraph and input-role descriptions.
-- `experiments/`: stage worker, self-repair, retained-process postprocessing, server storage and fixed reference fields.
-- `common/`, `codegen/`, `*_agent/`: shared dependencies of the stage worker.
-- `conda-linux-64.explicit.txt`, `runtime_fingerprint.json`, `requirements.txt`: pinned execution environment.
-- `outputs/three_arm_20261117/pc3/`: generated results; not committed.
+All three station assignments are listed in `station_assignments.json`. PC1 runs Claude Haiku 4.5 and Gemma 4 31B; PC2 runs MiniMax M3.1 Flash and Qwen 3.8 27B; PC3 runs GPT-5 mini, GLM 4.7 Flash and GLM 5.3 Flash.
 
-The six cases are heat sink, tensile specimen, rubber bellows, thermoelastic I-beam, Joule-heating busbar, and piezoelectric cantilever. Each model runs 6 cases × 3 methods × 15 repeats = 270 workflows.
+## Environment and keys
 
-## Setup
-
-Use Ubuntu or WSL2 on Linux x86-64 with Miniforge installed. From a fresh clone:
+Use Ubuntu/WSL2 Linux x86-64, one MPI rank, and the pinned environment:
 
 ```bash
 conda create -n mcpsim-worker --file conda-linux-64.explicit.txt
 conda activate mcpsim-worker
 python -m pip install -r requirements.txt
 python -B run.py check
-python -B run.py prepare
 ```
 
-If the pinned environment is already installed, activate it and run `check`. Required scientific versions include DOLFINx 0.10.0, Basix 0.10.0 and UFL 2025.2.1. The controller uses one MPI rank; do not launch it through `mpirun`.
+Set `OPENROUTER_API_KEY` in the environment or point `OPENROUTER_API_KEY_FILE` at a local key file. PC3 additionally needs `OPENAI_API_KEY` or `OPENAI_API_KEY_FILE` for **GPT-5 mini (`gpt-5-mini`)**. The launcher can also read `openrouter_api_key.txt` and `openai_api.txt` from the checkout or its parent. Never commit keys.
 
-## Run
+## Start and resume
 
-Set keys in the terminal, never in tracked files:
-
-```bash
-read -rsp "OpenRouter API key: " OPENROUTER_API_KEY
-export OPENROUTER_API_KEY
-printf '\n'
-```
-
-PC3 also requires an OpenAI API key for GPT-5.4 mini:
+Stop any earlier worker using this checkout before updating it. Existing older campaign outputs stay untouched; the new campaign has a separate output directory.
 
 ```bash
-read -rsp "OpenAI API key: " OPENAI_API_KEY
-export OPENAI_API_KEY
-printf '\n'
-```
-
-```bash
-python -u -B run.py run --workers 12 --per-model 4 2>&1 | tee worker.log
-```
-
-Keep the terminal open or use `tmux`. For a smaller machine, choose `--workers 6 --per-model 2` on the first run. Resume with the same settings. Only run this assignment on its named PC; keep any earlier worker stopped.
-
-Sampling uses temperature 0 and low reasoning, falling back only to an accepted enabled reasoning setting. The preflight records the actual configuration. Web search and tool calls are disabled. Each stage allows an initial attempt and up to five current-stage repairs. API-returned reasoning, usage, costs, errors and timing are saved; private reasoning is not reconstructed.
-
-The sixth stage extracts coordinates and values in the same process as the accepted solve. The server writes NPZ and metadata. Reference comparison is performed afterward and is never feedback for code repair. Execution success and reference agreement are reported separately. The established relative-error threshold is 1e-5, or 2e-3 for hyperelasticity; temperature uses the reference temperature-increment normalization.
-
-## Progress and results
-
-```bash
+python -u -B launch.py --background --workers 6 --per-model 2
 python -B run.py status
-python -B run.py export
 ```
 
-`summary.json` under the output folder provides model/method/physics counts, stage-six outcomes and reference agreement. `export` creates `pc3_three_arm_20261117_results.zip`; transfer it to PC1 after completion. Successful API response time, failed-request time and full workflow time are separate; internal provider waits remain part of response latency.
+Use the activated pinned Python interpreter for the launcher. Keep the same concurrency values on resume. `worker.log` stores the controller output; `launcher.log` records launcher errors. The launcher runs checks, prepares immutable inputs, executes, organizes the terminal results, and exports a ZIP. It detaches from the terminal. Windows sleep or WSL shutdown still interrupts computation.
+
+## Identity and raw records
+
+Experiment paths use `YYYY_MM_DD_HH_MM_SS_microseconds` in Korea time (UTC+9), allocated when the experiment is registered. `started_at` separately records actual execution start. There is no numbered experiment-directory identity. Repetition counts, stage numbers, repair calls and attempt counters remain valid.
+
+The worker creates timestamp identities directly. There is **no runtime content filter, label rejection or text replacement**. Requests, responses, errors and API-returned reasoning are preserved as returned; missing provider fields stay null. Historical workflows are not imported or rewritten.
+
+All model calls request **low reasoning**. A failed low-reasoning preflight blocks the station; there is no fallback to another effort or disabled reasoning. Claude Haiku 4.5 and GPT-5 mini omit temperature; the remaining assigned models use temperature 0. Accepted configurations are recorded in `preflight` and `protocol.json`. OpenRouter may map its unified low effort to provider-native controls: https://openrouter.ai/docs/guides/best-practices/reasoning-tokens
+
+## Results and stop
+
+Outputs: `outputs/three_arm_low_timestamp_20261118/pc3/`. Raw workflows are under `records/model/method/physics/timestamp`. Stage-six processing uses the same accepted solver process. Reference agreement never feeds code repair; execution success and reference agreement are distinct metrics.
 
 ```bash
+python -B run.py organize
+python -B run.py export
 python -B run.py stop
 ```
 
-Stop prevents new submissions but may wait for an in-flight request. After it stops, remove the two STOP files under the campaign output and its `postprocess/` subfolder to resume. Recorded responses are reused; an unreceipted submission is not silently repeated. Do not edit frozen inputs or move an initialized bundle before resuming.
+Organized results use `organized_results/model/KG|Card|RAG/physics/Success|Fail/timestamp`. Success means execution success. `index.csv` lists timestamp identities. All organization is copied from the raw results. Export includes this organized view. After a stop, remove the campaign's `STOP` and `postprocess/STOP` files before resuming. Unreceipted submissions are not silently repeated.

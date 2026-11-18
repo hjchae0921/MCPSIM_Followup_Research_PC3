@@ -153,7 +153,7 @@ def call(config, messages, directory, *, stopped=lambda: False, limit=None):
     raise ProviderFailure("HTTP retry limit exhausted.")
 
 
-def preflight(model, directory, *, gpt_temperature_exception=False):
+def preflight(model, directory, *, gpt_temperature_exception=False, strict_low=False, omit_temperature=False):
     directory = Path(directory)
     destination = directory / "preflight.json"
     if destination.exists():
@@ -162,7 +162,7 @@ def preflight(model, directory, *, gpt_temperature_exception=False):
             return previous
         if previous.get("status") != "awaiting_temperature_decision" or not gpt_temperature_exception:
             return previous
-    config = {"model": model["id"], "transport": model["transport"], "temperature": 0,
+    config = {"model": model["id"], "transport": model["transport"], "temperature": None if omit_temperature else 0,
               "reasoning": {"effort": "low"}, "max_output_tokens": 65536}
     try:
         if config["transport"] == "openrouter":
@@ -183,6 +183,8 @@ def preflight(model, directory, *, gpt_temperature_exception=False):
             levels = [("low", {"effort": "low"}), ("minimal", {"effort": "minimal"}),
                       ("minimum_budget_1024", {"max_tokens": 1024}),
                       ("disabled", {"enabled": False})]
+            if strict_low:
+                levels = [("low", {"effort": "low"})]
         else:
             if gpt_temperature_exception:
                 config["temperature"] = None
