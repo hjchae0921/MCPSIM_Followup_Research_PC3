@@ -108,19 +108,19 @@
         ]
       },
       {
-        "query": "Create the function spaces on the existing mesh and initialize persistent finite element coefficient fields for the unknowns and internal states.",
+        "query": "Create the function spaces on the existing mesh and initialize persistent finite element coefficient fields for the unknowns.",
         "top_3": [
           {
             "id": "n336",
-            "cosine_similarity": 0.6493462631202184
+            "cosine_similarity": 0.6651910336812621
           },
           {
             "id": "n290",
-            "cosine_similarity": 0.5174254656687529
+            "cosine_similarity": 0.5234277333453434
           },
           {
             "id": "n281",
-            "cosine_similarity": 0.4834731349324764
+            "cosine_similarity": 0.4895031228094059
           }
         ]
       },
@@ -325,19 +325,19 @@
         ]
       },
       {
-        "query": "Apply the card's solver settings, solve the variational problem to update its stored fields, and check convergence before committing any required states.",
+        "query": "Apply the card's solver settings, solve the variational problem, check convergence, and store the converged fields.",
         "top_3": [
           {
             "id": "n404",
-            "cosine_similarity": 0.4516047061422144
+            "cosine_similarity": 0.40522539966465737
           },
           {
             "id": "n376",
-            "cosine_similarity": 0.4445740101828859
+            "cosine_similarity": 0.3976190415609064
           },
           {
             "id": "n358",
-            "cosine_similarity": 0.3436246973310767
+            "cosine_similarity": 0.35173017440407994
           }
         ]
       }

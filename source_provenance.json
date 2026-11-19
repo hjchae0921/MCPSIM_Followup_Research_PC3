@@ -476,8 +476,8 @@
     "sha256": "e12db675ca4805508c0f2a125773171bf9cdfe5d6e7094592c8a61c9e366270e"
   },
   "retrieval_assets/procedure_embeddings.npz": {
-    "source": "results_for_paper/knowledge_graph/graph_ver2/graph/openai_embeddings/procedure_embeddings.npz",
-    "sha256": "7fac89a68dfa29723417748262216b215638905fb57873a98accbfbebea26f25"
+    "source": "state-free procedure retrieval verification 2026-11-19",
+    "sha256": "968dc85d6965fef754afce20dc1d4534f06dc26c4996aa0689b934b0be097a97"
   },
   "retrieval_assets/postprocess_query_embeddings.npz": {
     "source": "experiments/tensile_server_export_20261117/query_embeddings.npz",
@@ -582,5 +582,9 @@
   "frozen_inputs/cases/06_piezo_cantilever/cards/5_solve.json": {
     "source": "state-free benchmark input revision 2026-11-19",
     "sha256": "282d2c62141e4b461b4b47a78eb4e5c208769df18a10c42fa0eee3f8fcfc5451"
+  },
+  "retrieval_assets/rankings_and_tokens.json": {
+    "source": "state-free procedure retrieval verification 2026-11-19",
+    "sha256": "1770160f6f385a6b9f642221235787c411b65026a530e9596e8dc2b90bc3c332"
   }
 }
