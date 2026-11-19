@@ -30,7 +30,7 @@ Use the activated pinned Python interpreter for the launcher. Keep the same conc
 
 ## Identity and raw records
 
-Experiment paths use `YYYY_MM_DD_HH_MM_SS_microseconds` in Korea time (UTC+9), allocated when the experiment is registered. `started_at` separately records actual execution start. There is no numbered experiment-directory identity. Repetition counts, stage numbers, repair calls and attempt counters remain valid.
+Experiment paths use `YYYY_MM_DD_HH_MM_SS_microseconds` in Korea time (UTC+9). The timestamp is captured **inside the workflow execution thread at actual execution start**. The exact same instant is written as `started_at` and used for the directory basename. Queue preparation and submission allocate neither an experiment timestamp nor an execution directory. Resuming retains the original start time. The task registry separately records which jobs have actually started. There is no numbered experiment-directory identity. Repetition counts, stage numbers, repair calls and attempt counters remain valid.
 
 The worker creates timestamp identities directly. There is **no runtime content filter, label rejection or text replacement**. Requests, responses, errors and API-returned reasoning are preserved as returned; missing provider fields stay null. Historical workflows are not imported or rewritten.
 
@@ -38,7 +38,7 @@ All model calls request **low reasoning**. A failed low-reasoning preflight bloc
 
 ## Results and stop
 
-Outputs: `outputs/three_arm_low_timestamp_20261118/pc3/`. Raw workflows are under `records/model/method/physics/timestamp`. Stage-six processing uses the same accepted solver process. Reference agreement never feeds code repair; execution success and reference agreement are distinct metrics.
+Outputs: `outputs/three_arm_low_actual_start_20261119/pc3/`. Raw workflows are under `records/model/method/physics/timestamp`. Stage-six processing uses the same accepted solver process. Reference agreement never feeds code repair; execution success and reference agreement are distinct metrics.
 
 ```bash
 python -B run.py organize
@@ -51,3 +51,11 @@ Organized results use `organized_results/model/KG|Card|RAG/physics/Success|Fail/
 ## Select another station from the same source
 
 All station assignments are published in this repository. To use this source for PC1, run `python -u -B launch.py --station pc1 --background --workers 6 --per-model 2`. Inspect that station with `python -B run.py status --station pc1`. The default remains the station in `assignment.json`. Use a dedicated checkout for each running station.
+
+## Actual-start release and existing campaigns
+
+The new campaign is `three_arm_low_actual_start_20261119`. Registration-time campaign records are never renamed or rewritten. This release does not resume or migrate that older campaign. Stop a running worker before updating its checkout. Updating this source does not itself start a paid experiment.
+
+## Offline timestamp regression tests
+
+Run `python -B tests/test_actual_start.py -v`. These tests make no API calls. They verify that prepare/report do not assign experiment start times; worker-thread start time exactly determines the KST directory name; parallel starts persist atomically; resume retains the first actual start; legacy registration-time records are not edited; clock collisions cannot fabricate times; and completed jobs are not restarted.

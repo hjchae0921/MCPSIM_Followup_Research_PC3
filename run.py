@@ -11,7 +11,6 @@ from pathlib import Path
 import shutil
 import sys
 import zipfile
-from datetime import datetime, timedelta, timezone
 import signal
 
 ROOT = Path(__file__).resolve().parent
@@ -22,11 +21,13 @@ from experiments.postprocess_stage6_20261116 import continue_queue as continuati
 from experiments.tensile_server_export_20261117.server_export import attach
 from experiments.kg_version_comparison import worker
 from experiments.kg_version_comparison.api import read, write, now, preflight
+from task_registry import SCHEMA, TaskRegistry
 
 PLAN = read(ROOT / 'assignment.json')
 HOME = ROOT / 'outputs' / PLAN['campaign'] / PLAN['station']
 INPUTS, POST = HOME / 'inputs', HOME / 'postprocess'
 ARMS = tuple(PLAN['arms'])
+REGISTRY = None
 
 
 def select_station(station):
@@ -93,55 +94,54 @@ def prepare_inputs():
                                          'source_bundle': sha(ROOT / 'bundle_manifest.json')})
 
 
-def tasks():
-    path = HOME / 'task_plan.json'
-    if path.exists():
-        return read(path)['tasks']
+def planned_tasks():
     result = []
-    previous = None
     for cycle in range(PLAN['repeats']):
         for i, (case, case_folder) in enumerate(base.CASES):
             shift = (cycle + i) % len(ARMS)
             for arm in ARMS[shift:] + ARMS[:shift]:
                 for model in PLAN['models']:
-                    created = datetime.now(timezone(timedelta(hours=9)))
-                    if previous is not None and created <= previous:
-                        created = previous + timedelta(microseconds=1)
-                    previous = created
-                    stamp = created.strftime('%Y_%m_%d_%H_%M_%S_%f')
-                    label = {'Card_Only': 'Card', 'Document_Top3': 'RAG', 'KG': 'KG'}[arm]
-                    result.append({'model': model['folder'], 'graph': arm, 'case': case, 'case_folder': case_folder,
-                                   'experiment_timestamp': stamp, 'created_at_kst': created.isoformat(),
-                                   'directory': str(HOME / 'records' / model['folder'] / label / case / stamp)})
+                    result.append({'model': model['folder'], 'graph': arm,
+                                   'case': case, 'case_folder': case_folder})
     assert len(result) == PLAN['planned_workflows']
-    assert len({t['directory'] for t in result}) == len(result)
-    write(path, {'identity': 'KST timestamp allocated at experiment registration; started_at records actual execution start.',
-                 'tasks': result})
     return result
 
 
+def registry():
+    global REGISTRY
+    if REGISTRY is None or REGISTRY.path != HOME / 'task_plan.json':
+        REGISTRY = TaskRegistry(HOME / 'task_plan.json', HOME, planned_tasks)
+    return REGISTRY
+
+
+def tasks():
+    return registry().snapshot()
+
+
 def post_path(task):
+    if not task.get('experiment_timestamp'):
+        return None
     return POST / 'items' / task['model'] / task['graph'] / task['case'] / task['experiment_timestamp']
 
 
 def report(_=None):
     rows = []
     for task in tasks():
-        folder = Path(task['directory'])
-        path = folder / 'result.json'
-        terminal_solve = path.exists()
-        if not terminal_solve:
+        folder = Path(task['directory']) if task.get('directory') else None
+        path = folder / 'result.json' if folder else None
+        terminal_solve = path is not None and path.exists()
+        if folder is not None and not terminal_solve:
             path = folder / 'state.json'
-        state = read(path) if path.exists() else {'status': 'queued'}
+        state = read(path) if path is not None and path.exists() else {'status': 'queued'}
         pp = post_path(task)
-        post_result = pp / 'result.json'
-        post_state = pp / 'state.json'
-        post = read(post_result if post_result.exists() else post_state) if post_result.exists() or post_state.exists() else {}
-        row = {k: task[k] for k in ('model', 'graph', 'case', 'experiment_timestamp')}
+        post_result = pp / 'result.json' if pp else None
+        post_state = pp / 'state.json' if pp else None
+        post = read(post_result if post_result.exists() else post_state) if pp and (post_result.exists() or post_state.exists()) else {}
+        row = {k: task.get(k) for k in ('model', 'graph', 'case', 'experiment_timestamp', 'started_at')}
         row.update({k: state.get(k) for k in ('status', 'stage', 'wall_seconds', 'api_response_seconds', 'api_error_seconds',
                                              'input_tokens', 'output_tokens', 'reasoning_tokens', 'cached_tokens', 'cost_usd', 'repair_calls')})
         row.update(postprocess_status=post.get('status'), reference_status=post.get('reference_status'),
-                   completed=terminal_solve and (state['status'] != 'execution_success' or post_result.exists()),
+                   completed=terminal_solve and (state['status'] != 'execution_success' or (post_result is not None and post_result.exists())),
                    end_to_end_seconds=(state.get('wall_seconds') or 0) + (post.get('wall_seconds') or 0))
         row['postprocess_usage'] = {k: post.get(k) for k in ('api_response_seconds', 'api_error_seconds', 'input_tokens',
                                                           'output_tokens', 'reasoning_tokens', 'cached_tokens', 'cost_usd', 'repair_calls')}
@@ -170,8 +170,12 @@ def run(workers, per_model):
     verify_bundle()
     environment()
     prepare_inputs()
-    lock = (HOME / 'station.lock').open('a')
-    fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    with (HOME / 'station.lock').open('a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        return run_station(workers, per_model)
+
+
+def run_station(workers, per_model):
     path = HOME / 'protocol.json'
     if path.exists():
         protocol = read(path)
@@ -196,6 +200,7 @@ def run(workers, per_model):
         frozen.update({str(p): sha(p) for p in INPUTS.rglob('*') if p.is_file()})
         frozen.update({str(p): sha(p) for p in POST.glob('*') if p.is_file()})
         protocol = {**read(ROOT / 'experiment_settings.json'), 'study': PLAN['campaign'] + '_' + PLAN['station'],
+                    'identity_schema': SCHEMA,
                     'temperature_exceptions': {m['id']: {'temperature': None, 'reasoning_effort': 'low',
                                                        'policy': 'Omit temperature; retain low reasoning.'}
                                                for m in PLAN['models'] if m.get('omit_temperature', False)},
@@ -204,6 +209,8 @@ def run(workers, per_model):
                     'frozen_sha256': frozen, 'api_concurrency': workers, 'per_model_concurrency': per_model,
                     'station': PLAN['station'], 'bundle_sha256': sha(ROOT / 'bundle_manifest.json')}
         write(path, protocol)
+    registration = registry()
+    protocol = registration.bind(protocol)
     base.HERE, base.INPUTS, base.RESULTS = HOME, INPUTS, HOME
     base.MAX_ACTIVE, base.MAX_PER_MODEL, base.report = workers, per_model, report
     extension.HERE = continuation.HERE = POST
@@ -214,7 +221,7 @@ def run(workers, per_model):
         return original_postprocess(job, config, session)
     extension.postprocess = postprocess
     worker.execute_stage, worker.run_workflow = continuation.retain_solve, continuation.workflow
-    continuation.resume_model(protocol)
+    continuation.resume_model(protocol, prepare_task=registration.start)
     print(json.dumps(report(), indent=2))
 
 

@@ -176,8 +176,13 @@ def credit():
     return float(data['total_credits'])-float(data['total_usage'])
 
 
-def run(protocol):
-    lock=(HERE/'controller.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+def run(protocol, *, prepare_task=None):
+    with (HERE/'controller.lock').open('a') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        return run_locked(protocol, prepare_task)
+
+
+def run_locked(protocol, prepare_task):
     legacy.verify(protocol)
     legacy.HERE,legacy.INPUTS=HERE,INPUTS
     worker.render=render
@@ -194,11 +199,14 @@ def run(protocol):
             return execute(source,prefix,directory,**kwargs)
     worker.execute_stage=execute_with_admission
     def work(task):
-        try:return worker.run_workflow(task,protocol['model_configs'][task['model']],protocol)
+        try:
+            if prepare_task is not None:prepare_task(task)
+            return worker.run_workflow(task,protocol['model_configs'][task['model']],protocol)
         except Exception as error:
+            if not task.get('directory'):raise
             result={**task,'status':'harness_error','error':str(error),'traceback':traceback.format_exc(),'finished_at':now()}
             write(Path(task['directory'])/'result.json',result);return result
-    pending=[t for t in protocol['tasks'] if not (Path(t['directory'])/'result.json').exists()]
+    pending=[t for t in protocol['tasks'] if not t.get('directory') or not (Path(t['directory'])/'result.json').exists()]
     running={};last_report=last_credit=0;balance=None;enabled=False;blocked_balance=None
     started_at=now()
     with ThreadPoolExecutor(max_workers=MAX_ACTIVE) as pool:
@@ -216,7 +224,8 @@ def run(protocol):
                 for task in list(pending):
                     if len(running)>=MAX_ACTIVE:break
                     if counts[task['model']]>=MAX_PER_MODEL:continue
-                    running[pool.submit(work,task)]=task;counts[task['model']]+=1;pending.remove(task)
+                    running[pool.submit(work,task)]=task;counts[task['model']]+=1
+                    pending=[entry for entry in pending if entry is not task]
             if time.monotonic()-last_report>10:
                 report(protocol)
                 write(HERE/'controller.json',{'pid':os.getpid(),'started_at':started_at,'updated_at':now(),

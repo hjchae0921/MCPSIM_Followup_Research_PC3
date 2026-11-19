@@ -75,10 +75,11 @@ def workflow(task,config,protocol):
         if LOCAL.session is not None:LOCAL.session.close();LOCAL.session=None
 
 
-def resume_model(protocol):
+def resume_model(protocol, *, prepare_task=None):
     # Previously completed solves require one replay; new solves remain live for stage six.
     successes=[]
     for task in protocol['tasks']:
+        if not task.get('directory'):continue
         path=Path(task['directory'])/'result.json'
         if path.exists() and read(path)['status']=='execution_success':
             job=make_job(task,read(path))
@@ -89,7 +90,7 @@ def resume_model(protocol):
             return extension.run_job(job,protocol['model_configs'][job['model']])
     with ThreadPoolExecutor(max_workers=2) as pool:
         list(pool.map(backfill,successes))
-    BASE_RUN(protocol)
+    BASE_RUN(protocol, prepare_task=prepare_task)
 
 
 def alive(pid):

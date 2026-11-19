@@ -1,11 +1,11 @@
 {
   "files": {
     "conda-linux-64.explicit.txt": "8a3b9fe9126921300fb92dd0e03d4fce4cbca458f58faf0cc79aee84f64d6442",
-    "experiment_settings.json": "2a98ebc551f9ffbfa4eb01a90c6ffa7a540f78a6b7e2fba75b654e1a037012f3",
-    "run.py": "688c8ad43b3e4334cc4e663d84be4e62f1c0501efad10f09d41c8252bc747a24",
+    "experiment_settings.json": "4223c589a19a76e2587f1dc1f1851750f85390d0a66cd18005fd989eeb16f0e1",
+    "run.py": "f1511bdfb6918801b4a8eb232d20c80546399d26d271f96528f4bfc64112a17c",
     ".gitignore": "6abbd28efd4f6f36eaf252f67e6f4e730b3cd0b65b627efe3ed6bb98f3dc0262",
-    "README.md": "9c352c7da6af9d1f06b6d36a06bcb9c4ba14f5bc583a3a47ae580da8790925f7",
-    "assignment.json": "0697a1a6680c601b9ca4148ce63d4bd7011a96e5ac2c28d92ae61fd1043d3e2d",
+    "README.md": "a1316538f45d51a25a9a9f07cf70f46ba8c375b6f69988662ce071f5ec213389",
+    "assignment.json": "2ef3dd1862bc80c826538a95383d8ad0f43ffd5c27d9b767405e68d4ecf061f4",
     "source_provenance.json": "42dee99eb31dd9dc24d1d72c7c25902f3903c55c1baaf3c797124324af35cbfa",
     "runtime_fingerprint.json": "e8f2b8457c79825a2bb27c716b0e581756f032e5c34985436713da67a787d7b8",
     "requirements.txt": "30c1fb5a39507d55595602e6edda7053ae987aa0f5593a8289f1bf6aae356906",
@@ -166,15 +166,15 @@
     "retrieval_assets/document_chunks/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.LinearProblem.solve.md": "9d2f84ebd400b87da00cf1aec8d370fac5afb4e6783b0944a6a2bc2adfb390d6",
     "retrieval_assets/document_chunks/api_markdown/dolfinx.fem.petsc/dolfinx.fem.petsc.NonlinearProblem.md": "8f9509fa45ad5f7d1acd546314a9bf2b892729b1d5c069410434661478b2aff8",
     "experiments/tensile_server_export_20261117/server_export.py": "286eb0522731aa1bd361d570017d1b2b2d92d3fcb99074c04f5f219c7359da99",
-    "experiments/glm_four_arm_20261114/run.py": "d44220e5afb4f50917207b2d64a90025040ffdf6017269cf71b0459458de63f1",
+    "experiments/glm_four_arm_20261114/run.py": "da9281deb40a33c480ec3a1e7536d1ed0564befcb01f0dd92b827b4f22ee5d72",
     "experiments/all_models_four_arm_20261114/run_queue.py": "e0f97d8dc273ada3d9f8bef2a64ec40bf91216784fabc8919b087078c234974d",
     "experiments/source_type_graph/repair_feedback.py": "c9a0d83b3aff76d86e45afff8048d552a465899f06aa2179240d283475a42b1a",
     "experiments/benchlm_model_screen/support.py": "2cd6500f2c482210610a10a83919ff126d68c023b1ed7cff68b45876bf968b68",
     "experiments/postprocess_stage6_20261116/run.py": "6abf0abe3e7c7add470698c3703eab19c4ce6961e56d4c0b8a3cc34280b798bf",
     "experiments/postprocess_stage6_20261116/session.py": "6abcd5ad9c99d560795651179dd9dcdb08b6c3a22c38f34aa4346f0be5777954",
     "experiments/postprocess_stage6_20261116/evaluate.py": "94fc2aa1702620bc6d686ee63d40be959c2dfab62b5c06e2249c5bf260c0d884",
-    "experiments/postprocess_stage6_20261116/continue_queue.py": "76c3075fa57ff12fcb110c4ebd472b16d199d3e3fbe31533a8cec2482be901cc",
-    "experiments/kg_version_comparison/worker.py": "decb3ba76f3e0c7379cf7e15dbbd5a138044b955a7018539e1ebc386b041e360",
+    "experiments/postprocess_stage6_20261116/continue_queue.py": "8c0641429b2b2fe07ba99edc39c04ba4d73604cf2fab109eee584e0c4598b098",
+    "experiments/kg_version_comparison/worker.py": "ef3502a7dbbad748b098f7ea37d7f430570f3ae032b28d7d56f78bd230f96701",
     "experiments/kg_version_comparison/parallel.py": "f97e871fb12e91fa5421d07ea03ee479bb801fa30ca810e6c6fcc4877904e060",
     "experiments/kg_version_comparison/api.py": "93f8fe6b7c87c4704c462077c66a22751ab03192a6577ea56e4e79d15dae403b",
     "experiments/kg_version_comparison/campaign.py": "2b9ef28dc990ea1bee57411cf1cbbecfa133fe58bc5fe1e0a527b427ef78e9db",
@@ -192,9 +192,11 @@
     "experiments/glm_physical_review_20261115/references/joule_heating/reference/solution.npz": "e3f375f5f0c4fc8774e2437c94f1f2242c44b90618134bc799e94add2c84ea7c",
     ".gitattributes": "4d5d4658f03b0b6a785a2914549c0adf342dc37003fa55eeb16992fdc3a3ef01",
     "launch.py": "7a3e0ebfe8343520f67286c7c28628e64d3f6fc76629c0ec45116f30cd88acd3",
-    "organize.py": "65a720c1045c1d11a046e9a5166b54383df45b3681e3216953b440322131a318",
-    "station_assignments.json": "1069e59f5fa9ec98e188d66feca16458e428f9f2ad948b93bddfee5c7a1005c9"
+    "organize.py": "74affe4f4deddd63a670a252e11a5da01b72566fac225b2686abacd41b9c5493",
+    "station_assignments.json": "d1ecd4f15086cbb298957d71f6e42ec38e6688dbcdb0cf7d6cf27294ae55d428",
+    "task_registry.py": "dd25bdffb68a41532a0f569745107f7dc167801944f67fd2a4b882c917bf2060",
+    "tests/test_actual_start.py": "2a5adfc34cce710fbd04b31b31b38834b4d9d6ad8b88514b7d1e5aa8a097195b"
   },
   "station": "pc3",
-  "campaign": "three_arm_low_timestamp_20261118"
+  "campaign": "three_arm_low_actual_start_20261119"
 }

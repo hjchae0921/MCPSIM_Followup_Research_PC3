@@ -57,7 +57,7 @@ def run_workflow(task, config, protocol):
     stopped = lambda: (HERE / "STOP").exists()
     started = time.monotonic()
     prior = read(folder / "state.json") if (folder / "state.json").exists() else {}
-    started_at = prior.get("started_at") or now()
+    started_at = prior.get("started_at") or task.get("started_at") or now()
     prefix = ""
     accepted = []
     repairs = 0

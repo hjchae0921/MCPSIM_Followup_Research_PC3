@@ -14,6 +14,8 @@ def organize(home, tasks, destination):
                     (destination / model / method / case / outcome).mkdir(parents=True, exist_ok=True)
     rows = []
     for task in tasks:
+        if not task.get('directory'):
+            continue
         source = Path(task['directory'])
         result_file = source / 'result.json'
         if not result_file.exists():

@@ -39,10 +39,11 @@
     "identifier": "experiment_timestamp",
     "timezone": "Asia/Seoul",
     "format": "YYYY_MM_DD_HH_MM_SS_microseconds",
-    "allocation": "Experiment registration time; actual execution start is recorded separately as started_at.",
+    "allocation": "Allocated only when the workflow execution thread starts, never during queue registration or submission.",
     "per_experiment_ordinal_persisted": false,
-    "generation_policy": "Paths and experiment identities are generated directly from timestamps; no numbered-run naming is used by the active pipeline.",
+    "generation_policy": "Pending tasks have no experiment timestamp or directory. At worker entry capture one real UTC time; use that same instant for started_at and the KST directory basename. Resume retains the original instant; no existing-record migration.",
     "content_filtering": false,
-    "raw_provider_records": "Unchanged provider responses and errors; no experiment-label redaction, rejection or replacement."
+    "raw_provider_records": "Unchanged provider responses and errors; no experiment-label redaction, rejection or replacement.",
+    "schema": "actual_workflow_start_v1"
   }
 }
