@@ -208,11 +208,12 @@ def run_locked(protocol, prepare_task):
             write(Path(task['directory'])/'result.json',result);return result
     pending=[t for t in protocol['tasks'] if not t.get('directory') or not (Path(t['directory'])/'result.json').exists()]
     running={};last_report=last_credit=0;balance=None;enabled=False;blocked_balance=None
+    uses_openrouter=any(config.get('transport', 'openrouter')=='openrouter' for config in protocol['model_configs'].values())
     started_at=now()
     with ThreadPoolExecutor(max_workers=MAX_ACTIVE) as pool:
         while pending or running:
             if stopped():pending.clear()
-            if time.monotonic()-last_credit>60:
+            if uses_openrouter and time.monotonic()-last_credit>60:
                 try:
                     balance=credit();enabled=balance>0 and (blocked_balance is None or balance>blocked_balance+0.01)
                     write(HERE/'credits.json',{'checked_at':now(),'available_usd':balance,'requests_enabled':enabled})
@@ -220,16 +221,17 @@ def run_locked(protocol, prepare_task):
                     enabled=False;write(HERE/'credits.json',{'checked_at':now(),'error':str(error)[:500]})
                 last_credit=time.monotonic()
             counts=Counter(t['model'] for t in running.values())
-            if enabled and not stopped():
+            if not stopped():
                 for task in list(pending):
                     if len(running)>=MAX_ACTIVE:break
+                    if protocol['model_configs'][task['model']].get('transport', 'openrouter') == 'openrouter' and not enabled:continue
                     if counts[task['model']]>=MAX_PER_MODEL:continue
                     running[pool.submit(work,task)]=task;counts[task['model']]+=1
                     pending=[entry for entry in pending if entry is not task]
             if time.monotonic()-last_report>10:
                 report(protocol)
                 write(HERE/'controller.json',{'pid':os.getpid(),'started_at':started_at,'updated_at':now(),
-                    'status':'stopping' if stopped() else 'running' if enabled else 'waiting_for_credits',
+                    'status':'stopping' if stopped() else 'running' if running or enabled else 'waiting_for_credits',
                     'active':list(running.values()),'pending':len(pending),'available_credit_usd':balance})
                 last_report=time.monotonic()
             done,_=wait(running,timeout=1,return_when=FIRST_COMPLETED) if running else ([],[])
@@ -237,7 +239,7 @@ def run_locked(protocol, prepare_task):
             for future in done:
                 task=running.pop(future);result=future.result()
                 print(json.dumps({k:result.get(k) for k in ('model','case','graph','experiment_timestamp','status','wall_seconds')}),flush=True)
-                if result.get('status')=='provider_error':
+                if result.get('status')=='provider_error' and protocol['model_configs'][task['model']].get('transport', 'openrouter')=='openrouter':
                     receipts=[read(p) for p in Path(task['directory']).glob('[1-5]_*/attempt_*/api_call.json')]
                     if any(r.get('status_code')==402 for r in receipts):enabled=False;blocked_balance=balance
     counts=report(protocol)

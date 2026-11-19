@@ -11,10 +11,13 @@ ROOT = Path(__file__).resolve().parent
 
 
 def credentials(env, transport):
-    name = 'OPENAI_API_KEY' if transport == 'openai' else 'OPENROUTER_API_KEY'
+    name, filename = {
+        'openai': ('OPENAI_API_KEY', 'openai_api.txt'),
+        'openrouter': ('OPENROUTER_API_KEY', 'openrouter_api_key.txt'),
+        'qwencloud': ('QWENCLOUD_API_KEY', 'qwenstudio_apikey.txt'),
+    }[transport]
     if env.get(name):
         return
-    filename = 'openai_api.txt' if transport == 'openai' else 'openrouter_api_key.txt'
     explicit = env.get(name + '_FILE')
     candidates = [Path(explicit)] if explicit else [ROOT / filename, ROOT.parent / filename]
     for path in candidates:

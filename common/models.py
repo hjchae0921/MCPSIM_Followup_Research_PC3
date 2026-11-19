@@ -5,6 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OPENROUTER_URL = 'https://openrouter.ai/api/v1'
+QWENCLOUD_URL = 'https://ap-southeast-1.maas.qwencloudapi.com/compatible-mode/v1'
 DEFAULT_MODEL = 'gpt-5.4-mini'
 FORMULATION_MODEL = 'gpt-5.5'
 MODEL_PROFILES = (
@@ -26,10 +27,12 @@ def profile(model):
 
 
 def credentials(provider='openai'):
-    name = {'openai':'OPENAI_API_KEY','openrouter':'OPENROUTER_API_KEY'}[provider]
+    name = {'openai':'OPENAI_API_KEY','openrouter':'OPENROUTER_API_KEY',
+            'qwencloud':'QWENCLOUD_API_KEY'}[provider]
     if key := os.environ.get(name, '').strip():
         return key
-    filename = {'openai':'.openai_key','openrouter':'.openrouter_key'}[provider]
+    filename = {'openai':'.openai_key','openrouter':'.openrouter_key',
+                'qwencloud':'.qwencloud_key'}[provider]
     for path in (ROOT/filename,):
         if path.is_file() and (key := path.read_text().strip()):
             return key

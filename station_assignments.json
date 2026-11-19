@@ -1,5 +1,5 @@
 {
-  "campaign": "three_arm_state_free_actual_start_20261119",
+  "campaign": "three_arm_state_free_qwencloud_20261119",
   "stations": {
     "pc1": [
       {
@@ -22,8 +22,8 @@
       },
       {
         "folder": "Qwen 3.8 27B",
-        "id": "qwen/qwen3.8-27b",
-        "transport": "openrouter"
+        "id": "qwen3.8-27b",
+        "transport": "qwencloud"
       }
     ],
     "pc3": [

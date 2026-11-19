@@ -15,7 +15,7 @@ python -m pip install -r requirements.txt
 python -B run.py check
 ```
 
-Set `OPENROUTER_API_KEY` in the environment or point `OPENROUTER_API_KEY_FILE` at a local key file. PC3 additionally needs `OPENAI_API_KEY` or `OPENAI_API_KEY_FILE` for **GPT-5 mini (`gpt-5-mini`)**. The launcher can also read `openrouter_api_key.txt` and `openai_api.txt` from the checkout or its parent. Never commit keys.
+Set `OPENROUTER_API_KEY` in the environment or point `OPENROUTER_API_KEY_FILE` at a local key file. PC2 uses OpenRouter for MiniMax and the official QwenCloud Singapore endpoint for Qwen (`qwen3.8-27b`); set `QWENCLOUD_API_KEY` or `QWENCLOUD_API_KEY_FILE` for Qwen. The launcher also accepts a local `qwenstudio_apikey.txt` in the checkout or its parent. PC3 additionally needs `OPENAI_API_KEY` or `OPENAI_API_KEY_FILE` for **GPT-5 mini (`gpt-5-mini`)**. The launcher can also read `openrouter_api_key.txt` and `openai_api.txt` from the checkout or its parent. Never commit keys.
 
 ## Start and resume
 
@@ -38,11 +38,11 @@ Experiment paths use `YYYY_MM_DD_HH_MM_SS_microseconds` in Korea time (UTC+9). T
 
 The worker creates timestamp identities directly. There is **no runtime content filter, label rejection or text replacement**. Requests, responses, errors and API-returned reasoning are preserved as returned; missing provider fields stay null. Historical workflows are not imported or rewritten.
 
-All model calls request **low reasoning**. A failed low-reasoning preflight blocks the station; there is no fallback to another effort or disabled reasoning. Claude Haiku 4.5 and GPT-5 mini omit temperature; the remaining assigned models use temperature 0. Accepted configurations are recorded in `preflight` and `protocol.json`. OpenRouter may map its unified low effort to provider-native controls: https://openrouter.ai/docs/guides/best-practices/reasoning-tokens
+All model calls request **low reasoning**. A failed low-reasoning preflight blocks the station; there is no fallback to another effort or disabled reasoning. Claude Haiku 4.5 and GPT-5 mini omit temperature; the remaining assigned models use temperature 0. Accepted configurations are recorded in `preflight` and `protocol.json`. QwenCloud sends native `reasoning_effort="low"`, `enable_thinking=true` and `temperature=0`, with no OpenRouter routing. Its API-reported token usage is retained; unavailable billed cost stays null. OpenRouter credit availability only gates OpenRouter jobs. OpenRouter may map its unified low effort to provider-native controls: https://openrouter.ai/docs/guides/best-practices/reasoning-tokens
 
 ## Results and stop
 
-Outputs: `outputs/three_arm_state_free_actual_start_20261119/pc3/`. Raw workflows are under `records/model/method/physics/timestamp`. Stage-six processing uses the same accepted solver process. Reference agreement never feeds code repair; execution success and reference agreement are distinct metrics.
+Outputs: `outputs/three_arm_state_free_qwencloud_20261119/pc3/`. Raw workflows are under `records/model/method/physics/timestamp`. Stage-six processing uses the same accepted solver process. Reference agreement never feeds code repair; execution success and reference agreement are distinct metrics.
 
 ```bash
 python -B run.py organize
@@ -58,7 +58,7 @@ All station assignments are published in this repository. To use this source for
 
 ## Actual-start release and existing campaigns
 
-The new campaign is `three_arm_state_free_actual_start_20261119`. Registration-time campaign records are never renamed or rewritten. This release does not resume or migrate that older campaign. Stop a running worker before updating its checkout. Updating this source does not itself start a paid experiment.
+The new campaign is `three_arm_state_free_qwencloud_20261119`. Registration-time campaign records are never renamed or rewritten. This release does not resume or migrate that older campaign. Stop a running worker before updating its checkout. Updating this source does not itself start a paid experiment.
 
 ## Offline timestamp regression tests
 

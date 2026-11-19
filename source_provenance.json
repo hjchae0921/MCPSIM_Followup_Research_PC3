@@ -4,8 +4,8 @@
     "sha256": "b3afcfc974c04d0f6529711280be50e578070b0b7ba32e70882011ad67618be8"
   },
   "common/models.py": {
-    "source": "common/models.py",
-    "sha256": "e3e8000f18b553b7b5cabe204d8d29457ede11ed9e2104cfe373ff5dbe2c3633"
+    "source": "Official QwenCloud transport 2026-11-19",
+    "sha256": "1d72d9278b89ad3999bef28b0a7ebcf27680ce3c3d85873ad2f8860135a6a910"
   },
   "common/authoring.py": {
     "source": "common/authoring.py",
@@ -168,8 +168,8 @@
     "sha256": "e3a61f1b4449bf09a1a854e720fd485b6fae91ec6c5c6e01ca6f039dfe758b8d"
   },
   "experiments/kg_version_comparison/api.py": {
-    "source": "experiments/kg_version_comparison/api.py",
-    "sha256": "0bfcfd793db2516c7616f6d938badc606692ee5083fb3ecd3ef9ed68836a39bd"
+    "source": "Official QwenCloud transport 2026-11-19",
+    "sha256": "47ffadc4b56cf6f0efd5fdd0dbae59cb7fea904b7f59e4f8902ee3464d1e5195"
   },
   "experiments/kg_version_comparison/campaign.py": {
     "source": "experiments/kg_version_comparison/campaign.py",
@@ -184,8 +184,8 @@
     "sha256": "f97e871fb12e91fa5421d07ea03ee479bb801fa30ca810e6c6fcc4877904e060"
   },
   "experiments/glm_four_arm_20261114/run.py": {
-    "source": "experiments/glm_four_arm_20261114/run.py",
-    "sha256": "428471379243eab86c59d2022e4e4b58167d617018b25b383a4e9ddfb3883ccc"
+    "source": "Official QwenCloud transport 2026-11-19",
+    "sha256": "0f92aa486dd82e7a61df40b7c507f0dca881bb71ee44d7ea35a8e01dc42b7d13"
   },
   "experiments/all_models_four_arm_20261114/run_queue.py": {
     "source": "experiments/all_models_four_arm_20261114/run_queue.py",
@@ -586,5 +586,13 @@
   "retrieval_assets/rankings_and_tokens.json": {
     "source": "state-free procedure retrieval verification 2026-11-19",
     "sha256": "1770160f6f385a6b9f642221235787c411b65026a530e9596e8dc2b90bc3c332"
+  },
+  "launch.py": {
+    "source": "Official QwenCloud transport 2026-11-19",
+    "sha256": "d257b0057cbdc7cf34c1d16fbf49929c87877a228a05068fb631a5be535bda96"
+  },
+  "tests/test_qwencloud.py": {
+    "source": "Official QwenCloud transport 2026-11-19",
+    "sha256": "28c091736ca79ff03c0133cfb6a2a78ccb12ab82f800cc20b641c0019bf8053b"
   }
 }

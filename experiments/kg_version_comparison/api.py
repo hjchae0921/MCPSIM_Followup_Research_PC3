@@ -7,7 +7,7 @@ from pathlib import Path
 import time
 import urllib.request
 
-from common.models import credentials
+from common.models import credentials, QWENCLOUD_URL
 
 
 def now():
@@ -38,6 +38,9 @@ def request(config, messages, limit=None):
     if config["transport"] == "openai":
         value.update(max_completion_tokens=cap, reasoning_effort="low", store=False,
                      service_tier="default")
+    elif config["transport"] == "qwencloud":
+        value.update(max_tokens=cap, reasoning_effort=config["reasoning"]["effort"],
+                     extra_body={"enable_thinking": True})
     else:
         value.update(max_tokens=cap, extra_body={"provider": config["provider"]})
         if config.get("reasoning") is not None:
@@ -85,8 +88,8 @@ def call(config, messages, directory, *, stopped=lambda: False, limit=None):
     key = credentials(config["transport"])
     if not key:
         raise ProviderFailure("API credential is unavailable.")
-    url = ("https://api.openai.com/v1" if config["transport"] == "openai"
-           else "https://openrouter.ai/api/v1")
+    url = {"openai": "https://api.openai.com/v1", "openrouter": "https://openrouter.ai/api/v1",
+           "qwencloud": QWENCLOUD_URL}[config["transport"]]
     for index in range(3):
         folder = directory / "submissions" / f"submission_{index + 1:02d}"
         receipt_path = folder / "receipt.json"
@@ -112,7 +115,7 @@ def call(config, messages, directory, *, stopped=lambda: False, limit=None):
                     raise InterruptedError("Study stopped during HTTP retry backoff.")
                 time.sleep(min(0.5, max(0, deadline - time.monotonic())))
         submitted = now()
-        write(folder / "submitted.json", {"submitted_at": submitted})
+        write(folder / "submitted.json", {"submitted_at": submitted, "base_url": url})
         started = time.monotonic()
         try:
             with OpenAI(api_key=key, base_url=url, timeout=900, max_retries=0) as client:
@@ -164,6 +167,8 @@ def preflight(model, directory, *, gpt_temperature_exception=False, strict_low=F
             return previous
     config = {"model": model["id"], "transport": model["transport"], "temperature": None if omit_temperature else 0,
               "reasoning": {"effort": "low"}, "max_output_tokens": 65536}
+    if config["transport"] == "qwencloud":
+        config["base_url"] = QWENCLOUD_URL
     try:
         if config["transport"] == "openrouter":
             with urllib.request.urlopen("https://openrouter.ai/api/v1/models/" + model["id"] + "/endpoints", timeout=45) as response:
