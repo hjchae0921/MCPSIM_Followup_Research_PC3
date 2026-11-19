@@ -28,6 +28,10 @@ python -B run.py status
 
 Use the activated pinned Python interpreter for the launcher. Keep the same concurrency values on resume. `worker.log` stores the controller output; `launcher.log` records launcher errors. The launcher runs checks, prepares immutable inputs, executes, organizes the terminal results, and exports a ZIP. It detaches from the terminal. Windows sleep or WSL shutdown still interrupts computation.
 
+## Cards and prompts
+
+The six benchmark cards omit empty internal-state-variable entries. Stages 2, 3 and 5 use the current prompts without internal-state preparation or update instructions. Unknown-field initial conditions and load stepping remain. Card-only, document RAG and KG share these cards and prompts; the supplied API context is the only method difference.
+
 ## Identity and raw records
 
 Experiment paths use `YYYY_MM_DD_HH_MM_SS_microseconds` in Korea time (UTC+9). The timestamp is captured **inside the workflow execution thread at actual execution start**. The exact same instant is written as `started_at` and used for the directory basename. Queue preparation and submission allocate neither an experiment timestamp nor an execution directory. Resuming retains the original start time. The task registry separately records which jobs have actually started. There is no numbered experiment-directory identity. Repetition counts, stage numbers, repair calls and attempt counters remain valid.
@@ -38,7 +42,7 @@ All model calls request **low reasoning**. A failed low-reasoning preflight bloc
 
 ## Results and stop
 
-Outputs: `outputs/three_arm_low_actual_start_20261119/pc3/`. Raw workflows are under `records/model/method/physics/timestamp`. Stage-six processing uses the same accepted solver process. Reference agreement never feeds code repair; execution success and reference agreement are distinct metrics.
+Outputs: `outputs/three_arm_state_free_actual_start_20261119/pc3/`. Raw workflows are under `records/model/method/physics/timestamp`. Stage-six processing uses the same accepted solver process. Reference agreement never feeds code repair; execution success and reference agreement are distinct metrics.
 
 ```bash
 python -B run.py organize
@@ -54,7 +58,7 @@ All station assignments are published in this repository. To use this source for
 
 ## Actual-start release and existing campaigns
 
-The new campaign is `three_arm_low_actual_start_20261119`. Registration-time campaign records are never renamed or rewritten. This release does not resume or migrate that older campaign. Stop a running worker before updating its checkout. Updating this source does not itself start a paid experiment.
+The new campaign is `three_arm_state_free_actual_start_20261119`. Registration-time campaign records are never renamed or rewritten. This release does not resume or migrate that older campaign. Stop a running worker before updating its checkout. Updating this source does not itself start a paid experiment.
 
 ## Offline timestamp regression tests
 

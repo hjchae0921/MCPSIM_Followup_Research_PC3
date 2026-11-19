@@ -9,14 +9,11 @@ Implement the functionspace stage code using the supplied card schema and any su
 Execute all the following steps.
 Procedure:
 1. Prepare UFL-compatible finite elements for the fields and combine their components into a mixed element where required, following the card's families, degrees and value shapes.
-2. Create the function spaces on the existing mesh and initialize persistent finite element coefficient fields for the unknowns and internal states.
+2. Create the function spaces on the existing mesh and initialize persistent finite element coefficient fields for the unknowns.
 3. Prepare the trial and test arguments on each selected function space in the declared field order, using component arguments for a mixed variational form.
 
 Variational argument preparation:
 Use the single-field or mixed-space construction that matches the selected space arrangement. Components of one monolithic form must share the same parent space.
-
-State field preparation:
-Prepare the function spaces and persistent coefficient fields declared in state_variables using their specified value shapes, finite element families, and degrees. These are internal material states, distinct from the global unknowns. Leave physical initialization and state-value updates to the solve stage.
 
 The card is:
 {{CARD_JSON}}

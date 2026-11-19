@@ -28,7 +28,6 @@
       ]
     }
   ],
-  "state_variables": [],
   "solver": {
     "linear": {
       "type": "direct",

@@ -11,23 +11,14 @@ Procedure:
 Do the following, in order.
 1. For a linear formulation, construct a high-level linear variational problem using PETSc from the prepared forms and boundary conditions.
 2. For a nonlinear formulation, construct a high-level nonlinear variational problem using PETSc from the prepared residual, derivatives, and boundary conditions.
-3. Apply the card's solver settings, solve the variational problem to update its stored fields, and check convergence before committing any required states.
+3. Apply the card's solver settings, solve the variational problem, check convergence, and store the converged fields.
 
 RULES
 - Solve the problem using the supplied initial conditions and computational settings, performing any required time stepping, load stepping, and coupled calculations.
-- When state updates are required, evaluate all new states using the converged solution of the current step and the previous states. 
-- Keep the previous states unchanged until all new state values have been evaluated. 
-- Then store these numerical values in the persistent state fields used by the forms for the next step.
 
 The card is:
 
 {{CARD_JSON}}
-
-Internal State Update Formulation
-null
-
-State Update Symbol Definitions
-null
 
 ## Successful earlier stages — execution prefix and available variables
 {{PREVIOUS_STAGE_CODE}}

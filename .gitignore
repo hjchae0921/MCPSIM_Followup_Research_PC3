@@ -17,3 +17,9 @@ openai_api.txt
 .env
 .env.*
 launcher.lock
+
+qwenstudio_apikey.txt
+
+*_apikey.txt
+
+*_api_key.txt

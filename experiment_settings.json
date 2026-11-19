@@ -45,5 +45,7 @@
     "content_filtering": false,
     "raw_provider_records": "Unchanged provider responses and errors; no experiment-label redaction, rejection or replacement.",
     "schema": "actual_workflow_start_v1"
-  }
+  },
+  "card_policy": "The six current benchmarks have no internal material state variables; empty state_variables entries are omitted. Unknown initial conditions and load steps are retained.",
+  "prompt_revision": "Remove internal-state preparation/update instructions from stages 2, 3 and 5; other stage instructions and retrieval contexts are unchanged."
 }

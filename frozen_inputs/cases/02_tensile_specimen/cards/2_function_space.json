@@ -12,6 +12,5 @@
       }
     }
   ],
-  "coupling_type": "single_physics",
-  "state_variables": []
+  "coupling_type": "single_physics"
 }

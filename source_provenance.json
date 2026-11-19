@@ -236,20 +236,20 @@
     "sha256": "538adb3cf3a390f6cacea546d8d3aad2bbba0022c87f11ee797e2f916d2ad70a"
   },
   "frozen_inputs/templates/2_Functionspace_Prompt.txt": {
-    "source": "experiments/tensile_server_export_20261117/inputs/templates/2_Functionspace_Prompt.txt",
-    "sha256": "d4db98664c76dc60a65e2db47e6f33ddbb1d7db0f33d4f2b92beebd3a3b6e74d"
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "a64167a7332756eab276d763dca99dfc6f743bb36e74f675705e5a85ea13c17c"
   },
   "frozen_inputs/templates/3_WeakForm_Prompt.txt": {
-    "source": "experiments/tensile_server_export_20261117/inputs/templates/3_WeakForm_Prompt.txt",
-    "sha256": "d02c8b804b36f8ed0654e22f762190c8c4fbc1d1c1c80bf447721ee97404217b"
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "18534abec33fef153edafe5d438e989dad479bddbadd0c7eae3d8edd5a1a4fd4"
   },
   "frozen_inputs/templates/4_BC_Prompt.txt": {
     "source": "experiments/tensile_server_export_20261117/inputs/templates/4_BC_Prompt.txt",
     "sha256": "9528ead22ab30d2ff21b861ac5d8c4491074a6ad2528fb1b44db39c20d3db282"
   },
   "frozen_inputs/templates/5_Solve_Prompt.txt": {
-    "source": "experiments/tensile_server_export_20261117/inputs/templates/5_Solve_Prompt.txt",
-    "sha256": "606273a7da6db831203601495a28857b5250fda8b33bb665123eb655e103444f"
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "49906c94d6208ac06fd528a8bd58581ed4226e6e573462acc5077b7afde7f888"
   },
   "frozen_inputs/cases/01_heatsink/model.msh": {
     "source": "experiments/glm_four_arm_20261114/inputs/cases/01_heatsink/model.msh",
@@ -534,5 +534,53 @@
   "experiments/glm_physical_review_20261115/references/joule_heating/reference/solution.npz": {
     "source": "experiments/glm_physical_review_20261115/references/joule_heating/reference/solution.npz",
     "sha256": "e3f375f5f0c4fc8774e2437c94f1f2242c44b90618134bc799e94add2c84ea7c"
+  },
+  "frozen_inputs/cases/01_heatsink/cards/2_function_space.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "b6a3a786e9afd42066d4d7a92c3dc6f304b2b5466e4b2ec9c0d78ebeb606f6e4"
+  },
+  "frozen_inputs/cases/01_heatsink/cards/5_solve.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "5d2d00592f40c063621396e554c1699df144ed6178b91b660784954798737b12"
+  },
+  "frozen_inputs/cases/02_tensile_specimen/cards/2_function_space.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "b244a5277bd82f9adcfb59163c20da5deed40e1d37fe67ac7f7c89397aed07e6"
+  },
+  "frozen_inputs/cases/02_tensile_specimen/cards/5_solve.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "f3aff8df071fb8977f2d21c246740c9d16a0e22fe9a43b4e668f25db6447d5ae"
+  },
+  "frozen_inputs/cases/03_rubber_bushing/cards/2_function_space.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "dab2b547e2e4325628d72f08d1f5a0152c47232c21f0a939523587c44a744711"
+  },
+  "frozen_inputs/cases/03_rubber_bushing/cards/5_solve.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "31fa191bc3b555313d05de8d82ef40fba4c4f044fb4e601d2e0a4ca26dd5f1a4"
+  },
+  "frozen_inputs/cases/04_I_beam/cards/2_function_space.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "a42fad5578b793f8ae0767e44e7953019612970cda7a2d9a0a8a65c6180cf588"
+  },
+  "frozen_inputs/cases/04_I_beam/cards/5_solve.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "7be8d37760933522db200bcef9c8f3394276c6cabf790a99f678fac30d6ef19c"
+  },
+  "frozen_inputs/cases/05_busbar/cards/2_function_space.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "732fd214cf2e0d5c51020193b8fd3407628f9c87356f10f700a39d8fa48c7f8d"
+  },
+  "frozen_inputs/cases/05_busbar/cards/5_solve.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "59b5a6f0fe3354e7b0e7d6ee0d7f70f57b1f41564c9895bed7da286d8fcab9d8"
+  },
+  "frozen_inputs/cases/06_piezo_cantilever/cards/2_function_space.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "d2db0f30b2d09862fc68f91f81ca189c8b69671a6224be4c39f80840cb48fe18"
+  },
+  "frozen_inputs/cases/06_piezo_cantilever/cards/5_solve.json": {
+    "source": "state-free benchmark input revision 2026-11-19",
+    "sha256": "282d2c62141e4b461b4b47a78eb4e5c208769df18a10c42fa0eee3f8fcfc5451"
   }
 }

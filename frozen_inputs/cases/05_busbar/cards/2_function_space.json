@@ -19,6 +19,5 @@
       }
     }
   ],
-  "coupling_type": "multi_physics_one_way",
-  "state_variables": []
+  "coupling_type": "multi_physics_one_way"
 }

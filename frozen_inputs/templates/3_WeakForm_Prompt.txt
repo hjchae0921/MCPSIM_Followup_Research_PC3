@@ -14,11 +14,8 @@ Do the following, in order.
 
 RULES
 - For identically zero loads or sources, preserve the coefficient shape and test-function dependence so that symbolic simplification does not collapse the linear form.
-- Implement the forms, coefficients, and update procedures required by the supplied formulation using the prepared state fields, and pass them to the next stage.
-- Do not solve the problem or update stored states in this stage. Leave essential boundary conditions and solver construction to later stages.
-
-State field preparation:
-Use the internal state spaces and persistent coefficient fields prepared by the function space stage when implementing the constitutive relations and update procedures.
+- Implement the forms and coefficients required by the supplied formulation using the prepared fields, and pass them to the next stage.
+- Do not solve the problem in this stage. Leave essential boundary conditions and solver construction to later stages.
 
 The card is:
 
